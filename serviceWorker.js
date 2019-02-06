@@ -1,8 +1,8 @@
 var CACHE = 'cache-update-and-refresh';
 
 const staticAssets = [
-    '/index.html',
-    '/style.css'
+    'index.html',
+    'style.css'
 ];
 
 self.addEventListener('install', async event => {
