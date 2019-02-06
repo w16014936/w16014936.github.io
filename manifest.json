@@ -1,6 +1,6 @@
 {
   "name": "Timesheet Manager",
-  "short_name": "Timesheet Manager",
+  "short_name": "Timesheets",
   "icons": [{
     "src": "images/icon192.png",
     "sizes": "192x192",
@@ -13,7 +13,7 @@
   "lang": "en-UK",
   "display": "standalone",
   "orientation": "portrait",
-  "start_url": "/index.html",
+  "start_url": "index.html",
   "background_color": "#b1ddef",
   "theme_color": "#b1ddef"
 

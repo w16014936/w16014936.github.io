@@ -1,11 +1,8 @@
 var CACHE = 'cache-update-and-refresh';
 
 const staticAssets = [
-    //todo
-    //'./libraries/animate.css',
-    //'./libraries/animate.min.css',
-    //'./libraries/jquery.3.3.1.js',
-   // './libraries/jquery.3.3.1.min.js'
+    'index.html',
+    'style.css'
 ];
 
 self.addEventListener('install', async event => {
