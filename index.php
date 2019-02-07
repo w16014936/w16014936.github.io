@@ -43,7 +43,7 @@
       <li>the ability to calculate <b>costs</b> based on time spent on projects</li>
     </ul>
 	
-	<script src="js/serviceWorker.js" type="text/javascript"></script>
+	<script src="serviceWorker.js" type="text/javascript"></script>
     <script src="js/Chart.bundle.min.js" type="text/javascript"></script>
     <script>
       if ('serviceWorker' in navigator) {
