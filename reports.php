@@ -26,18 +26,42 @@
   }
 
 ?>
-    <canvas id="canvas"></canvas>
-    <br>
-    <br>
-    Chart Type:
-    <select id="type">
-        <option value="line">Line</option>
-        <option value="bar">Bar</option>
-    </select>
-    <button id="update">update</button>
-    <script src="utils.js"></script>
-    <script src="libraries/Chart.min.js" type="text/javascript"></script>
-    <script src="graphs.js" type="text/javascript"></script>
+<div id="reportMain">
+    <div id="reportConfigContainer">
+        <div class="reportConfig">
+            Chart Type:
+            <select id="type">
+                <option value="bar">Vertical Bar</option>
+                <option value="line">Line</option>
+                <option value="polarArea">Polar Area</option>
+                <option value="radar">Radar</option>
+            </select>
+        </div>
+        <div class="reportConfig">
+            <form>
+                Stack the data:
+                <input type="radio" name="stack" id="stackTrue" checked="checked"">Yes <input type="radio" name="stack">No
+            </form>
+        </div>
+        <div class="reportConfig">
+            <form>
+                Smooth Lines:
+                <input type="radio" name="smooth" id="smoothTrue" checked="checked">Yes <input type="radio" name="smooth">No
+            </form>
+        </div>
+        <div class="reportConfig">
+            <button id="reportUpdate">Generate Graph</button>
+        </div>
+    </div>
+    <div id="reportCanvas">
+        <canvas id="canvas"></canvas>
+    </div>
+</div>
+
+<script src="js/utils.js"></script>
+<script src="js/libraries/Chart.min.js" type="text/javascript"></script>
+<script src="js/graphs.js" type="text/javascript"></script>
+
 
 <?php
 

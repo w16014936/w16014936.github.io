@@ -5,3 +5,31 @@
 .icon-div i{
     font-size: 40px;
 }
+#reportMain{
+    width: 100%;
+    display: table;
+
+}
+#reportConfigContainer{
+    position: relative;
+    float: left;
+    width: 30%;
+    border-right: darkgrey 2px solid;
+    padding: 2em 0em 0em 2em;
+}
+.reportConfig{
+    margin-top: 1em;
+}
+#reportCanvas{
+    position: relative;
+    float: right;
+    width: 70%;
+}
+#reportUpdate{
+    width: 90%;
+    position: center;
+    margin-top: 1em;
+}
+#canvas{
+    width: 100%;
+}

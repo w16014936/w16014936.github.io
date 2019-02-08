@@ -1,3 +1,5 @@
+'use strict';
+
 var jsonfile = {
     "jsonarray": [{
         "name": "Matthew",
@@ -102,12 +104,25 @@ var cfg = {
     }
 };
 var chart = new Chart(context, cfg);
-document.getElementById('update').addEventListener('click', function () {
-    var type = document.getElementById('type').value;
-    chart.config.data.datasets[0].type = type;
-    chart.config.data.datasets[1].type = type;
-    chart.config.data.datasets[2].type = type;
 
+document.getElementById('reportUpdate').addEventListener('click', function () {
 
+    var type = document.getElementById('type').value,
+        stackRadioBoolean = document.getElementById('stackTrue').checked,
+        smoothRadioBoolean = document.getElementById('smoothTrue').checked;
+
+    //Update the graph config from input values
+    cfg.type = type;
+    cfg.options.scales.xAxes[0].stacked = stackRadioBoolean;
+    cfg.options.scales.yAxes[0].stacked = stackRadioBoolean;
+
+    chart.config.data.datasets.forEach(function(entry) {
+       entry.type = type;
+       entry.lineTension = smoothRadioBoolean ? 0.4 : 0.000001;
+       // entry.
+    });
+
+    // chart = new Chart(context, cfg);
     chart.update();
 });
+
