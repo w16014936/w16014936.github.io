@@ -76,7 +76,7 @@ HEADER;
 
 // Ends the html page and replaces the makeFooter functionality
 function getHTMLFooter() {
-    return "<div class='col-sm-12'>
+    return "<div class='col-sm-12' >
     <footer>&copy;".date('Y')." Timesheets</footer>
     </body>
     </html>";
