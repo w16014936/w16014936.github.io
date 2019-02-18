@@ -147,7 +147,7 @@ function validateLoginForm($dbConn){
          // Try to carry out the database search
         try{
             $sqlQuery = "SELECT passwordHash
-                           FROM timesheets_users
+                           FROM timesheets_user
                           WHERE username = :username";
 
             $stmt = $dbConn->prepare($sqlQuery);
