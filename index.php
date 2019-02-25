@@ -30,7 +30,7 @@
   <h1>University Timesheet System</h1>
 </div>
 
-<div class="container">
+<div class="container" id="index-container">
   <div class="col-sm-12">
     <h2>Purpose</h2>
 
@@ -43,8 +43,8 @@
       <li>the ability to calculate <b>costs</b> based on time spent on projects</li>
     </ul>
 	
-	<script src="js/serviceWorker.js" type="text/javascript"></script>
-    <script src="js/Chart.bundle.min.js" type="text/javascript"></script>
+	<script src="../Timesheets/js/serviceWorker.js" type="text/javascript"></script>
+    <script src="../Timesheets/js/Chart.bundle.min.js" type="text/javascript"></script>
     <script>
       if ('serviceWorker' in navigator) {
         window.addEventListener('load', function() {
