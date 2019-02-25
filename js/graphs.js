@@ -55,7 +55,7 @@ var cfg = {
             data: hoursData,
             type: 'bar',
             pointRadius: 0,
-            fill: true,
+            fill: false,
             lineTension: 0.2,
             borderWidth: 2
         },
@@ -109,7 +109,9 @@ document.getElementById('reportUpdate').addEventListener('click', function () {
 
     var type = document.getElementById('type').value,
         stackRadioBoolean = document.getElementById('stackTrue').checked,
-        smoothRadioBoolean = document.getElementById('smoothTrue').checked;
+        smoothRadioBoolean = document.getElementById('smoothTrue').checked,
+		fillLinesBoolean = document.getElementById('fillTrue').checked,
+		highContrastMode = document.getElementById('highContrastTrue').checked;
 
     //Update the graph config from input values
     cfg.type = type;
@@ -119,7 +121,9 @@ document.getElementById('reportUpdate').addEventListener('click', function () {
     chart.config.data.datasets.forEach(function(entry) {
        entry.type = type;
        entry.lineTension = smoothRadioBoolean ? 0.4 : 0.000001;
-       // entry.
+	   entry.fill = fillLinesBoolean;
+	   //entry.backgroundColor = highContrastMode ? color(window.chartColors.black).rgbString() : backgroundColor;
+	   //entry.borderColor = highContrastMode ? color(window.chartColors.black) : backgroundColor;
     });
 
     // chart = new Chart(context, cfg);

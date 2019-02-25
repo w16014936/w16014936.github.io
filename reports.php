@@ -26,8 +26,9 @@
   }
 
 ?>
-<div id="reportMain">
+<div id="reportMain col-sm-12">
     <div id="reportConfigContainer">
+		<h4>Report Configuration</h4>
         <div class="reportConfig">
             Chart Type:
             <select id="type">
@@ -47,6 +48,18 @@
             <form>
                 Smooth Lines:
                 <input type="radio" name="smooth" id="smoothTrue" checked="checked">Yes <input type="radio" name="smooth">No
+            </form>
+        </div>
+		<div class="reportConfig">
+            <form>
+                Fill space:
+                <input type="radio" name="fillLines" id="fillTrue" checked="checked">Yes <input type="radio" name="fillLines">No
+            </form>
+        </div>
+		<div class="reportConfig">
+            <form>
+                High Contrast Mode:
+                <input type="radio" name="highContrast" id="highContrastTrue" checked="checked">Yes <input type="radio" name="highContrast">No
             </form>
         </div>
         <div class="reportConfig">

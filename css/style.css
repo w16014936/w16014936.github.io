@@ -13,7 +13,7 @@
 #reportConfigContainer{
     position: relative;
     float: left;
-    width: 30%;
+    width: 20%;
     border-right: darkgrey 2px solid;
     padding: 2em 0em 0em 2em;
 }
@@ -23,7 +23,7 @@
 #reportCanvas{
     position: relative;
     float: right;
-    width: 70%;
+    width: 80%;
 }
 #reportUpdate{
     width: 90%;
