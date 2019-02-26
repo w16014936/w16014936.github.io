@@ -2,14 +2,16 @@
 // begin the session and save the information
 // on loclahost or webspace depending on value in
 // setEnv.php
-function sessionStart($sessionDirectory = SESSION_DIR) {
+function sessionStart($sessionDirectory = SESSION_DIR)
+{
     ini_set("session.save_path", $sessionDirectory);
     return session_start();
 }
 
 
 /* Creating the functions which control the pages */
-function getHTMLHeader($pageTitle, $loggedIn) {
+function getHTMLHeader($pageTitle, $loggedIn)
+{
 
     $logged = isset($loggedIn) ? '<a class="nav-link" href="logout.php">Log Out</a>' : '<a class="nav-link" href="login.php">Members Login</a>';
 
@@ -39,6 +41,7 @@ function getHTMLHeader($pageTitle, $loggedIn) {
     <link rel="stylesheet" href="fontawesome/css/all.css">
     <script src="js/jquery-3.3.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
+    <script src="js/functions.js"></script>
   </head>
   <body>
     <nav class="navbar navbar-expand-md navbar-dark bg-dark">
@@ -67,8 +70,9 @@ HEADER;
 }
 
 
-function getHTMLAdminHeader($pageTitle, $loggedIn){
-     $logged = isset($loggedIn) ? '<a class="nav-link" href="logout.php">Log Out</a>' : '<a class="nav-link" href="login.php">Members Login</a>';
+function getHTMLAdminHeader($pageTitle, $loggedIn)
+{
+    $logged = isset($loggedIn) ? '<a class="nav-link" href="logout.php">Log Out</a>' : '<a class="nav-link" href="login.php">Members Login</a>';
 
     // Create the header placing it in a HEREDOC
     $header = <<<HEADER
@@ -173,7 +177,7 @@ HEADER;
 
 // Ends the html page and replaces the makeFooter functionality
 function getHTMLFooter() {
-    return "<div class='col-sm-12' >
+    return "
     <footer>&copy;".date('Y')." Timesheets</footer>
     </body>
     </html>";
@@ -183,7 +187,8 @@ function getHTMLFooter() {
 
 // Function to generate the login form that appears in the top left
 // of every page if user is not logged in
-function getLoginForm(){
+function getLoginForm()
+{
     // Create the login form
     $loginForm = "
     <div id='login'>
@@ -196,13 +201,12 @@ function getLoginForm(){
 
             <input type='submit' value='Login'  name='loginForm'/>
         </form>";
-    
 
 
     if (!empty($_SESSION['errors'])) {
-                $errors = $_SESSION['errors'];
-                foreach ($errors as $error) {
-                    $loginForm .= "<p class='error'>$error</p>";
+        $errors = $_SESSION['errors'];
+        foreach ($errors as $error) {
+            $loginForm .= "<p class='error'>$error</p>";
 
         }
 
@@ -219,30 +223,31 @@ function getLoginForm(){
 
 
 // Function to validate the users entry into the lodin form
-function validateLoginForm($dbConn){
+function validateLoginForm($dbConn)
+{
     // Create the input array for the username and password
     $input = array();
     $errors = array();
 
     // Start the validation on the username and password
-    $input['username'] = filter_has_var(INPUT_POST, 'username') ? $_POST['username']: null;
+    $input['username'] = filter_has_var(INPUT_POST, 'username') ? $_POST['username'] : null;
     $input['username'] = trim($input['username']);
 
-    if(empty($input['username'])){
+    if (empty($input['username'])) {
         $errors[] = "Your username has not been set.";
     }
 
     $input['password'] = filter_has_var(INPUT_POST, 'password') ? $_POST['password'] : null;
     $input['password'] = trim($input['password']);
 
-    if(empty($input['password'])){
+    if (empty($input['password'])) {
         $errors[] = "Your password has not been set.";
     }
 
     // Query the database to check if username and password are correct
-    if(empty ($errors)){
-         // Try to carry out the database search
-        try{
+    if (empty ($errors)) {
+        // Try to carry out the database search
+        try {
             $sqlQuery = "SELECT passwordHash
                            FROM timesheets_users
                           WHERE username = :username";
@@ -252,25 +257,25 @@ function validateLoginForm($dbConn){
             $row = $stmt->fetchObject();
 
             // Check the query returned some results
-            if($stmt->rowCount() > 0){
+            if ($stmt->rowCount() > 0) {
                 $passwordHash = $row->passwordHash;
 
                 // If the password is a match
-                if (password_verify($input['password'], $passwordHash)){
+                if (password_verify($input['password'], $passwordHash)) {
                     $_SESSION['username'] = $input['username'];
 
-                } else{
+                } else {
                     $errors[] = "Your username or password is incorrect";
 
                 }
-            } else{
+            } else {
                 $errors[] = "Your username or password is incorrect";
 
             }
 
-        // Log the exception in a file elsewhere
-        } catch(Exception $e){
-            $retval =  "<p>Query failed: " . $e->getMessage() . "</p>\n";
+            // Log the exception in a file elsewhere
+        } catch (Exception $e) {
+            $retval = "<p>Query failed: " . $e->getMessage() . "</p>\n";
         }
     }
     // Return an array of the input and errors arrays
@@ -282,14 +287,14 @@ function validateLoginForm($dbConn){
 
 
 // Function to logout user by destroying the users session
-function logoutUser($loggedIn, $redirect){
+function logoutUser($loggedIn, $redirect)
+{
     // Destroy the users Session
     unset($loggedIn);
     session_destroy();
 
-    return header('Location: '. $redirect);
+    return header('Location: ' . $redirect);
 
-    
 
 }
 
