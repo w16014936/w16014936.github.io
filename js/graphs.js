@@ -37,6 +37,7 @@ var holidayData = jsonfile.jsonarray.map(function (e) {
     return e.holiday;
 });
 
+
 let canvas = document.getElementById('canvas'),
     context = canvas.getContext('2d');
 
@@ -50,7 +51,7 @@ var cfg = {
         labels: labels,
         datasets: [{
             label: 'Normal Hours',
-            backgroundColor: color(window.chartColors.red).alpha(0.5).rgbString(),
+            backgroundColor: color(window.chartColors.red).alpha(0.4).rgbString(),
             borderColor: window.chartColors.red,
             data: hoursData,
             type: 'bar',
@@ -61,8 +62,8 @@ var cfg = {
         },
             {
                 label: 'Overtime',
-                backgroundColor: color(window.chartColors.blue).alpha(0.5).rgbString(),
-                borderColor: window.chartColors.blue,
+                backgroundColor: color(window.chartColors.yellow).alpha(0.4).rgbString(),
+                borderColor: window.chartColors.yellow,
                 data: overtimeData,
                 type: 'bar',
                 pointRadius: 0,
@@ -72,8 +73,8 @@ var cfg = {
             },
             {
                 label: 'Holidays',
-                backgroundColor: color(window.chartColors.green).alpha(0.5).rgbString(),
-                borderColor: window.chartColors.green,
+                backgroundColor: color(window.chartColors.purple).alpha(0.4).rgbString(),
+                borderColor: window.chartColors.purple,
                 data: holidayData,
                 type: 'bar',
                 pointRadius: 0,
@@ -118,15 +119,20 @@ document.getElementById('reportUpdate').addEventListener('click', function () {
     cfg.options.scales.xAxes[0].stacked = stackRadioBoolean;
     cfg.options.scales.yAxes[0].stacked = stackRadioBoolean;
 
+    //change each dataset
     chart.config.data.datasets.forEach(function(entry) {
+
+
+        var rgba = entry.backgroundColor.substring(entry.backgroundColor.indexOf('(') + 1, entry.backgroundColor.lastIndexOf(')')).split(/,\s*/);
+            //set the alpha of the rgb depending on highContrastMode value
+            rgba[3] = highContrastMode ? "1" : "0.4";
+
        entry.type = type;
        entry.lineTension = smoothRadioBoolean ? 0.4 : 0.000001;
 	   entry.fill = fillLinesBoolean;
-	   //entry.backgroundColor = highContrastMode ? color(window.chartColors.black).rgbString() : backgroundColor;
-	   //entry.borderColor = highContrastMode ? color(window.chartColors.black) : backgroundColor;
+	   entry.backgroundColor = "rgba("+rgba+")";
     });
 
-    // chart = new Chart(context, cfg);
     chart.update();
 });
 
