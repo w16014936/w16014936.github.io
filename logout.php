@@ -18,25 +18,25 @@ $loggedIn = isset($_SESSION['username']) ? $_SESSION['username'] : null;
 $dbConn = PDODB::getConnection();
 
 // Get the current base URL
-if (strpos($_SERVER['HTTP_HOST'],'localhost') !== false) {
+if (strpos($_SERVER['HTTP_HOST'], 'localhost') !== false) {
     $baseURL = "http://localhost/w16014936.github.io";
 }
 else {
-  $baseURL = "https://w16014936.github.io";
-}
+        $baseURL = "https://w16014936.github.io";
+    }
 
-$redirect = $baseURL;
+    $redirect = $baseURL;
 
 
 // Check for logged in user
 // If user is not logged
 // redirtect them to where they came from
-if (isset($_SESSION['username'])){
-	echo logoutUser($_SESSION['username'], $redirect);
+    if (isset($_SESSION['username'])) {
+        echo logoutUser($_SESSION['username'], $redirect);
 
-} else{
-	header('Location: ' . $redirect);
-	exit();
-	
+    } else {
+        header('Location: ' . $redirect);
+        exit();
 
-}
+
+    }

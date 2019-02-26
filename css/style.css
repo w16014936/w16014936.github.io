@@ -33,3 +33,23 @@
 #canvas{
     width: 100%;
 }
+
+body {
+    min-height: 100%;
+}
+
+html {
+    min-height: 100%;
+}
+
+
+footer {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    background-color: #343a40;
+    color: #9b9b9b;
+    opacity: 0.5;
+    width: 100%;
+
+}
