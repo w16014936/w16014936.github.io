@@ -43,24 +43,27 @@
       <li>the ability to calculate <b>costs</b> based on time spent on projects</li>
     </ul>
 	
-	<script src="../Timesheets/js/serviceWorker.js" type="text/javascript"></script>
-    <script src="../Timesheets/js/Chart.bundle.min.js" type="text/javascript"></script>
-    <script>
-      if ('serviceWorker' in navigator) {
-        window.addEventListener('load', function() {
-            navigator.serviceWorker.register('serviceWorker.js').then(function(registration) {
-                // Registration was successful
-                console.log('ServiceWorker registration successful with scope: ', registration.scope);
-            }, function(err) {
-                // registration failed :(
-                console.log('ServiceWorker registration failed: ', err);
-            });
-        });
-    }
-    </script>
+
 	
   </div>
 </div>
 <?php
 
 echo getHTMLFooter();
+?>
+	<script src="serviceWorker.js" type="text/javascript"></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('serviceWorker.js').then(function(registration) {
+                    // Registration was successful
+                    console.log('ServiceWorker registration successful with scope: ', registration.scope);
+                }, function(err) {
+                    // registration failed :(
+                    console.log('ServiceWorker registration failed: ', err);
+                });
+            });
+        }
+    </script>
+<?php
+    getHTMLEnd();

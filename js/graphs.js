@@ -122,7 +122,6 @@ document.getElementById('reportUpdate').addEventListener('click', function () {
     //change each dataset
     chart.config.data.datasets.forEach(function(entry) {
 
-
         var rgba = entry.backgroundColor.substring(entry.backgroundColor.indexOf('(') + 1, entry.backgroundColor.lastIndexOf(')')).split(/,\s*/);
             //set the alpha of the rgb depending on highContrastMode value
             rgba[3] = highContrastMode ? "1" : "0.4";

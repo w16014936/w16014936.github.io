@@ -34,3 +34,4 @@ if (!isset($loggedIn)){
 <?php
 
 echo getHTMLFooter();
+echo getHTMLEnd();

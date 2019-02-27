@@ -8,8 +8,8 @@
 #reportMain{
     width: 100%;
     display: table;
-
 }
+
 #reportConfigContainer{
     position: relative;
     float: left;
@@ -41,7 +41,6 @@ body {
 html {
     min-height: 100%;
 }
-
 
 footer {
     position: absolute;

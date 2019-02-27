@@ -82,3 +82,4 @@
 <?php
 
 echo getHTMLFooter();
+echo getHTMLEnd();

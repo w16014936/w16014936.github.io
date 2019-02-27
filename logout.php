@@ -40,3 +40,5 @@ else {
 
 
     }
+echo getHTMLFooter();
+echo getHTMLEnd();

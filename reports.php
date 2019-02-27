@@ -70,12 +70,13 @@
         <canvas id="canvas"></canvas>
     </div>
 </div>
-
-<script src="js/utils.js"></script>
-<script src="js/libraries/Chart.min.js" type="text/javascript"></script>
-<script src="js/graphs.js" type="text/javascript"></script>
-
-
 <?php
 
 echo getHTMLFooter();
+?>
+    <script src="js/utils.js"></script>
+    <script src="js/libraries/Chart.min.js" type="text/javascript"></script>
+    <script src="js/graphs.js" type="text/javascript"></script>
+<?php
+
+echo getHTMLEnd();

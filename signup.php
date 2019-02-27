@@ -41,8 +41,6 @@ if (!isset($loggedIn)) {
         }
         ?>
     </div>
-
-
     <div class="container">
         <div class="row justify-content-center align-items-center">
             <div class="col-sm-4"></div>
@@ -84,11 +82,15 @@ if (!isset($loggedIn)) {
         </div>
     </div>
 
+<?php
+
+echo getHTMLFooter();
+?>
     <script>customFormValidation("signUp-username", "signUp-emailAddress", "signUp-pass", "signUp-confirmPass",
             "Please enter your chosen username", "Please enter the email address to be associated with the account",
             "Please enter your a password for your account", "Please confirm your chosen password");
         validatePassword("signUp-pass", "signUp-confirmPass", "Passwords do not match");</script>
-
 <?php
 
-echo getHTMLFooter();
+echo getHTMLEnd();
+

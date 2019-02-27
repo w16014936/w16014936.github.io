@@ -64,21 +64,25 @@ if (!isset($loggedIn)) {
             </div>
             <div class="form-group" id="contact-button-flex">
                 <input type="submit" name="btnSubmit" id="contact-button" class="btn btn-primary" value="Send Message""/>
-                <script>
-                    // Change button width to 100% if user on mobile
-                    if (onMobile) {
-                        document.getElementById("contact-button").style.width = "100%";
-                        var contactButtonFlex = document.getElementById("contact-button-flex");
-                        contactButtonFlex.style.justifyContent = "center";
-                        contactButtonFlex.style.alignItems = "center";
-                    }
-                </script>
-                <script>customFormValidation("contactUs-textName","contactUs-textEmail","contactUs-textPhone",
-                        "contactUs-textMessage","Please enter your name","Please enter your email address",
-                    "Please enter your phone number","Please enter the message you would like to send")</script>
+
             </div>
         </form>
     </div>
 <?php
 
 echo getHTMLFooter();
+?>
+    <script>
+        // Change button width to 100% if user on mobile
+        if (onMobile) {
+            document.getElementById("contact-button").style.width = "100%";
+            var contactButtonFlex = document.getElementById("contact-button-flex");
+            contactButtonFlex.style.justifyContent = "center";
+            contactButtonFlex.style.alignItems = "center";
+        }
+    </script>
+    <script>customFormValidation("contactUs-textName","contactUs-textEmail","contactUs-textPhone",
+            "contactUs-textMessage","Please enter your name","Please enter your email address",
+            "Please enter your phone number","Please enter the message you would like to send")</script>
+<?php
+getHTMLEnd();
