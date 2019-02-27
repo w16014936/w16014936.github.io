@@ -2,16 +2,14 @@
 // begin the session and save the information
 // on loclahost or webspace depending on value in
 // setEnv.php
-function sessionStart($sessionDirectory = SESSION_DIR)
-{
+function sessionStart($sessionDirectory = SESSION_DIR){
     ini_set("session.save_path", $sessionDirectory);
     return session_start();
 }
 
 
 /* Creating the functions which control the pages */
-function getHTMLHeader($pageTitle, $loggedIn)
-{
+function getHTMLHeader($pageTitle, $loggedIn){
 
     $logged = isset($loggedIn) ? '<a class="nav-link" href="logout.php">Log Out</a>' : '<a class="nav-link" href="login.php">Members Login</a>';
 
@@ -70,8 +68,7 @@ HEADER;
 }
 
 
-function getHTMLAdminHeader($pageTitle, $loggedIn)
-{
+function getHTMLAdminHeader($pageTitle, $loggedIn){
     $logged = isset($loggedIn) ? '<a class="nav-link" href="logout.php">Log Out</a>' : '<a class="nav-link" href="login.php">Members Login</a>';
 
     // Create the header placing it in a HEREDOC
@@ -254,7 +251,7 @@ function validateLoginForm($dbConn)
         // Try to carry out the database search
         try {
             $sqlQuery = "SELECT passwordHash
-                           FROM timesheets_users
+                           FROM timesheets_user
                           WHERE username = :username";
 
             $stmt = $dbConn->prepare($sqlQuery);
@@ -288,9 +285,6 @@ function validateLoginForm($dbConn)
 }
 
 
-// Function to get the roole for the logged in user
-
-
 // Function to logout user by destroying the users session
 function logoutUser($loggedIn, $redirect)
 {
@@ -303,3 +297,51 @@ function logoutUser($loggedIn, $redirect)
 
 }
 
+// Function to get all of the roles the user can choose from
+function getUserRoles($dbConn, $loggedIn){
+
+  // Try to carry out the database search
+  try{
+    $sqlQuery = "SELECT timesheets_role.role_id,
+                        timesheets_role.role_type
+                   FROM timesheets_role
+                   JOIN timesheets_user_role
+                     ON timesheets_user_role.role_id = timesheets_role.role_id
+                   JOIN timesheets_user
+                     ON timesheets_user.user_id = timesheets_user.user_id
+                  WHERE timesheets_user.username = :username";
+
+    $stmt = $dbConn->prepare($sqlQuery);
+    $stmt->execute(array(':username' => $loggedIn));
+    $rows = $stmt->fetchAll();
+
+    // Check the query returned some results
+    if($stmt->rowCount() > 0){
+
+      $role_ids = array();
+      $role_types = array();
+
+      
+
+      // Loop through resultsstmt
+      foreach($rows as $row){
+        array_push($role_ids, $row['role_id']);
+        array_push($role_types, $row['role_type']);
+      }
+
+    } else{
+      $error = "Sorry, it appears you don't have a role associated with your account. Please contact your admnistrator to receive a role.";
+    }
+
+  // Log the exception 
+  } catch(Exception $e){
+    $retval =  "<p>Query failed: " . $e->getMessage() . "</p>\n";
+  }
+
+  if (!empty($error)){
+    return $error;
+  } else{
+    return array_combine($role_ids, $role_types);
+  }
+ 
+}

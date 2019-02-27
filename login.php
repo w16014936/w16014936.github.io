@@ -14,13 +14,13 @@ if (isset($_POST['username']) || isset($_POST['password'])) {
 }
 
 // Check for logged in user
-$loggedIn = isset($_SESSION['username']) ? $_SESSION['username'] : null;
+echo $loggedIn = isset($_SESSION['username']) ? $_SESSION['username'] : null;
 
 // Check the user role of the logged in user
 $userRole = isset($_SESSION['role']) ? $_SESSION['role'] : null;
 
 // Page title
-$pageTitle = 'Login';
+$pageTitle = 'Login'; 
 
 // Get the correcct page header depending on the users role and wheter or not they are logged in
 if (!isset($loggedIn)) {
@@ -58,14 +58,21 @@ if (isset($_SERVER['HTTP_REFERER'])) {
 }
 
 // If user is logged in currently redirect them back to where they've just came from
-if (isset($loggedIn)) {
-    echo $redirect;
+if (isset($loggedIn)){
+    // Check if role has been set
+    if ($isset['role']){
+        header('Location: ' . $redirect);
+        exit();
+
+    } else{
+        $redirect .= '/select-role.php';
+        header('Location: ' . $baseURL . '/select-role.php' );
+        exit();
+
+    }
     header('Location: ' . $redirect);
     exit();
-
-}
-
-// $hash = password_hash('test', PASSWORD_BCRYPT);
+} 
 
 ?>
 

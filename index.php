@@ -15,14 +15,15 @@
   if (!isset($loggedIn)){
     echo getHTMLHeader($pageTitle, $loggedIn);
 
-  } elseif (isset($userRole) && $userRole == 1){
-    echo getHTMLUserHeader($pageTitle);
-
   } elseif (isset($userRole) && $userRole == 2){
-    echo getHTMLAdminHeader($pageTitle);
+    echo getHTMLUserHeader($pageTitle, $loggedIn);
+
+  } elseif (isset($userRole) && $userRole == 1){
+    echo getHTMLAdminHeader($pageTitle, $loggedIn);
 
   } else{
     echo getHTMLHeader($pageTitle, $loggedIn);
+    
   }
 
 ?>
