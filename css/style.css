@@ -15,7 +15,7 @@
     float: left;
     width: 20%;
     border-right: darkgrey 2px solid;
-    padding: 2em 0em 0em 2em;
+    padding: 1em 0em 0em 1em;
 }
 .reportConfig{
     margin-top: 1em;
@@ -35,7 +35,8 @@
 }
 
 body {
-    min-height: 100%;
+    position: relative;
+    min-height: 100vh;
 }
 
 html {
@@ -52,6 +53,7 @@ footer {
     width: 100%;
 
 }
-.btn-select-role{
-    margin: 10px 0;
-}
+
+
+
+

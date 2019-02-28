@@ -12,18 +12,19 @@
   $pageTitle = 'Reporting';
 
   // Get the correcct page header depending on the users role and wheter or not they are logged in
-  if (!isset($loggedIn)){
+if (!isset($loggedIn)){
     echo getHTMLHeader($pageTitle, $loggedIn);
 
-  } elseif (isset($userRole) && $userRole == 1){
-    echo getHTMLUserHeader($pageTitle);
+} elseif (isset($userRole) && $userRole == 2){
+    echo getHTMLUserHeader($pageTitle, $loggedIn);
 
-  } elseif (isset($userRole) && $userRole == 2){
-    echo getHTMLAdminHeader($pageTitle);
+} elseif (isset($userRole) && $userRole == 1){
+    echo getHTMLAdminHeader($pageTitle, $loggedIn);
 
-  } else{
+} else{
     echo getHTMLHeader($pageTitle, $loggedIn);
-  }
+
+}
 
 ?>
 <div id="reportMain col-sm-12">
@@ -51,9 +52,19 @@
             </form>
         </div>
         <div class="reportConfig">
-            <form>
-                Smooth Lines:
-                <input type="radio" name="smooth" id="smoothTrue" checked="checked">Yes <input type="radio" name="smooth">No
+            <form id ="smoothLines">
+                Line Stiffness:
+                <div class="range-slider">
+                    <input id="smoothLineSlider" class="rs-range" type="range" value="0.5" min="0.25" max="1" step="0.01">
+                </div>
+            </form>
+        </div>
+        <div class="reportConfig">
+            <form id ="pointRadius">
+                Point Radius:
+                <div class="range-slider">
+                    <input id="pointRadiusSlider" class="rs-range" type="range" value="5" min="0" max="10" step="1">
+                </div>
             </form>
         </div>
 		<div class="reportConfig">

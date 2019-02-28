@@ -106,13 +106,28 @@ var cfg = {
 };
 var chart = new Chart(context, cfg);
 
+document.getElementById('smoothLineSlider').addEventListener('change', function () {
+    //change each dataset
+    chart.config.data.datasets.forEach(function(entry) {
+        updateSlider(entry, document.getElementById('smoothLineSlider'), document.getElementById('pointRadiusSlider'));
+    });
+});
+
+document.getElementById('pointRadiusSlider').addEventListener('change', function () {
+    //change each dataset
+    chart.config.data.datasets.forEach(function(entry) {
+        updateSlider(entry, document.getElementById('smoothLineSlider'), document.getElementById('pointRadiusSlider'));
+    });
+});
+
 document.getElementById('reportUpdate').addEventListener('click', function () {
 
-    var type = document.getElementById('type').value,
-        stackRadioBoolean = document.getElementById('stackTrue').checked,
-        smoothRadioBoolean = document.getElementById('smoothTrue').checked,
-		fillLinesBoolean = document.getElementById('fillTrue').checked,
-		highContrastMode = document.getElementById('highContrastTrue').checked;
+    var type               = document.getElementById('type').value,
+        smoothLineSlider   = document.getElementById('smoothLineSlider'),
+        pointRadiusSlider  = document.getElementById('pointRadiusSlider'),
+        stackRadioBoolean  = document.getElementById('stackTrue').checked,
+		fillLinesBoolean   = document.getElementById('fillTrue').checked,
+		highContrastMode   = document.getElementById('highContrastTrue').checked;
 
     //Update the graph config from input values
     cfg.type = type;
@@ -127,9 +142,11 @@ document.getElementById('reportUpdate').addEventListener('click', function () {
             rgba[3] = highContrastMode ? "1" : "0.4";
 
        entry.type = type;
-       entry.lineTension = smoothRadioBoolean ? 0.4 : 0.000001;
 	   entry.fill = fillLinesBoolean;
 	   entry.backgroundColor = "rgba("+rgba+")";
+
+        updateSlider(entry, smoothLineSlider, pointRadiusSlider);
+
     });
 
     chart.update();
@@ -140,7 +157,6 @@ document.getElementById('reportConfigContainer').addEventListener('click', funct
     setHighContrastMode(document.getElementById('highContrastTrue').checked, document.getElementById('type').value);
 
 });
-
 
 function setHighContrastMode(radioChecked, type){
 
@@ -155,4 +171,16 @@ function setHighContrastMode(radioChecked, type){
         stackRadio.hidden = false;
     }
 }
+
+function updateSlider(entry, sliderLineTension, sliderPointRadius){
+    if (entry.lineTension === 1 - sliderLineTension.value &&
+        entry.pointRadius === sliderPointRadius.value){
+        return;
+    }
+    entry.lineTension = 1 - sliderLineTension.value;
+    entry.pointRadius = sliderPointRadius.value;
+    chart.update();
+}
+
+
 
