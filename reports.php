@@ -40,8 +40,14 @@
         </div>
         <div class="reportConfig">
             <form>
+                High Contrast Mode:
+                <input type="radio" name="highContrast" id="highContrastTrue">Yes <input type="radio" name="highContrast" checked="checked">No
+            </form>
+        </div>
+        <div class="reportConfig">
+            <form id ="stackRadio">
                 Stack the data:
-                <input type="radio" name="stack" id="stackTrue" checked="checked"">Yes <input type="radio" name="stack">No
+                <input type="radio" name="stack" id="stackTrue" checked="checked">Yes <input type="radio" name="stack" id="stackFalse">No
             </form>
         </div>
         <div class="reportConfig">
@@ -57,12 +63,6 @@
             </form>
         </div>
 		<div class="reportConfig">
-            <form>
-                High Contrast Mode:
-                <input type="radio" name="highContrast" id="highContrastTrue" checked="checked">Yes <input type="radio" name="highContrast">No
-            </form>
-        </div>
-        <div class="reportConfig">
             <button id="reportUpdate">Generate Graph</button>
         </div>
     </div>

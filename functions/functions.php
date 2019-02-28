@@ -175,7 +175,8 @@ HEADER;
 // Adds footer to page
 function getHTMLFooter() {
     return "
-    <footer>&copy;".date('Y')." Timesheets</footer>";
+    <footer>&copy;".date('Y')." Timesheets</footer>
+    ";
 
 }
 

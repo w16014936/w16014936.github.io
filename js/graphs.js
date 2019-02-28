@@ -1,27 +1,27 @@
 'use strict';
 
-var jsonfile = {
-    "jsonarray": [{
-        "name": "Matthew",
-        "hours": 20,
-        "overtime": 16,
-        "holiday": 2
-    }, {
-        "name": "Tom",
-        "hours": 45,
-        "overtime": 10,
-        "holiday": 0
-    }, {
-        "name": "Elliott",
-        "hours": 12,
-        "overtime": 3,
-        "holiday": 20
-    }, {
-        "name": "Chris",
-        "hours": 4,
-        "overtime": 5,
-        "holiday": 38
-    }]
+    var jsonfile = {
+        "jsonarray": [{
+            "name": "Matthew",
+            "hours": 20,
+            "overtime": 16,
+            "holiday": 2
+        }, {
+            "name": "Tom",
+            "hours": 45,
+            "overtime": 10,
+            "holiday": 0
+        }, {
+            "name": "Elliott",
+            "hours": 12,
+            "overtime": 3,
+            "holiday": 20
+        }, {
+            "name": "Chris",
+            "hours": 4,
+            "overtime": 5,
+            "holiday": 38
+        }]
 };
 
 var labels = jsonfile.jsonarray.map(function (e) {
@@ -55,7 +55,7 @@ var cfg = {
             borderColor: window.chartColors.red,
             data: hoursData,
             type: 'bar',
-            pointRadius: 0,
+            pointRadius: 5,
             fill: false,
             lineTension: 0.2,
             borderWidth: 2
@@ -66,7 +66,7 @@ var cfg = {
                 borderColor: window.chartColors.yellow,
                 data: overtimeData,
                 type: 'bar',
-                pointRadius: 0,
+                pointRadius: 5,
                 fill: true,
                 lineTension: 0.2,
                 borderWidth: 2
@@ -77,7 +77,7 @@ var cfg = {
                 borderColor: window.chartColors.purple,
                 data: holidayData,
                 type: 'bar',
-                pointRadius: 0,
+                pointRadius: 5,
                 fill: true,
                 lineTension: 0.2,
                 borderWidth: 2
@@ -134,4 +134,25 @@ document.getElementById('reportUpdate').addEventListener('click', function () {
 
     chart.update();
 });
+
+document.getElementById('reportConfigContainer').addEventListener('click', function () {
+
+    setHighContrastMode(document.getElementById('highContrastTrue').checked, document.getElementById('type').value);
+
+});
+
+
+function setHighContrastMode(radioChecked, type){
+
+    var stackRadio = document.getElementById('stackRadio');
+
+    if(radioChecked && type !== "bar"){
+        document.getElementById('stackTrue').checked = true;
+        document.getElementById('stackFalse').checked = false;
+        stackRadio.hidden = true;
+    }
+    else{
+        stackRadio.hidden = false;
+    }
+}
 
