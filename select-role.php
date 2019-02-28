@@ -38,8 +38,8 @@ if (!isset($loggedIn)){
   echo getHTMLAdminHeader($pageTitle, $loggedIn);
 
 } else{
-  //echo getHTMLHeader($pageTitle, $loggedIn);
-  echo getHTMLAdminHeader($pageTitle, $loggedIn);
+  echo getHTMLHeader($pageTitle, $loggedIn);
+
 }
 
 ?>

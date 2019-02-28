@@ -23,13 +23,19 @@ $userRole = isset($_SESSION['role']) ? $_SESSION['role'] : null;
 $pageTitle = 'Login'; 
 
 // Get the correcct page header depending on the users role and wheter or not they are logged in
-if (!isset($loggedIn)) {
+if (!isset($loggedIn)){
     echo getHTMLHeader($pageTitle, $loggedIn);
+  
+  } elseif (isset($userRole) && $userRole == 2){        // User level 
+    echo getHTMLUserHeader($pageTitle, $loggedIn);
 
-} else {
+  } elseif (isset($userRole) && $userRole == 1){        // Admin level
+    echo getHTMLAdminHeader($pageTitle, $loggedIn);
+    
+  } else{
     echo getHTMLHeader($pageTitle, $loggedIn);
-
-}
+    
+  }
 
 // Get the current base URL
 if (strpos($_SERVER['HTTP_HOST'], 'localhost') !== false) {

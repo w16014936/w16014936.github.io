@@ -9,20 +9,21 @@ $loggedIn = isset($_SESSION['username']) ? $_SESSION['username'] : null;
 // Check the user role of the logged in user
 $userRole = isset($_SESSION['role']) ? $_SESSION['role'] : null;
 // Page title
-$pageTitle = 'Timesheets';
+$pageTitle = 'Sign Up';
 
 // Get the correcct page header depending on the users role and wheter or not they are logged in
-if (!isset($loggedIn)) {
+if (!isset($loggedIn)){
     echo getHTMLHeader($pageTitle, $loggedIn);
 
-} elseif (isset($userRole) && $userRole == 1) {
-    echo getHTMLUserHeader($pageTitle);
+} elseif (isset($userRole) && $userRole == 2){        // User level 
+    echo getHTMLUserHeader($pageTitle, $loggedIn);
 
-} elseif (isset($userRole) && $userRole == 2) {
-    echo getHTMLAdminHeader($pageTitle);
-
-} else {
+} elseif (isset($userRole) && $userRole == 1){        // Admin level
+    echo getHTMLAdminHeader($pageTitle, $loggedIn);
+    
+} else{
     echo getHTMLHeader($pageTitle, $loggedIn);
+
 }
 
 ?>

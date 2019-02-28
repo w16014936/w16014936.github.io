@@ -68,6 +68,70 @@ HEADER;
 }
 
 
+function getHTMLUserHeader($pageTitle, $loggedIn){
+  $logged = isset($loggedIn) ? '<a class="nav-link" href="logout.php">Log Out</a>' : '<a class="nav-link" href="login.php">Members Login</a>';
+
+    // Create the header placing it in a HEREDOC
+    $header = <<<HEADER
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>$pageTitle</title>
+    <meta charset="utf-8">
+    <meta name="description" content="Timesheet Manager">
+    <meta name="keywords" content="Timesheet,Staff,Report">
+    <meta name="author" content="DTS">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="msapplication-starturl" content="/">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <meta name="theme-color" content="#b1ddef">
+    <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" href="images/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="images/favicon-16x16.png" sizes="16x16">
+    <link rel="manifest" href="json/manifest.json">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" href="fontawesome/css/all.css">
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+  </head>
+  <body>
+  <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <a class="navbar-brand" href="index.php">
+      <i class="far fa-calendar-alt"></i>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainNavigation" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="mainNavigation">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="index.php">Home</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link" href="manage-my-account.php">My Account</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="timesheetDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Timesheets</a>
+          <div class="dropdown-menu" aria-labelledby="timesheetDropdown">
+            <a class="dropdown-item" href="new-timesheet.php">New Timesheet</a>
+            <a class="dropdown-item" href="past-timesheet.php">Past Timesheets</a>
+          </div>
+        </li>
+        <li class="nav-item">
+          $logged
+        </li>
+      </ul>
+    </div>
+  </nav>
+HEADER;
+
+  return $header;
+}
+
 function getHTMLAdminHeader($pageTitle, $loggedIn){
     $logged = isset($loggedIn) ? '<a class="nav-link" href="logout.php">Log Out</a>' : '<a class="nav-link" href="login.php">Members Login</a>';
 

@@ -23,21 +23,21 @@ $userRole = isset($_SESSION['role']) ? $_SESSION['role'] : null;
 // Get the correcct page header depending on the users current role
 // If user is not logged in display message to user telling them to log in
 if (!isset($loggedIn)){
-    echo getHTMLHeader($pageTitle, $loggedIn);
-    $errorText = "Sorry you must be logged to access this page. Please login <a href='login.php'>here</a> to login to your account. If you don't currently have an account please contact your system administrator to have one created for you.";
+  echo getHTMLHeader($pageTitle, $loggedIn);
+  $errorText = "Sorry you must be logged to access this page. Please login <a href='login.php'>here</a> to login to your account. If you don't currently have an account please contact your system administrator to have one created for you.";
   
 } elseif (isset($userRole) && $userRole == 2){        // User level 
-    echo getHTMLUserHeader($pageTitle, $loggedIn);
-    $errorText = "Sorry you do not have the correct permissions to access this page. Please select a different role <a href='select-role.php'>here</a> to change your account role.";
+  echo getHTMLUserHeader($pageTitle, $loggedIn);
+  $errorText = "Sorry you do not have the correct permissions to access this page. Please select a different role <a href='select-role.php'>here</a> to change your account role.";
 
 } elseif (isset($userRole) && $userRole == 1){        // Admin level
-    echo getHTMLAdminHeader($pageTitle, $loggedIn);
+  echo getHTMLAdminHeader($pageTitle, $loggedIn);
     
 } else{
-    //echo getHTMLHeader($pageTitle, $loggedIn);
-    echo getHTMLAdminHeader($pageTitle, $loggedIn);
-    $errorText = "Sorry you do not have the correct permissions to access this page. Please select a different role <a href='select-role.php'>here</a> to change your account role.";
+  echo getHTMLHeader($pageTitle, $loggedIn);
+  $errorText = "Sorry you do not have the correct permissions to access this page. Please select a different role <a href='select-role.php'>here</a> to change your account role.";
 }
+  
   
 ?>
 <div class="jumbotron text-center">
