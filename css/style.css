@@ -10,6 +10,10 @@
     display: table;
 }
 
+.btn-select-role{
+    margin: 10px 0;
+}
+
 #reportConfigContainer{
     position: relative;
     float: left;
