@@ -2,16 +2,14 @@
 // begin the session and save the information
 // on loclahost or webspace depending on value in
 // setEnv.php
-function sessionStart($sessionDirectory = SESSION_DIR)
-{
+function sessionStart($sessionDirectory = SESSION_DIR){
     ini_set("session.save_path", $sessionDirectory);
     return session_start();
 }
 
 
 /* Creating the functions which control the pages */
-function getHTMLHeader($pageTitle, $loggedIn)
-{
+function getHTMLHeader($pageTitle, $loggedIn){
 
     $logged = isset($loggedIn) ? '<a class="nav-link" href="logout.php">Log Out</a>' : '<a class="nav-link" href="login.php">Members Login</a>';
 
@@ -34,7 +32,7 @@ function getHTMLHeader($pageTitle, $loggedIn)
 	<link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
 	<link rel="icon" type="image/png" href="images/favicon-32x32.png" sizes="32x32">
     <link rel="icon" type="image/png" href="images/favicon-16x16.png" sizes="16x16">
-    <link rel="manifest" href="json/manifest.json">
+    <link rel="manifest" href="manifest.json">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css/style.css">
@@ -70,9 +68,8 @@ HEADER;
 }
 
 
-function getHTMLAdminHeader($pageTitle, $loggedIn)
-{
-    $logged = isset($loggedIn) ? '<a class="nav-link" href="logout.php">Log Out</a>' : '<a class="nav-link" href="login.php">Members Login</a>';
+function getHTMLUserHeader($pageTitle, $loggedIn){
+  $logged = isset($loggedIn) ? '<a class="nav-link" href="logout.php">Log Out</a>' : '<a class="nav-link" href="login.php">Members Login</a>';
 
     // Create the header placing it in a HEREDOC
     $header = <<<HEADER
@@ -100,6 +97,70 @@ function getHTMLAdminHeader($pageTitle, $loggedIn)
     <link rel="stylesheet" href="fontawesome/css/all.css">
     <script src="js/jquery-3.3.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
+  </head>
+  <body>
+  <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <a class="navbar-brand" href="index.php">
+      <i class="far fa-calendar-alt"></i>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainNavigation" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="mainNavigation">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="index.php">Home</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link" href="manage-my-account.php">My Account</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="timesheetDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Timesheets</a>
+          <div class="dropdown-menu" aria-labelledby="timesheetDropdown">
+            <a class="dropdown-item" href="new-timesheet.php">New Timesheet</a>
+            <a class="dropdown-item" href="past-timesheet.php">Past Timesheets</a>
+          </div>
+        </li>
+        <li class="nav-item">
+          $logged
+        </li>
+      </ul>
+    </div>
+  </nav>
+HEADER;
+
+  return $header;
+}
+
+function getHTMLAdminHeader($pageTitle, $loggedIn){
+    $logged = isset($loggedIn) ? '<a class="nav-link" href="logout.php">Log Out</a>' : '<a class="nav-link" href="login.php">Members Login</a>';
+
+    // Create the header placing it in a HEREDOC
+    $header = <<<HEADER
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>$pageTitle</title>
+    <meta charset="utf-8">
+    <meta name="description" content="Timesheet Manager">
+    <meta name="keywords" content="Timesheet,Staff,Report">
+    <meta name="author" content="DTS">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="msapplication-starturl" content="/">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <meta name="theme-color" content="#b1ddef">
+    <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" href="images/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="images/favicon-16x16.png" sizes="16x16">
+    <link rel="manifest" href="manifest.json">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" href="fontawesome/css/all.css">
+    <script src="js/libraries/jquery-3.3.1.min.js"></script>
+    <script src="js/libraries/bootstrap.min.js"></script>
   </head>
   <body>
   <nav class="navbar navbar-expand-md navbar-dark bg-dark">
@@ -175,13 +236,19 @@ HEADER;
     return $header;
 }
 
-// Ends the html page and replaces the makeFooter functionality
+// Adds footer to page
 function getHTMLFooter() {
     return "
     <footer>&copy;".date('Y')." Timesheets</footer>
+    ";
+
+}
+
+// Ends the html page a
+function getHTMLEnd() {
+    return "
     </body>
     </html>";
-
 }
 
 
@@ -249,7 +316,7 @@ function validateLoginForm($dbConn)
         // Try to carry out the database search
         try {
             $sqlQuery = "SELECT passwordHash
-                           FROM timesheets_users
+                           FROM timesheets_user
                           WHERE username = :username";
 
             $stmt = $dbConn->prepare($sqlQuery);
@@ -283,9 +350,6 @@ function validateLoginForm($dbConn)
 }
 
 
-// Function to get the roole for the logged in user
-
-
 // Function to logout user by destroying the users session
 function logoutUser($loggedIn, $redirect)
 {
@@ -295,6 +359,56 @@ function logoutUser($loggedIn, $redirect)
 
     return header('Location: ' . $redirect);
 
+
+}
+
+// Function to get all of the roles the user can choose from
+function getUserRoles($dbConn, $loggedIn){
+
+
+  // Try to carry out the database search
+  try{
+    $sqlQuery = "SELECT timesheets_role.role_id,
+                        timesheets_role.role_type
+                   FROM timesheets_role
+                   JOIN timesheets_user_role
+                     ON timesheets_user_role.role_id = timesheets_role.role_id
+                   JOIN timesheets_user
+                     ON timesheets_user.user_id = timesheets_user.user_id
+                  WHERE timesheets_user.username = :username";
+
+    $stmt = $dbConn->prepare($sqlQuery);
+    $stmt->execute(array(':username' => $loggedIn));
+    $rows = $stmt->fetchAll();
+
+    // Check the query returned some results
+    if($stmt->rowCount() > 0){
+
+      $role_ids = array();
+      $role_types = array();
+
+
+
+      // Loop through resultsstmt
+      foreach($rows as $row){
+        array_push($role_ids, $row['role_id']);
+        array_push($role_types, $row['role_type']);
+      }
+
+    } else{
+      $error = "Sorry, it appears you don't have a role associated with your account. Please contact your admnistrator to receive a role.";
+    }
+
+  // Log the exception
+  } catch(Exception $e){
+    $retval =  "<p>Query failed: " . $e->getMessage() . "</p>\n";
+  }
+
+  if (!empty($error)){
+    return $error;
+  } else{
+    return array_combine($role_ids, $role_types);
+  }
 
 }
 
@@ -315,4 +429,3 @@ function getConnection() {
         log_error($exceptionErrorMessage);
     }
 }
-

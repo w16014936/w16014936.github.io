@@ -34,8 +34,8 @@ class PDODB{
                 );
 
                 // Pass in the options as the last parameter so pdo uses exceptions
-                //self::$dbConnection = new PDO("mysql:host=newnumyspace.co.uk;dbname=unn_w16014936", "unn_w16014936", "Da8o32jw", $options);
-                self::$dbConnection = new PDO("mysql:host=localhost;dbname=timesheets;", "root", "", $options);
+                self::$dbConnection = new PDO("mysql:host=localhost;dbname=unn_w16030457", "unn_w16030457", "starkiller", $options);
+                // self::$dbConnection = new PDO("mysql:host=localhost;dbname=timesheets;", "root", "", $options);
 
 
 

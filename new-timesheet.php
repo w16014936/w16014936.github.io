@@ -1,6 +1,6 @@
 <?php 
-/* Manage Account 
- * admin page
+/* Manage my account 
+ * user page
  * requires logged on
 */
 require_once 'env/environment.php';
@@ -15,7 +15,7 @@ $dbConn = PDODB::getConnection();
 $loggedIn = isset($_SESSION['username']) ? $_SESSION['username'] : null;
 
 // Page title
-$pageTitle = 'Manage Account';  
+$pageTitle = 'Create New Timesheet';  
 
 // Check the user role of the logged in user
 $userRole = isset($_SESSION['role']) ? $_SESSION['role'] : null;
@@ -28,14 +28,14 @@ if (!isset($loggedIn)){
   
 } elseif (isset($userRole) && $userRole == 2){        // User level 
   echo getHTMLUserHeader($pageTitle, $loggedIn);
-  $errorText = "Sorry you do not have the correct permissions to access this page. Please select a different role <a href='select-role.php'>here</a> to change your account role.";
 
 } elseif (isset($userRole) && $userRole == 1){        // Admin level
   echo getHTMLAdminHeader($pageTitle, $loggedIn);
+  $errorText = "Sorry you must be logged in with a User role in order to access this page. Please select the user role <a href='select-role.php'>here</a> to change your account role.";
     
 } else{
   echo getHTMLHeader($pageTitle, $loggedIn);
-  $errorText = "Sorry you do not have the correct permissions to access this page. Please select a different role <a href='select-role.php'>here</a> to change your account role.";
+  $errorText = "Sorry you must be logged in with a User role in order to access this page. Please select the user role <a href='select-role.php'>here</a> to change your account role.";
 }
   
 ?>

@@ -10,39 +10,38 @@
 #reportMain {
     width: 100%;
     display: table;
-
 }
 
-#reportConfigContainer {
+.btn-select-role{
+    margin: 10px 0;
+
+#reportConfigContainer{
     position: relative;
     float: left;
     width: 20%;
     border-right: darkgrey 2px solid;
-    padding: 2em 0em 0em 2em;
+    padding: 1em 0em 0em 1em;
 }
-
-.reportConfig {
+.reportConfig{
     margin-top: 1em;
 }
-
-#reportCanvas {
+#reportCanvas{
     position: relative;
     float: right;
     width: 80%;
 }
-
-#reportUpdate {
+#reportUpdate{
     width: 90%;
     position: center;
     margin-top: 1em;
 }
-
-#canvas {
+#canvas{
     width: 100%;
 }
 
 body {
-    min-height: 100%;
+    position: relative;
+    min-height: 100vh;
 }
 
 html {

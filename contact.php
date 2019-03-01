@@ -9,20 +9,21 @@ $loggedIn = isset($_SESSION['username']) ? $_SESSION['username'] : null;
 // Check the user role of the logged in user
 $userRole = isset($_SESSION['role']) ? $_SESSION['role'] : null;
 // Page title
-$pageTitle = 'Timesheets';
+$pageTitle = 'Contact';
 
 // Get the correcct page header depending on the users role and wheter or not they are logged in
-if (!isset($loggedIn)) {
+if (!isset($loggedIn)){
     echo getHTMLHeader($pageTitle, $loggedIn);
 
-} elseif (isset($userRole) && $userRole == 1) {
-    echo getHTMLUserHeader($pageTitle);
+} elseif (isset($userRole) && $userRole == 2){        // User level 
+    echo getHTMLUserHeader($pageTitle, $loggedIn);
 
-} elseif (isset($userRole) && $userRole == 2) {
-    echo getHTMLAdminHeader($pageTitle);
-
-} else {
+} elseif (isset($userRole) && $userRole == 1){        // Admin level
+    echo getHTMLAdminHeader($pageTitle, $loggedIn);
+    
+} else{
     echo getHTMLHeader($pageTitle, $loggedIn);
+
 }
 
 ?>
@@ -64,21 +65,25 @@ if (!isset($loggedIn)) {
             </div>
             <div class="form-group" id="contact-button-flex">
                 <input type="submit" name="btnSubmit" id="contact-button" class="btn btn-primary" value="Send Message""/>
-                <script>
-                    // Change button width to 100% if user on mobile
-                    if (onMobile) {
-                        document.getElementById("contact-button").style.width = "100%";
-                        var contactButtonFlex = document.getElementById("contact-button-flex");
-                        contactButtonFlex.style.justifyContent = "center";
-                        contactButtonFlex.style.alignItems = "center";
-                    }
-                </script>
-                <script>customFormValidation("contactUs-textName","contactUs-textEmail","contactUs-textPhone",
-                        "contactUs-textMessage","Please enter your name","Please enter your email address",
-                    "Please enter your phone number","Please enter the message you would like to send")</script>
+
             </div>
         </form>
     </div>
 <?php
 
 echo getHTMLFooter();
+?>
+    <script>
+        // Change button width to 100% if user on mobile
+        if (onMobile) {
+            document.getElementById("contact-button").style.width = "100%";
+            var contactButtonFlex = document.getElementById("contact-button-flex");
+            contactButtonFlex.style.justifyContent = "center";
+            contactButtonFlex.style.alignItems = "center";
+        }
+    </script>
+    <script>customFormValidation("contactUs-textName","contactUs-textEmail","contactUs-textPhone",
+            "contactUs-textMessage","Please enter your name","Please enter your email address",
+            "Please enter your phone number","Please enter the message you would like to send")</script>
+<?php
+getHTMLEnd();

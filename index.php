@@ -14,16 +14,18 @@
   // Get the correcct page header depending on the users role and wheter or not they are logged in
   if (!isset($loggedIn)){
     echo getHTMLHeader($pageTitle, $loggedIn);
-
-  } elseif (isset($userRole) && $userRole == 1){
-    echo getHTMLUserHeader($pageTitle);
-
-  } elseif (isset($userRole) && $userRole == 2){
-    echo getHTMLAdminHeader($pageTitle);
-
+    
+  } elseif (isset($userRole) && $userRole == 2){        // User level 
+    echo getHTMLUserHeader($pageTitle, $loggedIn);
+    
+  } elseif (isset($userRole) && $userRole == 1){        // Admin level
+    echo getHTMLAdminHeader($pageTitle, $loggedIn);
+      
   } else{
     echo getHTMLHeader($pageTitle, $loggedIn);
+  
   }
+
 
 ?>
 <div class="jumbotron text-center">
@@ -43,24 +45,27 @@
       <li>the ability to calculate <b>costs</b> based on time spent on projects</li>
     </ul>
 	
-	<script src="../Timesheets/js/serviceWorker.js" type="text/javascript"></script>
-    <script src="../Timesheets/js/Chart.bundle.min.js" type="text/javascript"></script>
-    <script>
-      if ('serviceWorker' in navigator) {
-        window.addEventListener('load', function() {
-            navigator.serviceWorker.register('serviceWorker.js').then(function(registration) {
-                // Registration was successful
-                console.log('ServiceWorker registration successful with scope: ', registration.scope);
-            }, function(err) {
-                // registration failed :(
-                console.log('ServiceWorker registration failed: ', err);
-            });
-        });
-    }
-    </script>
+
 	
   </div>
 </div>
 <?php
 
 echo getHTMLFooter();
+?>
+	<script src="serviceWorker.js" type="text/javascript"></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('serviceWorker.js').then(function(registration) {
+                    // Registration was successful
+                    console.log('ServiceWorker registration successful with scope: ', registration.scope);
+                }, function(err) {
+                    // registration failed :(
+                    console.log('ServiceWorker registration failed: ', err);
+                });
+            });
+        }
+    </script>
+<?php
+    getHTMLEnd();
