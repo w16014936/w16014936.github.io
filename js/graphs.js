@@ -38,7 +38,7 @@ var holidayData = jsonfile.jsonarray.map(function (e) {
 });
 
 
-let canvas = document.getElementById('canvas'),
+var canvas = document.getElementById('canvas'),
     context = canvas.getContext('2d');
 
 canvas.width = window.innerWidth;

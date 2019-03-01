@@ -12,8 +12,9 @@
     display: table;
 }
 
-.btn-select-role{
+.btn-select-role {
     margin: 10px 0;
+}
 
 #reportConfigContainer{
     position: relative;
