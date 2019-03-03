@@ -365,6 +365,7 @@ function logoutUser($loggedIn, $redirect)
 // Function to get all of the roles the user can choose from
 function getUserRoles($dbConn, $loggedIn){
 
+
   // Try to carry out the database search
   try{
     $sqlQuery = "SELECT timesheets_role.role_id,
@@ -386,7 +387,7 @@ function getUserRoles($dbConn, $loggedIn){
       $role_ids = array();
       $role_types = array();
 
-      
+
 
       // Loop through resultsstmt
       foreach($rows as $row){
@@ -398,7 +399,7 @@ function getUserRoles($dbConn, $loggedIn){
       $error = "Sorry, it appears you don't have a role associated with your account. Please contact your admnistrator to receive a role.";
     }
 
-  // Log the exception 
+  // Log the exception
   } catch(Exception $e){
     $retval =  "<p>Query failed: " . $e->getMessage() . "</p>\n";
   }
@@ -408,5 +409,23 @@ function getUserRoles($dbConn, $loggedIn){
   } else{
     return array_combine($role_ids, $role_types);
   }
- 
+
+}
+
+// Connects to SQL database using PDO type connection
+function getConnection() {
+    try {
+        $connection = new PDO("mysql:host=localhost;dbname=unn_w16038628",
+            "unn_w16038628", "Northumbria1995");
+        $connection->setAttribute(PDO::ATTR_ERRMODE,
+            PDO::ERRMODE_EXCEPTION);
+        return $connection;
+        // Catch the exception
+    } catch (Exception $e) {
+        // Print a user friendly message
+        echo "Something went wrong, please refresh the page and try again";
+        // Throw an exception and log it in the error_log_file.log file
+        $exceptionErrorMessage = $e->getMessage();
+        log_error($exceptionErrorMessage);
+    }
 }
