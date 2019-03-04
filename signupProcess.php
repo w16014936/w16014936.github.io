@@ -52,3 +52,4 @@ if (!empty($errors)) {
 <?php
 
 echo getHTMLFooter();
+getHTMLEnd();
