@@ -1,5 +1,12 @@
 'use strict';
 
+    var chartType          = document.getElementById('type'),
+	    smoothLines        = document.getElementById('smoothLines'),
+        smoothLineSlider   = document.getElementById('smoothLineSlider'),
+        pointRadiusSlider  = document.getElementById('pointRadiusSlider'),
+		fillSpace		   = document.getElementById('fillSpace');
+
+
     var jsonfile = {
         "jsonarray": [{
             "name": "Matthew",
@@ -38,7 +45,7 @@ var holidayData = jsonfile.jsonarray.map(function (e) {
 });
 
 
-var canvas = document.getElementById('canvas'),
+let canvas = document.getElementById('canvas'),
     context = canvas.getContext('2d');
 
 canvas.width = window.innerWidth;
@@ -106,28 +113,31 @@ var cfg = {
 };
 var chart = new Chart(context, cfg);
 
-document.getElementById('smoothLineSlider').addEventListener('change', function () {
+chartType.addEventListener('change', function () {
+	hideConfigElements(chartType, smoothLines, pointRadius, fillSpace);
+
+});
+
+smoothLineSlider.addEventListener('change', function () {
     //change each dataset
     chart.config.data.datasets.forEach(function(entry) {
-        updateSlider(entry, document.getElementById('smoothLineSlider'), document.getElementById('pointRadiusSlider'));
+        updateSlider(entry, smoothLineSlider, pointRadiusSlider);
     });
 });
 
-document.getElementById('pointRadiusSlider').addEventListener('change', function () {
+pointRadiusSlider.addEventListener('change', function () {
     //change each dataset
     chart.config.data.datasets.forEach(function(entry) {
-        updateSlider(entry, document.getElementById('smoothLineSlider'), document.getElementById('pointRadiusSlider'));
+        updateSlider(entry, smoothLineSlider, pointRadiusSlider);
     });
 });
 
 document.getElementById('reportUpdate').addEventListener('click', function () {
-
-    var type               = document.getElementById('type').value,
-        smoothLineSlider   = document.getElementById('smoothLineSlider'),
-        pointRadiusSlider  = document.getElementById('pointRadiusSlider'),
-        stackRadioBoolean  = document.getElementById('stackTrue').checked,
+		
+    var stackRadioBoolean  = document.getElementById('stackTrue').checked,
 		fillLinesBoolean   = document.getElementById('fillTrue').checked,
-		highContrastMode   = document.getElementById('highContrastTrue').checked;
+		highContrastMode   = document.getElementById('highContrastTrue').checked,
+		type 			   = chartType.value;
 
     //Update the graph config from input values
     cfg.type = type;
@@ -154,7 +164,7 @@ document.getElementById('reportUpdate').addEventListener('click', function () {
 
 document.getElementById('reportConfigContainer').addEventListener('click', function () {
 
-    setHighContrastMode(document.getElementById('highContrastTrue').checked, document.getElementById('type').value);
+    setHighContrastMode(document.getElementById('highContrastTrue').checked, chartType.value);
 
 });
 
@@ -182,5 +192,9 @@ function updateSlider(entry, sliderLineTension, sliderPointRadius){
     chart.update();
 }
 
-
-
+//hides line stiffness and point radius
+function hideConfigElements(chartType, smoothLines, pointRadius, fillSpace){
+	smoothLines.hidden = chartType.value === "bar";
+	pointRadius.hidden = chartType.value === "bar";
+	fillSpace.hidden   = chartType.value === "bar";
+}
