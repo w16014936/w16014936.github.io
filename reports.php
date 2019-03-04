@@ -93,3 +93,4 @@ echo getHTMLFooter();
 <?php
 
 echo getHTMLEnd();
+getHTMLEnd();

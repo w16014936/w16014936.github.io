@@ -80,3 +80,4 @@ if (!isset($loggedIn)){
 </div>
 <?php
 echo getHTMLFooter();
+getHTMLEnd();

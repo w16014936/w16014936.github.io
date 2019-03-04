@@ -411,21 +411,3 @@ function getUserRoles($dbConn, $loggedIn){
   }
 
 }
-
-// Connects to SQL database using PDO type connection
-function getConnection() {
-    try {
-        $connection = new PDO("mysql:host=localhost;dbname=unn_w16038628",
-            "unn_w16038628", "Northumbria1995");
-        $connection->setAttribute(PDO::ATTR_ERRMODE,
-            PDO::ERRMODE_EXCEPTION);
-        return $connection;
-        // Catch the exception
-    } catch (Exception $e) {
-        // Print a user friendly message
-        echo "Something went wrong, please refresh the page and try again";
-        // Throw an exception and log it in the error_log_file.log file
-        $exceptionErrorMessage = $e->getMessage();
-        log_error($exceptionErrorMessage);
-    }
-}
