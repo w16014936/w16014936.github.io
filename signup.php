@@ -1,6 +1,7 @@
 <?php
 require_once 'env/environment.php';
 require_once 'functions/functions.php';
+require_once 'class/PDODB.php';
 session_start();
 
 // Check for logged in user
@@ -25,10 +26,9 @@ if (!isset($loggedIn)) {
     echo getHTMLHeader($pageTitle, $loggedIn);
 }
 
-// Creates connection to database
-$db = getConnection();
-
 ?>
+    <!-- Get signupFormFunctions.js functions --->
+    <script type="text/javascript" src="js/signupFormFunctions.js"></script>
     <div class="jumbotron text-center">
         <?php
         // Create heading depending on chosen account type
@@ -47,6 +47,39 @@ $db = getConnection();
 
 
 <?php
+// ------------------------- SQL query to Retrieve departments, teams and jobs from database ----------------------- //
+// Creates connection to database
+$db = PDODB::getConnection();
+
+// Retrieve department ID's and names from database
+$departmentsSQL = "SELECT department_id, name
+                    FROM timesheets_department
+                    ORDER BY name";
+// Execute the statement
+$rsDepartments = $db->prepare($departmentsSQL);
+$rsDepartments->execute();
+$departmentResults = $rsDepartments->fetchAll();
+
+// Retrieve team ID's and names from database
+$teamsSQL = "SELECT team_id, department_id, name
+                FROM timesheets_team
+                ORDER BY name";
+// Execute the statement
+$rsTeams = $db->prepare($teamsSQL);
+$rsTeams->execute();
+$teamsResults = $rsTeams->fetchAll();
+
+
+// Retrieve job ID's and names from database
+$jobsSQL = "SELECT job_id, department_id, title
+                FROM timesheets_job
+                ORDER BY title";
+// Execute the statement
+$rsJobs = $db->prepare($jobsSQL);
+$rsJobs->execute();
+$jobsResults = $rsJobs->fetchAll();
+
+
 echo('
 <div class="container">
 <h4 class="formPage1 formTitles">Please enter a username and password:</h4>
@@ -165,11 +198,42 @@ echo('
                    <!------------------- Start form page 4 --------------------->
                    <div class="formPage4" id="formPage4" style="display:none">
                    <div class="form-group">
-                        <select class="form-control" name="jobID">
-                            <option value="1">Job 1</option>
-                            <option value="2">Job 2</option>
-                            <option value="3">Job 3</option>
-                            <option value="4">Job 4</option>
+                   <select id = "departmentSelect" class="form-control" name="departmentID">');
+                        // Iterate through department results
+                        foreach ($departmentResults as $row) {
+                            $departmentID = $row['department_id'];
+                            $departmentName = $row['name'];
+                            echo("
+                                    <option value='$departmentID'>$departmentName</option>
+                                ");
+                        }
+                    echo('
+                   </select>
+                   </div>
+                   <div class="form-group">
+                       <select id = "teamSelect" class="form-control" name="teamID">');
+                        // Iterate through teams results
+                        foreach ($teamsResults as $row) {
+                            $teamID = $row['team_id'];
+                            $teamDepartmentID = $row['department_id'];
+                            $teamName = $row['name'];
+                            // Assign team options to classes based on department ID's they belong to
+                            echo("<option class='teamSelects team-department-$teamDepartmentID' value='$teamID'>$teamName</option>");
+                        }
+                        echo('
+                       </select>
+                   </div>
+                   <div class="form-group">
+                        <select id = "jobSelect" class="form-control" name="jobID">');
+                        // Iterate through jobs results
+                        foreach ($jobsResults as $row) {
+                            $jobID = $row['job_id'];
+                            $jobDepartmentID = $row['department_id'];
+                            $jobName = $row['title'];
+                            // Assign job options to classes based on department ID's they belong to
+                            echo("<option class='jobSelects job-department-$jobDepartmentID' value='$jobID'>$jobName</option>");
+                        }
+                        echo('
                         </select>
                    </div>
                    <div class="form-group">
@@ -177,22 +241,8 @@ echo('
                                name="contractedHours" />
                                <p id="contractedHoursValidationMsg" class="formPage4 formErrorMessages" style="display: none"></p>
                    </div>
-                   <div class="form-group">
-                       <select class="form-control" name="teamID">
-                            <option value="1">Team 1</option>
-                            <option value="2">Team 2</option> 
-                            <option value="3">Team 3</option> 
-                            <option value="4">Team 4</option>
-                       </select>
-                   </div>
-                   <div class="form-group">
-                       <select class="form-control" name="departmentID">
-                            <option value="1">Department 1</option>
-                            <option value="2">Department 2</option> 
-                            <option value="3">Department 3</option> 
-                            <option value="4">Department 4</option>
-                       </select>
-                   </div>
+                   
+                   
                   <span onclick="returnPage3()" id="returnPage3Button" class="formButtons formPage4">Go to page 3</span>
                   <span onclick="submitForm()" id="submitFormButton" class="formButtons formPage4">Submit Form</span>
                    
@@ -230,6 +280,9 @@ echo('
         validateFormPage2();
         validateFormPage3();
         validateFormPage4();
+
+        // Do initial call to hide non relevant selects
+        hideSelectBoxes();
     </script>
 
 
@@ -245,4 +298,4 @@ if (!empty($errors)) {
 <?php
 
 echo getHTMLFooter();
-getHTMLEnd();
+echo getHTMLEnd();
