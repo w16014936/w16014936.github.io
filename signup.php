@@ -209,6 +209,7 @@ echo('
                         }
                     echo('
                    </select>
+                   <p id="departmentSelectValidationMsg" class="formPage4 formErrorMessages" style="display: none"></p>
                    </div>
                    <div class="form-group">
                        <select id = "teamSelect" class="form-control" name="teamID">');
@@ -222,6 +223,7 @@ echo('
                         }
                         echo('
                        </select>
+                       <p id="teamSelectValidationMsg" class="formPage4 formErrorMessages" style="display: none"></p>
                    </div>
                    <div class="form-group">
                         <select id = "jobSelect" class="form-control" name="jobID">');
@@ -235,6 +237,7 @@ echo('
                         }
                         echo('
                         </select>
+                        <p id="jobSelectValidationMsg" class="formPage4 formErrorMessages" style="display: none"></p>
                    </div>
                    <div class="form-group">
                         <input type="number" min="0" id="contractedHours" class="form-control" placeholder="Contracted Hours"

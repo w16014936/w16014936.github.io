@@ -488,17 +488,44 @@ function validateFormPage3() {
 function validateFormPage4() {
 
     // Assign relevant form elements to variables
+    var departmentSelect = document.getElementById("departmentSelect");
+    var teamSelect = document.getElementById("teamSelect");
+    var jobSelect = document.getElementById("jobSelect");
     var contractedHours = document.getElementById("contractedHours");
 
     // Assign validate error message elements to variables
+    var departmentSelectValidationMsg = document.getElementById("departmentSelectValidationMsg");
+    var teamSelectValidationMsg = document.getElementById("teamSelectValidationMsg");
+    var jobSelectValidationMsg = document.getElementById("jobSelectValidationMsg");
     var contractedHoursValidationMsg = document.getElementById("contractedHoursValidationMsg");
 
     // Run relevant validation of keyup of respective elements
+    departmentSelect.onchange = validateDepartment;
     contractedHours.onchange = validateContractedHours;
     contractedHours.onkeyup = validateContractedHours;
 
     // Do initial call to functions
     validateContractedHours();
+
+    function validateDepartment() {
+        if (departmentSelect.selectedIndex == -1) {
+            departmentSelect.style.borderColor = "#f20014";
+            departmentSelectValidationMsg.innerHTML = "This field cannot be left blank &#10008";
+            departmentSelectValidationMsg.style.display = "block";
+        } else {
+            departmentSelect.style.borderColor = "#0a9800";
+            departmentSelectValidationMsg.innerHTML = "Field is OK &#10004";
+            departmentSelectValidationMsg.style.display = "block";
+        }
+    }
+
+    function validateTeam() {
+
+    }
+
+    function validateJob() {
+
+    }
 
     function validateContractedHours() {
         if (contractedHours.value == null || contractedHours.value == "") {
@@ -518,6 +545,7 @@ function validateFormPage4() {
             return false;
         }
     }
+
 
     // If validation fails, return false
     if (validateContractedHours()) {
