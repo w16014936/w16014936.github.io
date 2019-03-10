@@ -8,6 +8,7 @@
 
 require_once 'env/environment.php';
 require_once 'functions/functions.php';
+require_once 'class/PDODB.php';
 session_start();
 
 // Check for logged in user
@@ -33,7 +34,7 @@ if (!isset($loggedIn)) {
 }
 
 // Creates connection to database
-$db = getConnection();
+$db = PDODB::getConnection();
 
 ?>
 

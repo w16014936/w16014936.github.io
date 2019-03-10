@@ -1,10 +1,11 @@
 <?php
 // Load functions.php
 require_once('functions/functions.php');
+require_once ('class/PDODB.php');
 $term = isset($_REQUEST['term']) ? $_REQUEST['term'] : null;
 
 // Creates connection to database
-$db = getConnection();
+$db = PDODB::getConnection();
 // SELECT userID and username from timesheets_user
 $sqlQuery = "SELECT userID as ID, 
               username as value

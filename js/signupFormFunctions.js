@@ -138,7 +138,6 @@ function returnPage2() {
 
 // Go to page 4 of the form
 function goSignUpPage4() {
-
     if (validateFormPage3()) {
         var formPageThreeElements = document.getElementsByClassName("formPage3");
         var formPageFourElements = document.getElementsByClassName("formPage4");
@@ -451,8 +450,7 @@ function validateFormPage3() {
             address1ValidationMsg.innerHTML = "This field cannot be left blank &#10008";
             address1ValidationMsg.style.display = "block";
             return true;
-        }
-        else {
+        } else {
             address1.style.borderColor = "#0a9800";
             address1ValidationMsg.innerHTML = "Field is OK &#10004";
             address1ValidationMsg.style.display = "block";
@@ -501,6 +499,10 @@ function validateFormPage4() {
 
     // Run relevant validation of keyup of respective elements
     departmentSelect.onchange = validateDepartment;
+    // departmentSelect.onchange = validateTeam;
+    // departmentSelect.onchange = validateJob;
+    teamSelect.onchange = validateTeam;
+    jobSelect.onchange = validateJob;
     contractedHours.onchange = validateContractedHours;
     contractedHours.onkeyup = validateContractedHours;
 
@@ -508,23 +510,51 @@ function validateFormPage4() {
     validateContractedHours();
 
     function validateDepartment() {
-        if (departmentSelect.selectedIndex == -1) {
+        validateTeam();
+        validateJob();
+        if (departmentSelect.selectedIndex == -1 || departmentSelect.value == "") {
             departmentSelect.style.borderColor = "#f20014";
             departmentSelectValidationMsg.innerHTML = "This field cannot be left blank &#10008";
             departmentSelectValidationMsg.style.display = "block";
+            return true;
         } else {
             departmentSelect.style.borderColor = "#0a9800";
             departmentSelectValidationMsg.innerHTML = "Field is OK &#10004";
             departmentSelectValidationMsg.style.display = "block";
+            return false;
         }
     }
 
     function validateTeam() {
-
+        console.log("validate team called");
+        console.log("Selected team:" + teamSelect.selectedIndex);
+        if (teamSelect.selectedIndex == -1 || teamSelect.value == "") {
+            teamSelect.style.borderColor = "#f20014";
+            teamSelectValidationMsg.innerHTML = "This field cannot be left blank &#10008";
+            teamSelectValidationMsg.style.display = "block";
+            return true;
+        } else {
+            teamSelect.style.borderColor = "#0a9800";
+            teamSelectValidationMsg.innerHTML = "Field is OK &#10004";
+            teamSelectValidationMsg.style.display = "block";
+            return false;
+        }
     }
 
     function validateJob() {
-
+        console.log("Validate job called");
+        console.log("Selected job:" + jobSelect.selectedIndex);
+        if (jobSelect.selectedIndex == -1 || jobSelect.value == "") {
+            jobSelect.style.borderColor = "#f20014";
+            jobSelectValidationMsg.innerHTML = "This field cannot be left blank &#10008";
+            jobSelectValidationMsg.style.display = "block";
+            return true;
+        } else {
+            jobSelect.style.borderColor = "#0a9800";
+            jobSelectValidationMsg.innerHTML = "Field is OK &#10004";
+            jobSelectValidationMsg.style.display = "block";
+            return false;
+        }
     }
 
     function validateContractedHours() {
@@ -547,8 +577,8 @@ function validateFormPage4() {
     }
 
 
-    // If validation fails, return false
-    if (validateContractedHours()) {
+    // If any validation fails, return false
+    if (validateDepartment() || validateTeam() || validateJob() || validateContractedHours()) {
         return false;
     } else { // Else validation passed, return true
         return true;
@@ -616,6 +646,7 @@ function hideSelectBoxes() {
 // ----------------------------------- SUBMIT FORM --------------------------------------------//
 function submitForm() {
     var signUpForm = document.getElementById("signUpForm");
+    // If form page 4 is valid, submit form
     if (validateFormPage4()) {
         alert("Form submitted!");
         signUpForm.submit();
