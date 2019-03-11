@@ -43,28 +43,26 @@ if (!isset($loggedIn)){
 <div class="jumbotron text-center">
   <h1><?php echo $pageTitle;?></h1>
 </div>
-		<?php
+<?php
 
-		// If not logged in show text
-		if (isset($errorText)){
-		  echo "<p>$errorText</p>";
+// If not logged in show text
+if (isset($errorText)){
+	echo "<p>$errorText</p>";
 
-		} else{
-			// The main page content if user has correct permissions
-		?>
+} else{
+	// The main page content if user has correct permissions
+	?>
 	<div id="reportMain" class="row">
 		<div id="reportConfigContainer col-sm-3">
 			<h4>Report Configuration</h4>
-            <div class="reportConfig">
-                Start Date:
-                    <input type="date" name="startDate" id="startDate">
-            </div>
-            <div class="reportConfig">
-                Start Date:
-                <input type="date" name="endDate" id="endDate">
-            </div>
 			<div class="reportConfig">
-				Chart Type:
+					<label>Start Date:</label><input type="date" name="startDate" id="startDate">
+			</div>
+			<div class="reportConfig">
+					<label>End Date:</label><input type="date" name="endDate" id="endDate">
+			</div>
+			<div class="reportConfig">
+				<label>Chart Type:</label>
 				<select id="type">
 					<option value="bar">Vertical Bar</option>
 					<option value="line">Line</option>
@@ -74,19 +72,19 @@ if (!isset($loggedIn)){
 			</div>
 			<div class="reportConfig">
 				<form>
-					High Contrast Mode:
+					<label>High Contrast Mode:</label>
 					<input type="radio" name="highContrast" id="highContrastTrue">Yes <input type="radio" name="highContrast" checked="checked">No
 				</form>
 			</div>
 			<div class="reportConfig">
 				<form id ="stackRadio">
-					Stack the data:
+					<label>Stack the data:</label>
 					<input type="radio" name="stack" id="stackTrue" checked="checked">Yes <input type="radio" name="stack" id="stackFalse">No
 				</form>
 			</div>
 			<div class="reportConfig">
 				<form id ="smoothLines">
-					Line Stiffness:
+					<label>Line Stiffness:</label>
 					<div class="range-slider">
 						<input id="smoothLineSlider" class="rs-range" type="range" value="0.5" min="0.25" max="1" step="0.01">
 					</div>
@@ -94,7 +92,7 @@ if (!isset($loggedIn)){
 			</div>
 			<div class="reportConfig">
 				<form id ="pointRadius">
-					Point Radius:
+					<label>Point Radius:</label>
 					<div class="range-slider">
 						<input id="pointRadiusSlider" class="rs-range" type="range" value="5" min="0" max="10" step="1">
 					</div>
@@ -102,7 +100,7 @@ if (!isset($loggedIn)){
 			</div>
 			<div class="reportConfig">
 				<form id ="fillSpace">
-					Fill space:
+					<label>Fill space:</label>
 					<input type="radio" name="fillLines" id="fillTrue" checked="checked">Yes <input type="radio" name="fillLines">No
 				</form>
 			</div>
@@ -114,13 +112,13 @@ if (!isset($loggedIn)){
 			<canvas id="canvas"></canvas>
 		</div>
     </div>
-<?php
-    }
+	<?php
+}
 echo getHTMLFooter();
 
-    ?>
-    <script src="js/utils.js"></script>
-    <script src="js/libraries/Chart.min.js" type="text/javascript"></script>
-    <script src="js/graphs.js" type="text/javascript"></script>
+?>
+<script src="js/utils.js"></script>
+<script src="js/libraries/Chart.min.js" type="text/javascript"></script>
+<script src="js/graphs.js" type="text/javascript"></script>
 <?php
 echo getHTMLEnd();
