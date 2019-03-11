@@ -55,6 +55,14 @@ if (!isset($loggedIn)){
 	<div id="reportMain" class="row">
 		<div id="reportConfigContainer col-sm-3">
 			<h4>Report Configuration</h4>
+            <div class="reportConfig">
+                Start Date:
+                    <input type="date" name="startDate" id="startDate">
+            </div>
+            <div class="reportConfig">
+                Start Date:
+                <input type="date" name="endDate" id="endDate">
+            </div>
 			<div class="reportConfig">
 				Chart Type:
 				<select id="type">

@@ -4,7 +4,9 @@
 	    smoothLines        = document.getElementById('smoothLines'),
         smoothLineSlider   = document.getElementById('smoothLineSlider'),
         pointRadiusSlider  = document.getElementById('pointRadiusSlider'),
-		fillSpace		   = document.getElementById('fillSpace');
+		fillSpace		   = document.getElementById('fillSpace'),
+        startDatePicker    = document.getElementById('startDate'),
+        endDatePicker      = document.getElementById('endDate');
 
 
     var jsonfile = {
@@ -45,7 +47,7 @@ var holidayData = jsonfile.jsonarray.map(function (e) {
 });
 
 
-let canvas = document.getElementById('canvas'),
+var canvas = document.getElementById('canvas'),
     context = canvas.getContext('2d');
 
 canvas.width = window.innerWidth;
@@ -105,13 +107,21 @@ var cfg = {
                 },
                 scaleLabel: {
                     display: true,
-                    labelString: 'Total Hours',
+                    labelString: 'Total Hours'
                 }
             }]
         }
     }
 };
 var chart = new Chart(context, cfg);
+
+document.addEventListener("DOMContentLoaded", function(){
+
+    var currentDate = new Date();
+    // startDatePicker.valueAsDate = currentDate.setDate(currentDate.getDate()-7);
+    endDatePicker.valueAsDate   = currentDate;
+
+});
 
 chartType.addEventListener('change', function () {
 	hideConfigElements(chartType, smoothLines, pointRadius, fillSpace);
