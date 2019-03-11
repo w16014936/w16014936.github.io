@@ -213,6 +213,8 @@ echo('
                    </div>
                    <div class="form-group">
                        <select id = "teamSelect" class="form-control" name="teamID">');
+// Set default value
+echo("<option class='teamSelects' value='' selected disabled hidden>Select a Team</option>");
                         // Iterate through teams results
                         foreach ($teamsResults as $row) {
                             $teamID = $row['team_id'];
@@ -227,6 +229,8 @@ echo('
                    </div>
                    <div class="form-group">
                         <select id = "jobSelect" class="form-control" name="jobID">');
+                        // Set default value
+                        echo("<option class='jobSelects' value='' selected disabled hidden>Select a Job</option>");
                         // Iterate through jobs results
                         foreach ($jobsResults as $row) {
                             $jobID = $row['job_id'];
@@ -286,6 +290,10 @@ echo('
 
         // Do initial call to hide non relevant selects
         hideSelectBoxes();
+
+        // Change default selected index of team and job select boxes
+        changeDefaultSelection("teamSelect", -1);
+        changeDefaultSelection("jobSelect", -1);
     </script>
 
 

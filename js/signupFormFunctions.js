@@ -5,6 +5,15 @@
 "use strict";
 var usernameTaken = false;
 
+// ---------------------------- CHANGE DEFAULT SELECTIONS OF FORM ---------------------------- //
+function changeDefaultSelection(selectID, newSelectValue) {
+    var selectElement = document.getElementById(selectID);
+    selectElement.selectedIndex = newSelectValue;
+}
+
+// -------------------------------- END CHANGE DEFAULT SELECTIONS  -------------------------- //
+
+
 // ------------------------------------ SIGN UP FORM NAVIGATION ---------------------------- //
 // Go to page 2 of the form
 function goSignUpPage2() {
@@ -526,8 +535,6 @@ function validateFormPage4() {
     }
 
     function validateTeam() {
-        console.log("validate team called");
-        console.log("Selected team:" + teamSelect.selectedIndex);
         if (teamSelect.selectedIndex == -1 || teamSelect.value == "") {
             teamSelect.style.borderColor = "#f20014";
             teamSelectValidationMsg.innerHTML = "This field cannot be left blank &#10008";
@@ -542,8 +549,6 @@ function validateFormPage4() {
     }
 
     function validateJob() {
-        console.log("Validate job called");
-        console.log("Selected job:" + jobSelect.selectedIndex);
         if (jobSelect.selectedIndex == -1 || jobSelect.value == "") {
             jobSelect.style.borderColor = "#f20014";
             jobSelectValidationMsg.innerHTML = "This field cannot be left blank &#10008";
@@ -610,7 +615,6 @@ function hideSelectBoxes() {
         // Get the ID of the selected department
         var selectedDepartmentID = departmentSelect.options[departmentSelect.selectedIndex].value;
 
-
         // Disable all team and job selects
         for (var i = 0; i < teamSelects.length; i++) {
             teamSelects[i].disabled = true;
@@ -637,6 +641,8 @@ function hideSelectBoxes() {
             allowedJobs[z].disabled = false;
             allowedJobs[z].hidden = false;
         }
+
+        validateFormPage4();
     }
 }
 
