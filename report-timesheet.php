@@ -52,66 +52,69 @@ if (isset($errorText)){
 } else{
 	// The main page content if user has correct permissions
 	?>
-	<div id="reportMain" class="row">
-		<div id="reportConfigContainer col-sm-3">
-			<h4>Report Configuration</h4>
-			<div class="reportConfig">
+	<!--<div id="reportMain" class="row">-->
+	<div class="container">
+		<div class="row">
+			<div id="reportConfigContainer" class="col-md-2">
+				<h4>Report Configuration</h4>
+				<div class="reportConfig">
 					<label>Start Date:</label><input type="date" name="startDate" id="startDate">
-			</div>
-			<div class="reportConfig">
+				</div>
+				<div class="reportConfig">
 					<label>End Date:</label><input type="date" name="endDate" id="endDate">
+				</div>
+				<div class="reportConfig">
+					<label>Chart Type:</label>
+					<select id="type">
+						<option value="bar">Vertical Bar</option>
+						<option value="line">Line</option>
+						<option value="polarArea">Polar Area</option>
+						<option value="radar">Radar</option>
+					</select>
+				</div>
+				<div class="reportConfig">
+					<form>
+						<label>High Contrast Mode:</label>
+						<input type="radio" name="highContrast" id="highContrastTrue">Yes <input type="radio" name="highContrast" checked="checked">No
+					</form>
+				</div>
+				<div class="reportConfig">
+					<form id ="stackRadio">
+						<label>Stack the data:</label>
+						<input type="radio" name="stack" id="stackTrue" checked="checked">Yes <input type="radio" name="stack" id="stackFalse">No
+					</form>
+				</div>
+				<div class="reportConfig">
+					<form id ="smoothLines">
+						<label>Line Stiffness:</label>
+						<div class="range-slider">
+							<input id="smoothLineSlider" class="rs-range" type="range" value="0.5" min="0.25" max="1" step="0.01">
+						</div>
+					</form>
+				</div>
+				<div class="reportConfig">
+					<form id ="pointRadius">
+						<label>Point Radius:</label>
+						<div class="range-slider">
+							<input id="pointRadiusSlider" class="rs-range" type="range" value="5" min="0" max="10" step="1">
+						</div>
+					</form>
+				</div>
+				<div class="reportConfig">
+					<form id ="fillSpace">
+						<label>Fill space:</label>
+						<input type="radio" name="fillLines" id="fillTrue" checked="checked">Yes <input type="radio" name="fillLines">No
+					</form>
+				</div>
+				<div class="reportConfig">
+					<button id="reportUpdate">Generate Graph</button>
+				</div>
 			</div>
-			<div class="reportConfig">
-				<label>Chart Type:</label>
-				<select id="type">
-					<option value="bar">Vertical Bar</option>
-					<option value="line">Line</option>
-					<option value="polarArea">Polar Area</option>
-					<option value="radar">Radar</option>
-				</select>
+			<div id="reportCanvas" class="col-md-10"> 
+				<canvas id="canvas"></canvas>
 			</div>
-			<div class="reportConfig">
-				<form>
-					<label>High Contrast Mode:</label>
-					<input type="radio" name="highContrast" id="highContrastTrue">Yes <input type="radio" name="highContrast" checked="checked">No
-				</form>
-			</div>
-			<div class="reportConfig">
-				<form id ="stackRadio">
-					<label>Stack the data:</label>
-					<input type="radio" name="stack" id="stackTrue" checked="checked">Yes <input type="radio" name="stack" id="stackFalse">No
-				</form>
-			</div>
-			<div class="reportConfig">
-				<form id ="smoothLines">
-					<label>Line Stiffness:</label>
-					<div class="range-slider">
-						<input id="smoothLineSlider" class="rs-range" type="range" value="0.5" min="0.25" max="1" step="0.01">
-					</div>
-				</form>
-			</div>
-			<div class="reportConfig">
-				<form id ="pointRadius">
-					<label>Point Radius:</label>
-					<div class="range-slider">
-						<input id="pointRadiusSlider" class="rs-range" type="range" value="5" min="0" max="10" step="1">
-					</div>
-				</form>
-			</div>
-			<div class="reportConfig">
-				<form id ="fillSpace">
-					<label>Fill space:</label>
-					<input type="radio" name="fillLines" id="fillTrue" checked="checked">Yes <input type="radio" name="fillLines">No
-				</form>
-			</div>
-			<div class="reportConfig">
-				<button id="reportUpdate">Generate Graph</button>
-			</div>
-		</div>
-		<div id="reportCanvas col-sm-9">
-			<canvas id="canvas"></canvas>
-		</div>
     </div>
+	</div>
 	<?php
 }
 echo getHTMLFooter();

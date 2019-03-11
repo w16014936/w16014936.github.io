@@ -7,14 +7,16 @@
     font-size: 40px;
 }
 
+.btn-select-role {
+    margin: 10px 0;
+}
+
+/*
 #reportMain {
     width: 100%;
     display: table;
 }
 
-.btn-select-role {
-    margin: 10px 0;
-}
 
 #reportConfigContainer{
     position: relative;
@@ -38,6 +40,10 @@
 }
 #canvas{
     width: 100%;
+} */
+
+#reportCanvas{
+    margin-top: 35px;
 }
 
 body {
@@ -50,13 +56,13 @@ html {
 }
 
 footer {
-    position: absolute;
-    left: 0;
-    bottom: 0;
     background-color: #343a40;
     color: #9b9b9b;
     opacity: 0.5;
     width: 100%;
+    margin-top: 35px;
+    padding: 50px;
+    text-align:center;
 
 }
 
