@@ -42,25 +42,26 @@ function getHTMLHeader($pageTitle, $loggedIn){
     <script src="js/functions.js"></script>
   </head>
   <body>
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-      <a class="navbar-brand" href="index.php"><i class="far fa-calendar-alt"></i></a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarText">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="index.php">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="pricing.php">Pricing</a>
-          </li>
-          <li class="nav-item">
-            $logged
-          </li>
-        </ul>
-      </div>
-    </nav>
+    <div id="wrapper">
+      <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+        <a class="navbar-brand" href="index.php"><i class="far fa-calendar-alt"></i></a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarText">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="index.php">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="pricing.php">Pricing</a>
+            </li>
+            <li class="nav-item">
+              $logged
+            </li>
+          </ul>
+        </div>
+      </nav>
 HEADER;
 
     return $header;
@@ -99,34 +100,35 @@ function getHTMLUserHeader($pageTitle, $loggedIn){
     <script src="js/bootstrap.min.js"></script>
   </head>
   <body>
-  <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-    <a class="navbar-brand" href="index.php">
-      <i class="far fa-calendar-alt"></i>
-    </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainNavigation" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="mainNavigation">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item">
-          <a class="nav-link" href="index.php">Home</a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link" href="manage-my-account.php">My Account</a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="timesheetDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Timesheets</a>
-          <div class="dropdown-menu" aria-labelledby="timesheetDropdown">
-            <a class="dropdown-item" href="new-timesheet.php">New Timesheet</a>
-            <a class="dropdown-item" href="past-timesheet.php">Past Timesheets</a>
-          </div>
-        </li>
-        <li class="nav-item">
-          $logged
-        </li>
-      </ul>
-    </div>
-  </nav>
+  <div id="wrapper">
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+      <a class="navbar-brand" href="index.php">
+        <i class="far fa-calendar-alt"></i>
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainNavigation" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="mainNavigation">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="index.php">Home</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link" href="manage-my-account.php">My Account</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="timesheetDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Timesheets</a>
+            <div class="dropdown-menu" aria-labelledby="timesheetDropdown">
+              <a class="dropdown-item" href="new-timesheet.php">New Timesheet</a>
+              <a class="dropdown-item" href="past-timesheet.php">Past Timesheets</a>
+            </div>
+          </li>
+          <li class="nav-item">
+            $logged
+          </li>
+        </ul>
+      </div>
+    </nav>
 HEADER;
 
   return $header;
@@ -163,77 +165,78 @@ function getHTMLAdminHeader($pageTitle, $loggedIn){
     <script src="js/libraries/bootstrap.min.js"></script>
   </head>
   <body>
-  <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-    <a class="navbar-brand" href="index.php">
-      <i class="far fa-calendar-alt"></i>
-    </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainNavigation" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="mainNavigation">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item">
-          <a class="nav-link" href="index.php">Home</a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="accountDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Account</a>
-          <div class="dropdown-menu" aria-labelledby="accountDropdown">
-            <a class="dropdown-item" href="manage-account.php">Manage Account</a>
-            <a class="dropdown-item" href="create-account.php">Create Account</a>
-          </div>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="activityDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Activities</a>
-          <div class="dropdown-menu" aria-labelledby="activityDropdown">
-            <a class="dropdown-item" href="manage-activity.php">Manage Activities</a>
-            <a class="dropdown-item" href="create-activity.php">Create Activity</a>
-          </div>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="departmentDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Departments</a>
-          <div class="dropdown-menu" aria-labelledby="departmentDropdown">
-            <a class="dropdown-item" href="manage-department.php">Manage Departments</a>
-            <a class="dropdown-item" href="create-department.php">Create Department</a>
-          </div>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="jobDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Jobs</a>
-          <div class="dropdown-menu" aria-labelledby="jobDropdown">
-            <a class="dropdown-item" href="manage-job.php">Manage Jobs</a>
-            <a class="dropdown-item" href="create-job.php">Create Job</a>
-          </div>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="projectDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Projects</a>
-          <div class="dropdown-menu" aria-labelledby="projectDropdown">
-            <a class="dropdown-item" href="manage-project.php">Manage Projects</a>
-            <a class="dropdown-item" href="create-project.php">Create Projects</a>
-          </div>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="teamDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Teams</a>
-          <div class="dropdown-menu" aria-labelledby="teamDropdown">
-            <a class="dropdown-item" href="manage-team.php">Manage Teams</a>
-            <a class="dropdown-item" href="create-team.php">Create Team</a>
-          </div>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="timesheetDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Timesheets</a>
-          <div class="dropdown-menu" aria-labelledby="timesheetDropdown">
-            <a class="dropdown-item" href="manage-timesheet.php">Manage Timesheets</a>
-            <a class="dropdown-item" href="create-timesheet.php">Create Timesheets</a>
-            <a class="dropdown-item" href="report-timesheet.php">Reports</a>
-          </div>
-        </li>
-        <li class="nav-item">
-          $logged
-        </li>
-      </ul>
-    </div>
-  </nav>
+  <div id="wrapper">
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+      <a class="navbar-brand" href="index.php">
+        <i class="far fa-calendar-alt"></i>
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainNavigation" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="mainNavigation">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="index.php">Home</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="accountDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Account</a>
+            <div class="dropdown-menu" aria-labelledby="accountDropdown">
+              <a class="dropdown-item" href="manage-account.php">Manage Account</a>
+              <a class="dropdown-item" href="create-account.php">Create Account</a>
+            </div>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="activityDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Activities</a>
+            <div class="dropdown-menu" aria-labelledby="activityDropdown">
+              <a class="dropdown-item" href="manage-activity.php">Manage Activities</a>
+              <a class="dropdown-item" href="create-activity.php">Create Activity</a>
+            </div>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="departmentDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Departments</a>
+            <div class="dropdown-menu" aria-labelledby="departmentDropdown">
+              <a class="dropdown-item" href="manage-department.php">Manage Departments</a>
+              <a class="dropdown-item" href="create-department.php">Create Department</a>
+            </div>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="jobDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Jobs</a>
+            <div class="dropdown-menu" aria-labelledby="jobDropdown">
+              <a class="dropdown-item" href="manage-job.php">Manage Jobs</a>
+              <a class="dropdown-item" href="create-job.php">Create Job</a>
+            </div>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="projectDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Projects</a>
+            <div class="dropdown-menu" aria-labelledby="projectDropdown">
+              <a class="dropdown-item" href="manage-project.php">Manage Projects</a>
+              <a class="dropdown-item" href="create-project.php">Create Projects</a>
+            </div>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="teamDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Teams</a>
+            <div class="dropdown-menu" aria-labelledby="teamDropdown">
+              <a class="dropdown-item" href="manage-team.php">Manage Teams</a>
+              <a class="dropdown-item" href="create-team.php">Create Team</a>
+            </div>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="timesheetDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Timesheets</a>
+            <div class="dropdown-menu" aria-labelledby="timesheetDropdown">
+              <a class="dropdown-item" href="manage-timesheet.php">Manage Timesheets</a>
+              <a class="dropdown-item" href="create-timesheet.php">Create Timesheets</a>
+              <a class="dropdown-item" href="report-timesheet.php">Reports</a>
+            </div>
+          </li>
+          <li class="nav-item">
+            $logged
+          </li>
+        </ul>
+      </div>
+    </nav>
 HEADER;
 
-    return $header;
+  return $header;
 }
 
 // Adds footer to page
@@ -247,8 +250,9 @@ function getHTMLFooter() {
 // Ends the html page a
 function getHTMLEnd() {
     return "
+      </div>
     </body>
-    </html>";
+  </html>";
 }
 
 
