@@ -411,3 +411,91 @@ function getUserRoles($dbConn, $loggedIn){
   }
 
 }
+
+function getDepartments($dbConn, $loggedIn){
+
+
+    // Try to carry out the database search
+    try{
+        $sqlQuery = "SELECT timesheets_department.department_id,
+                            timesheets_department.name
+                            FROM timesheets_department";
+
+        $stmt = $dbConn->prepare($sqlQuery);
+        $stmt->execute(array(':username' => $loggedIn));
+        $rows = $stmt->fetchAll();
+
+        // Check the query returned some results
+        if($stmt->rowCount() > 0){
+
+            $department_ids = array();
+            $department_names = array();
+
+
+
+            // Loop through resultsstmt
+            foreach($rows as $row){
+                array_push($department_ids, $row['department_id']);
+                array_push($department_names, $row['name']);
+            }
+
+        } else{
+            $error = "Sorry, it appears you don't have a role associated with your account. Please contact your admnistrator to receive a role.";
+        }
+
+        // Log the exception
+    } catch(Exception $e){
+        $retval =  "<p>Query failed: " . $e->getMessage() . "</p>\n";
+    }
+
+    if (!empty($error)){
+        return $error;
+    } else{
+        return array_combine($department_ids, $department_names);
+    }
+
+}
+
+function getProjects($dbConn, $loggedIn){
+
+
+    // Try to carry out the database search
+    try{
+        $sqlQuery = "SELECT timesheets_project.project_id,
+                            timesheets_project.name
+                            FROM timesheets_project";
+
+        $stmt = $dbConn->prepare($sqlQuery);
+        $stmt->execute(array(':username' => $loggedIn));
+        $rows = $stmt->fetchAll();
+
+        // Check the query returned some results
+        if($stmt->rowCount() > 0){
+
+            $project_ids = array();
+            $project_names = array();
+
+
+
+            // Loop through resultsstmt
+            foreach($rows as $row){
+                array_push($project_ids, $row['project_id']);
+                array_push($project_names, $row['name']);
+            }
+
+        } else{
+            $error = "Sorry, it appears you don't have a role associated with your account. Please contact your admnistrator to receive a role.";
+        }
+
+        // Log the exception
+    } catch(Exception $e){
+        $retval =  "<p>Query failed: " . $e->getMessage() . "</p>\n";
+    }
+
+    if (!empty($error)){
+        return $error;
+    } else{
+        return array_combine($project_ids, $project_names);
+    }
+
+}

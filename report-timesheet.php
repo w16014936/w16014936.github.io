@@ -20,6 +20,10 @@ $pageTitle = 'Report Timesheet';
 // Check the user role of the logged in user
 $userRole = isset($_SESSION['role']) ? $_SESSION['role'] : null;
 
+$departments = getDepartments($dbConn, $loggedIn);
+$projects = getProjects($dbConn, $loggedIn);
+
+
 // Get the correcct page header depending on the users current role
 // If user is not logged in display message to user telling them to log in
 if (!isset($loggedIn)){
@@ -41,7 +45,7 @@ if (!isset($loggedIn)){
   
 ?>
 <div class="jumbotron text-center">
-  <h1><?php echo $pageTitle;?></h1>
+  <h1><?php echo $pageTitle?></h1>
 </div>
 <?php
 
@@ -73,6 +77,14 @@ if (isset($errorText)){
                 </div>
                 <select class="custom-select" id="department">
                     <option value="all">All</option>
+                    <?php
+                        // Loop though each of the roles to get type and id
+                        Foreach ($departments as $key => $value) {
+                            echo "<option value=" . $key . ">" . $value . "</option>";
+                        }
+
+
+                    ?>
                 </select>
             </div>
             <div class="reportConfig form-group row">
@@ -81,6 +93,14 @@ if (isset($errorText)){
                 </div>
                 <select class="custom-select" id="project">
                     <option value="all">All</option>
+                    <?php
+                    // Loop though each of the roles to get type and id
+                    Foreach ($projects as $key => $value) {
+                        echo "<option value=" . $key . ">" . $value . "</option>";
+                    }
+
+
+                    ?>
                 </select>
             </div>
             <div class="reportConfig form-group row">
