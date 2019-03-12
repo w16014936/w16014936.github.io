@@ -45,7 +45,7 @@
          <li>Email support</li>
          <li>Help center access</li>
        </ul>
-         <button type="button" onclick="window.location.href='signup.php?accountType=1'" class="btn btn-lg btn-block btn-outline-primary">Sign up for free</button>
+         <button type="button" onclick="window.location.href='create-account.php?accountType=1'" class="btn btn-lg btn-block btn-outline-primary">Sign up for free</button>
      </div>
    </div>
    <div class="card mb-4 shadow-sm">
@@ -60,7 +60,7 @@
          <li>Priority email support</li>
          <li>Help center access</li>
        </ul>
-         <button type="button" onclick="window.location.href='signup.php?accountType=2'" class="btn btn-lg btn-block btn-primary">Get started</button>
+         <button type="button" onclick="window.location.href='create-account.php?accountType=2'" class="btn btn-lg btn-block btn-primary">Get started</button>
      </div>
    </div>
    <div class="card mb-4 shadow-sm">
