@@ -52,70 +52,121 @@ if (isset($errorText)){
 } else{
 	// The main page content if user has correct permissions
 	?>
-	<!--<div id="reportMain" class="row">-->
-	<div class="container">
-		<div class="row">
-			<div id="reportConfigContainer" class="col-md-2">
-				<h4>Report Configuration</h4>
-				<div class="reportConfig">
-					<label>Start Date:</label><input type="date" name="startDate" id="startDate">
-				</div>
-				<div class="reportConfig">
-					<label>End Date:</label><input type="date" name="endDate" id="endDate">
-				</div>
-				<div class="reportConfig">
-					<label>Chart Type:</label>
-					<select id="type">
-						<option value="bar">Vertical Bar</option>
-						<option value="line">Line</option>
-						<option value="polarArea">Polar Area</option>
-						<option value="radar">Radar</option>
-					</select>
-				</div>
-				<div class="reportConfig">
-					<form>
-						<label>High Contrast Mode:</label>
-						<input type="radio" name="highContrast" id="highContrastTrue">Yes <input type="radio" name="highContrast" checked="checked">No
-					</form>
-				</div>
-				<div class="reportConfig">
-					<form id ="stackRadio">
-						<label>Stack the data:</label>
-						<input type="radio" name="stack" id="stackTrue" checked="checked">Yes <input type="radio" name="stack" id="stackFalse">No
-					</form>
-				</div>
-				<div class="reportConfig">
-					<form id ="smoothLines">
-						<label>Line Stiffness:</label>
-						<div class="range-slider">
-							<input id="smoothLineSlider" class="rs-range" type="range" value="0.5" min="0.25" max="1" step="0.01">
-						</div>
-					</form>
-				</div>
-				<div class="reportConfig">
-					<form id ="pointRadius">
-						<label>Point Radius:</label>
-						<div class="range-slider">
-							<input id="pointRadiusSlider" class="rs-range" type="range" value="5" min="0" max="10" step="1">
-						</div>
-					</form>
-				</div>
-				<div class="reportConfig">
-					<form id ="fillSpace">
-						<label>Fill space:</label>
-						<input type="radio" name="fillLines" id="fillTrue" checked="checked">Yes <input type="radio" name="fillLines">No
-					</form>
-				</div>
-				<div class="reportConfig">
-					<button id="reportUpdate">Generate Graph</button>
-				</div>
-			</div>
-			<div id="reportCanvas" class="col-md-10"> 
-				<canvas id="canvas"></canvas>
-			</div>
+    <div class="row">
+        <div id="reportConfigContainer" class="col-md-2">
+            <h4 class="blockquote text-center">Report Configuration</h4>
+            <div class="reportConfig form-group row">
+                <label class="col-sm-4 col-form-label">Start Date:</label>
+                <div class="col-sm-8">
+                    <input type="date" name="startDate" id="startDate" class="form-control">
+                </div>
+            </div>
+            <div class="reportConfig form-group row">
+                <label class="col-sm-4 col-form-label">End Date:</label>
+                <div class="col-sm-8">
+                    <input type="date" name="endDate" id="endDate" class="form-control">
+                </div>
+            </div>
+            <div class="reportConfig form-group row">
+                <div class="input-group-prepend">
+                    <label class="input-group-text" for="department">Department</label>
+                </div>
+                <select class="custom-select" id="department">
+                    <option value="all">All</option>
+                </select>
+            </div>
+            <div class="reportConfig form-group row">
+                <div class="input-group-prepend">
+                    <label class="input-group-text" for="project">Project</label>
+                </div>
+                <select class="custom-select" id="project">
+                    <option value="all">All</option>
+                </select>
+            </div>
+            <div class="reportConfig form-group row">
+                <div class="input-group-prepend">
+                    <label class="input-group-text" for="type">Chart Type</label>
+                </div>
+                <select class="custom-select" id="type">
+                    <option value="line">Line</option>
+                    <option value="bar">Vertical Bar</option>
+                    <option value="polarArea">Polar Area</option>
+                    <option value="radar">Radar</option>
+                </select>
+            </div>
+            <div class="reportConfig form-group row">
+                <legend class="col-form-label col-sm-4 pt-0">High Contrast:</legend>
+                <div class="col-sm-8">
+                    <div class="form-check-inline">
+                        <input class="form-check-input" type="radio" name="highContrast" id="highContrastTrue">
+                        <label class="form-check-label">
+                            Yes
+                        </label>
+                    </div>
+                    <div class="form-check-inline">
+                        <input class="form-check-input" type="radio" name="highContrast" id="highContrastFalse" checked>
+                        <label class="form-check-label">
+                            No
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="reportConfig form-group row" id="stackRadio">
+                <legend class="col-form-label col-sm-4 pt-0">Stack data:</legend>
+                <div class="col-sm-8">
+                    <div class="form-check-inline">
+                        <input class="form-check-input" type="radio" name="stack" id="stackTrue">
+                        <label class="form-check-label">
+                            Yes
+                        </label>
+                    </div>
+                    <div class="form-check-inline">
+                        <input class="form-check-input" type="radio" name="stack" id="stackFalse" checked >
+                        <label class="form-check-label">
+                            No
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div id ="smoothLines" class="reportConfig form-group row" id="smoothLines">
+                <legend class="col-form-label col-sm-4 pt-0">Line Stiffness:</legend>
+                <div class="col-sm-8">
+                    <input id="smoothLineSlider" class="form-control-range" type="range" value="0.5" min="0.25" max="1" step="0.01">
+                </div>
+            </div>
+            <div id ="pointRadius" class="reportConfig form-group row">
+                <legend class="col-form-label col-sm-4 pt-0">Point Radius:</legend>
+                <div class="col-sm-8">
+                    <input id="pointRadiusSlider" class="form-control-range" type="range" value="5" min="0" max="10" step="1">
+                </div>
+            </div>
+            <div class="reportConfig form-group row"  id="fillSpace">
+                <legend class="col-form-label col-sm-4 pt-0">Fill space:</legend>
+                <div class="col-sm-8">
+                    <div class="form-check-inline">
+                        <input class="form-check-input" type="radio" name="fillLines" id="fillTrue"  class="form-control" checked>
+                        <label class="form-check-label">
+                            Yes
+                        </label>
+                    </div>
+                    <div class="form-check-inline">
+                        <input class="form-check-input" type="radio" name="fillLines" id="fillFalse" checked>
+                        <label class="form-check-label">
+                            No
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="reportConfig form-group row">
+                <button id="reportUpdate" class="btn btn-secondary btn-lg btn-block">Generate Graph</button>
+            </div>
+        </div>
+        <div id="reportCanvas" class="col-md-10">
+            <canvas id="canvas"></canvas>
+        </div>
     </div>
-	</div>
-	<?php
+    <?php
 }
 echo getHTMLFooter();
 

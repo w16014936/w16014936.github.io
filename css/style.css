@@ -11,20 +11,16 @@
     margin: 10px 0;
 }
 
+#reportConfigContainer{
+    padding: 1em 0em 0em 3em;
+}
+
 /*
 #reportMain {
     width: 100%;
     display: table;
 }
 
-
-#reportConfigContainer{
-    position: relative;
-    float: left;
-    width: 20%;
-    border-right: darkgrey 2px solid;
-    padding: 1em 0em 0em 1em;
-}
 .reportConfig{
     margin-top: 1em;
 }

@@ -3,6 +3,7 @@
     var chartType          = document.getElementById('type'),
 	    smoothLines        = document.getElementById('smoothLines'),
         smoothLineSlider   = document.getElementById('smoothLineSlider'),
+        pointRadius        = document.getElementById('pointRadius'),
         pointRadiusSlider  = document.getElementById('pointRadiusSlider'),
 		fillSpace		   = document.getElementById('fillSpace'),
         startDatePicker    = document.getElementById('startDate'),
@@ -115,11 +116,15 @@ var cfg = {
 };
 var chart = new Chart(context, cfg);
 
-document.addEventListener("DOMContentLoaded", function(){
+window.addEventListener("load", function(){
 
     var currentDate = new Date();
     // startDatePicker.valueAsDate = currentDate.setDate(currentDate.getDate()-7);
     endDatePicker.valueAsDate   = currentDate;
+    hideConfigElements(chartType, smoothLines, pointRadius, fillSpace);
+    chart.config.data.datasets.forEach(function(entry) {
+        updateSlider(entry, smoothLineSlider, pointRadiusSlider);
+    });
 
 });
 
