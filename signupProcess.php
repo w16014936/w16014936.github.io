@@ -58,65 +58,62 @@ $jobID = trim(filter_has_var(INPUT_POST, 'jobID') ? $_POST['jobID'] : null);
 $contractedHours = trim(filter_has_var(INPUT_POST, 'contractedHours') ? $_POST['contractedHours'] : null);
 
 
-// ---------------------- INSERT USER INTO TIMESHEETS USER ------------------ //
+// Display error message if any of mandatory fields left blank
+if (empty($username) || empty($password) || empty($hashedPassword) || empty($title) || empty($forename) ||
+    empty ($surname) || empty($dateOfBirth) || empty($email) || empty($phone) || empty($address1) || empty($postcode) ||
+    empty($departmentID) || empty($teamID) || empty($jobID) || empty($contractedHours)
+) {
+    echo("<div class='jumbotron text-center'>
+        <h1>There was an error handling your request</h1>
+    </div>
+            <div class='col-sm-4'><p>Please check all fields are correct and resubmit your request</p></div>");
+    // Else no errors so add user/person to database & display success message
+} else {
+
+    // ---------------------- INSERT USER INTO TIMESHEETS USER ------------------ //
 // Create SQL query
-$createUserSQL = "INSERT INTO timesheets_user (username, passwordHash)
+    $createUserSQL = "INSERT INTO timesheets_user (username, passwordHash)
              VALUES('$username', '$hashedPassword')";
 // Prepare the SQL statement and store the result in $sql
-$createUserStmt = $dbConn->prepare($createUserSQL);
+    $createUserStmt = $dbConn->prepare($createUserSQL);
 // Execute the prepared statement
-$createUserStmt->execute();
-
+    $createUserStmt->execute();
 
 
 // ------------------------ GET USER ID OF USER JUST CREATED ------------------ //
 // Get userID of user just created
-$getUserIDSQL = "SELECT userID
+    $getUserIDSQL = "SELECT userID
                 FROM timesheets_user
                 WHERE username = '$username'";
 
-$getUserStmt = $dbConn->prepare($getUserIDSQL);
-$getUserStmt->execute();
-$row = $getUserStmt->fetchObject();
+    $getUserStmt = $dbConn->prepare($getUserIDSQL);
+    $getUserStmt->execute();
+    $row = $getUserStmt->fetchObject();
 
-$userID = $row->userID;
-
-echo("User ID is: ".$userID);
-
-
+    $userID = $row->userID;
 
 
 // ------------------------- INSERT PERSON INTO TIMESHEETS PERSON ---------------------- //
 // Create SQL query
-$createPersonSQL = "INSERT INTO timesheets_person(user_id, job_id, team_id, department_id, contracted_hours, title,
+    $createPersonSQL = "INSERT INTO timesheets_person(user_id, job_id, team_id, department_id, contracted_hours, title,
  forename, surname, phone_number, email, address_line_1, address_line_2, address_line_3, address_line_4, 
  address_line_5, post_code, date_of_birth)
-             VALUES('$userID', '$jobID','$teamID','$departmentID','$contractedHours','$title','$forename','$surname'
+             VALUES('$userID', '$jobID','$teamID','$departmentID','$contractedHours','$title','$forename','$surname',
              '$phone','$email','$address1','$address2','$address3','$address4','$address5','$postcode',
              '$dateOfBirth')";
 // Prepare the SQL statement and store the result in $sql
-$createPersonStmt = $dbConn->prepare($createPersonSQL);
+    $createPersonStmt = $dbConn->prepare($createPersonSQL);
 // Execute the prepared statement
-$createPersonStmt->execute();
+    $createPersonStmt->execute();
 
+    echo("<div class='jumbotron text-center'>
+        <h1>Account successfully created</h1>
+    </div>
+            <div class='col-sm-4'><p>Your request has been processed and you have successfully registered for an account</p></div>");
 
-
-
-
-// If the password is a match
-if (password_verify("pass", $hashedPassword)) {
-    echo("Working");
-} else {
-    echo("Not working");
 }
 
-
-echo("Inputted Username: " . $username);
-
-?>
-
-
-<?php
+// Display errors for login form
 if (!empty($errors)) {
     foreach ($errors as $error) {
         echo "<p class='error'>$error</p>";

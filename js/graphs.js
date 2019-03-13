@@ -372,7 +372,7 @@ var chart = new Chart(context, cfg);
 window.addEventListener("load", function(){
 
     var currentDate = new Date();
-    // startDatePicker.valueAsDate = currentDate.setDate(currentDate.getDate()-7);
+    startDatePicker.valueAsDate = currentDate;
     endDatePicker.valueAsDate   = currentDate;
     hideConfigElements(chartType, smoothLines, pointRadius, fillSpace);
     chart.config.data.datasets.forEach(function(entry) {

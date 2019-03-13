@@ -7,10 +7,10 @@ $term = isset($_REQUEST['term']) ? $_REQUEST['term'] : null;
 // Creates connection to database
 $db = PDODB::getConnection();
 // SELECT userID and username from timesheets_user
-$sqlQuery = "SELECT userID as ID, 
+$sqlQuery = "SELECT user_id as ID, 
               username as value
               from timesheets_user 
-              order by userID";
+              order by user_id";
 $stmt = $db->prepare($sqlQuery);
 // get $term safely from the request stream
 $stmt->execute(array(':term' => "%{$term}%"));
