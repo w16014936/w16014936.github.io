@@ -10,41 +10,326 @@
         endDatePicker      = document.getElementById('endDate');
 
 
-    var jsonfile = {
-        "jsonarray": [{
-            "name": "Matthew",
-            "hours": 20,
-            "overtime": 16,
-            "holiday": 2
-        }, {
-            "name": "Tom",
-            "hours": 45,
-            "overtime": 10,
-            "holiday": 0
-        }, {
-            "name": "Elliott",
-            "hours": 12,
-            "overtime": 3,
-            "holiday": 20
-        }, {
-            "name": "Chris",
-            "hours": 4,
-            "overtime": 5,
-            "holiday": 38
-        }]
-};
+    const jsonfile =
+        [
+            {
+                name: "Carole Sheppard",
+                normal: 33,
+                overtime: 2,
+                holiday: 6
+            },
+            {
+                name: "Toni Case",
+                normal: 30,
+                overtime: 6,
+                holiday: 13
+            },
+            {
+                name: "Hernandez Cameron",
+                normal: 30,
+                overtime: 7,
+                holiday: 20
+            },
+            {
+                name: "Sonja Gutierrez",
+                normal: 37,
+                overtime: 2,
+                holiday: 18
+            },
+            {
+                name: "Anna Burch",
+                normal: 38,
+                overtime: 7,
+                holiday: 19
+            },
+            {
+                name: "Clemons Mccarty",
+                normal: 30,
+                overtime: 4,
+                holiday: 12
+            },
+            {
+                name: "Kathie Nash",
+                normal: 39,
+                overtime: 5,
+                holiday: 0
+            },
+            {
+                name: "Foster Graham",
+                normal: 33,
+                overtime: 5,
+                holiday: 10
+            },
+            {
+                name: "Yolanda Riddle",
+                normal: 32,
+                overtime: 3,
+                holiday: 15
+            },
+            {
+                name: "Duncan Mays",
+                normal: 33,
+                overtime: 10,
+                holiday: 2
+            },
+            {
+                name: "Sherri Mullins",
+                normal: 31,
+                overtime: 2,
+                holiday: 4
+            },
+            {
+                name: "Berry Brown",
+                normal: 38,
+                overtime: 6,
+                holiday: 3
+            },
+            {
+                name: "Zimmerman Jacobs",
+                normal: 38,
+                overtime: 3,
+                holiday: 7
+            },
+            {
+                name: "Sharpe Le",
+                normal: 38,
+                overtime: 4,
+                holiday: 13
+            },
+            {
+                name: "Nell Justice",
+                normal: 34,
+                overtime: 5,
+                holiday: 17
+            },
+            {
+                name: "Petersen Bonner",
+                normal: 38,
+                overtime: 4,
+                holiday: 12
+            },
+            {
+                name: "Dillard Allison",
+                normal: 30,
+                overtime: 2,
+                holiday: 13
+            },
+            {
+                name: "Katherine Dawson",
+                normal: 30,
+                overtime: 8,
+                holiday: 5
+            },
+            {
+                name: "Karin Bernard",
+                normal: 30,
+                overtime: 1,
+                holiday: 4
+            },
+            {
+                name: "Lorie Harding",
+                normal: 30,
+                overtime: 0,
+                holiday: 12
+            },
+            {
+                name: "Callahan Benton",
+                normal: 30,
+                overtime: 8,
+                holiday: 6
+            },
+            {
+                name: "Vanessa Kent",
+                normal: 36,
+                overtime: 3,
+                holiday: 11,
+            },
+            {
+                name: "Hays Clay",
+                normal: 31,
+                overtime: 10,
+                holiday: 6
+            },
+            {
+                name: "Nicole Figueroa",
+                normal: 31,
+                overtime: 5,
+                holiday: 0
+            },
+            {
+                name: "Petersen Bonner",
+                normal: 38,
+                overtime: 4,
+                holiday: 12
+            },
+            {
+                name: "Dillard Allison",
+                normal: 30,
+                overtime: 2,
+                holiday: 13
+            },
+            {
+                name: "Katherine Dawson",
+                normal: 30,
+                overtime: 8,
+                holiday: 5
+            },
+            {
+                name: "Karin Bernard",
+                normal: 30,
+                overtime: 1,
+                holiday: 4
+            },
+            {
+                name: "Lorie Harding",
+                normal: 30,
+                overtime: 0,
+                holiday: 12
+            },
+            {
+                name: "Callahan Benton",
+                normal: 30,
+                overtime: 8,
+                holiday: 6
+            },
+            {
+                name: "Vanessa Kent",
+                normal: 36,
+                overtime: 3,
+                holiday: 11,
+            },
+            {
+                name: "Hays Clay",
+                normal: 31,
+                overtime: 10,
+                holiday: 6
+            },
+            {
+                name: "Nicole Figueroa",
+                normal: 31,
+                overtime: 5,
+                holiday: 0
+            },
+            {
+                name: "Petersen Bonner",
+                normal: 38,
+                overtime: 4,
+                holiday: 12
+            },
+            {
+                name: "Dillard Allison",
+                normal: 30,
+                overtime: 2,
+                holiday: 13
+            },
+            {
+                name: "Katherine Dawson",
+                normal: 30,
+                overtime: 8,
+                holiday: 5
+            },
+            {
+                name: "Karin Bernard",
+                normal: 30,
+                overtime: 1,
+                holiday: 4
+            },
+            {
+                name: "Lorie Harding",
+                normal: 30,
+                overtime: 0,
+                holiday: 12
+            },
+            {
+                name: "Callahan Benton",
+                normal: 30,
+                overtime: 8,
+                holiday: 6
+            },
+            {
+                name: "Vanessa Kent",
+                normal: 36,
+                overtime: 3,
+                holiday: 11,
+            },
+            {
+                name: "Hays Clay",
+                normal: 31,
+                overtime: 10,
+                holiday: 6
+            },
+            {
+                name: "Nicole Figueroa",
+                normal: 31,
+                overtime: 5,
+                holiday: 0
+            },
+            {
+                name: "Petersen Bonner",
+                normal: 38,
+                overtime: 4,
+                holiday: 12
+            },
+            {
+                name: "Dillard Allison",
+                normal: 30,
+                overtime: 2,
+                holiday: 13
+            },
+            {
+                name: "Katherine Dawson",
+                normal: 30,
+                overtime: 8,
+                holiday: 5
+            },
+            {
+                name: "Karin Bernard",
+                normal: 30,
+                overtime: 1,
+                holiday: 4
+            },
+            {
+                name: "Lorie Harding",
+                normal: 30,
+                overtime: 0,
+                holiday: 12
+            },
+            {
+                name: "Callahan Benton",
+                normal: 30,
+                overtime: 8,
+                holiday: 6
+            },
+            {
+                name: "Vanessa Kent",
+                normal: 36,
+                overtime: 3,
+                holiday: 11,
+            },
+            {
+                name: "Hays Clay",
+                normal: 31,
+                overtime: 10,
+                holiday: 6
+            },
+            {
+                name: "Nicole Figueroa",
+                normal: 31,
+                overtime: 5,
+                holiday: 0
+            },
+            {
+                name: "Brady Wolfe",
+                normal: 34,
+                overtime: 9,
+                holiday: 8
+            }
+        ];
 
-var labels = jsonfile.jsonarray.map(function (e) {
+
+
+var labels = jsonfile.map(function (e) {
     return e.name;
-});
-var hoursData = jsonfile.jsonarray.map(function (e) {
-    return e.hours;
-});
-var overtimeData = jsonfile.jsonarray.map(function (e) {
-    return e.overtime;
-});
-var holidayData = jsonfile.jsonarray.map(function (e) {
-    return e.holiday;
 });
 
 
@@ -59,39 +344,7 @@ var cfg = {
     type: 'bar',
     data: {
         labels: labels,
-        datasets: [{
-            label: 'Normal Hours',
-            backgroundColor: color(window.chartColors.red).alpha(0.4).rgbString(),
-            borderColor: window.chartColors.red,
-            data: hoursData,
-            type: 'line',
-            pointRadius: 5,
-            fill: false,
-            lineTension: 0.2,
-            borderWidth: 2
-        },
-            {
-                label: 'Overtime',
-                backgroundColor: color(window.chartColors.yellow).alpha(0.4).rgbString(),
-                borderColor: window.chartColors.yellow,
-                data: overtimeData,
-                type: 'line',
-                pointRadius: 5,
-                fill: true,
-                lineTension: 0.2,
-                borderWidth: 2
-            },
-            {
-                label: 'Holidays',
-                backgroundColor: color(window.chartColors.purple).alpha(0.4).rgbString(),
-                borderColor: window.chartColors.purple,
-                data: holidayData,
-                type: 'line',
-                pointRadius: 5,
-                fill: true,
-                lineTension: 0.2,
-                borderWidth: 2
-            }]
+        datasets: createDataSets(jsonfile),
     },
     options: {
         scales: {
@@ -178,10 +431,9 @@ document.getElementById('reportUpdate').addEventListener('click', function () {
 });
 
 document.getElementById('reportConfigContainer').addEventListener('click', function () {
-
     setHighContrastMode(document.getElementById('highContrastTrue').checked, chartType.value);
-
 });
+
 
 function setHighContrastMode(radioChecked, type){
 
@@ -212,4 +464,56 @@ function hideConfigElements(chartType, smoothLines, pointRadius, fillSpace){
 	smoothLines.hidden = chartType.value === "bar";
 	pointRadius.hidden = chartType.value === "bar";
 	fillSpace.hidden   = chartType.value === "bar";
+}
+
+function createDataSets(json){
+
+    var dataSets = [];
+
+    //todo remove hard-coded
+    var hoursData = json.map(function (e) {
+        return e.normal;
+    });
+    var overtimeData = json.map(function (e) {
+        return e.overtime;
+    });
+    var holidayData = json.map(function (e) {
+        return e.holiday;
+    });
+
+    var objects = [];
+    objects.push(hoursData);
+    objects.push(overtimeData);
+    objects.push(holidayData);
+
+
+    var keys = [];
+
+    //get chart labels using keys from the json file
+    Object.keys(json[0]).forEach(function(key){
+        if (key !== "name")
+            keys.push(key.charAt(0).toUpperCase() + key.slice(1));
+    });
+
+    var i = 0;
+
+    //creates each dataset
+   objects.forEach(function(data){
+       var dataSet = {
+        label: keys[i],
+        backgroundColor:  window.chartColors[Object.keys(window.chartColors)[i]],
+        borderColor: window.chartColors[Object.keys(window.chartColors)[i]],
+        data: Object.values(data),
+        type: 'line',
+        pointRadius: 5,
+        fill: false,
+        lineTension: 0.2,
+        borderWidth: 2
+    };
+
+    i++;
+    dataSets.push(dataSet);
+   });
+
+    return dataSets;
 }

@@ -7,7 +7,6 @@ function sessionStart($sessionDirectory = SESSION_DIR){
     return session_start();
 }
 
-
 /* Creating the functions which control the pages */
 function getHTMLHeader($pageTitle, $loggedIn){
 
@@ -64,9 +63,7 @@ function getHTMLHeader($pageTitle, $loggedIn){
 HEADER;
 
     return $header;
-
 }
-
 
 function getHTMLUserHeader($pageTitle, $loggedIn){
   $logged = isset($loggedIn) ? '<a class="nav-link" href="logout.php">Log Out</a>' : '<a class="nav-link" href="login.php">Members Login</a>';
@@ -251,7 +248,6 @@ function getHTMLEnd() {
     </html>";
 }
 
-
 // Function to generate the login form that appears in the top left
 // of every page if user is not logged in
 function getLoginForm()
@@ -269,7 +265,6 @@ function getLoginForm()
             <input type='submit' value='Login'  name='loginForm'/>
         </form>";
 
-
     if (!empty($_SESSION['errors'])) {
         $errors = $_SESSION['errors'];
         foreach ($errors as $error) {
@@ -280,14 +275,11 @@ function getLoginForm()
         unset($_SESSION['errors']);
     }
 
-
     // Close div surrounding form
     $loginForm .= "</div>";
 
-
     return $loginForm;
 }
-
 
 // Function to validate the users entry into the lodin form
 function validateLoginForm($dbConn)
@@ -349,7 +341,6 @@ function validateLoginForm($dbConn)
     return $errors;
 }
 
-
 // Function to logout user by destroying the users session
 function logoutUser($loggedIn, $redirect)
 {
@@ -358,13 +349,10 @@ function logoutUser($loggedIn, $redirect)
     session_destroy();
 
     return header('Location: ' . $redirect);
-
-
 }
 
 // Function to get all of the roles the user can choose from
 function getUserRoles($dbConn, $loggedIn){
-
 
   // Try to carry out the database search
   try{
@@ -386,8 +374,6 @@ function getUserRoles($dbConn, $loggedIn){
 
       $role_ids = array();
       $role_types = array();
-
-
 
       // Loop through resultsstmt
       foreach($rows as $row){

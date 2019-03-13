@@ -115,13 +115,13 @@ if (isset($errorText)){
                 <legend class="col-form-label col-sm-4 pt-0">Stack data:</legend>
                 <div class="col-sm-8">
                     <div class="form-check-inline">
-                        <input class="form-check-input" type="radio" name="stack" id="stackTrue">
+                        <input class="form-check-input" type="radio" name="stack" id="stackTrue" checked>
                         <label class="form-check-label">
                             Yes
                         </label>
                     </div>
                     <div class="form-check-inline">
-                        <input class="form-check-input" type="radio" name="stack" id="stackFalse" checked >
+                        <input class="form-check-input" type="radio" name="stack" id="stackFalse">
                         <label class="form-check-label">
                             No
                         </label>
