@@ -263,7 +263,7 @@ echo('
                   <span onclick="returnPage3()" id="returnPage3Button" class="formButtons formPage4">Go to page 3</span>
                   <span onclick="submitForm()" id="submitFormButton" class="formButtons formPage4">Submit Form</span>
                    
-                   </div>
+          
                    <!------------------ End form page 4 --------------------->
                    
                    
@@ -273,14 +273,16 @@ echo('
                 </form>
             </div> 
         </div>
-            <div class="col-sm-4"></div>
+            
         </div>
-    
+    <div class="col-sm-4"></div>
     <div id="formStepsContainer">
         <span style="background-color: #007bff" id="formStep1" class="formSteps"></span>
         <span id="formStep2" class="formSteps"></span>
         <span id="formStep3" class="formSteps"></span>
         <span id="formStep4" class="formSteps"></span>
+    </div>
+    
     </div>
 ');
 
