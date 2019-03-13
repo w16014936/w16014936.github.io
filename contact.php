@@ -39,7 +39,7 @@ if (!isset($loggedIn)){
 </div>
 
 <div class="container contact-form">
-    <form method="post" id="contactUsForm">
+    <form method="post" id="contactUsForm" action="contactProcess.php">
         <h3>Send us your query</h3>
         <div class="row">
             <div class="col-md-6">
@@ -52,7 +52,7 @@ if (!isset($loggedIn)){
                            placeholder="Your Email *" value="" required/>
                 </div>
                 <div class="form-group">
-                    <input type="text" id="contactUs-textPhone" name="txtPhone" class="form-control"
+                    <input type="number" id="contactUs-textPhone" name="txtPhone" class="form-control"
                            placeholder="Your Phone Number *"
                            value="" required/>
                 </div>
