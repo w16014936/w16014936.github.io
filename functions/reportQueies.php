@@ -4,12 +4,11 @@ require_once 'functions/functions.php';
 require_once 'class/PDODB.php';
 
 function getAllEmployeeTime(){
-    $query = "SELECT timesheets_person.forename as name, SUM(ROUND(TIME_TO_SEC(TIMEDIFF(timesheets_timesheet.time_out,timesheets_timesheet.time_in))/60/60,2)) as normal
-                        FROM timesheets_timesheet
-                        JOIN timesheets_user ON timesheets_user.user_id = timesheets_timesheet.user_id 
-                        JOIN timesheets_person ON timesheets_user.user_id = timesheets_person.user_id
-                        GROUP BY timesheets_timesheet.user_id, timesheets_timesheet.activity_id
-                        ORDER BY timesheets_timesheet.user_id";
+    $query = "SELECT timesheets_person.forename as name, 
+(SELECT COALESCE(SUM(ROUND(TIME_TO_SEC(TIMEDIFF(timesheets_timesheet.time_out,timesheets_timesheet.time_in))/60/60,2)),0) FROM timesheets_timesheet WHERE timesheets_timesheet.activity_id = 1 and timesheets_person.user_id = timesheets_timesheet.user_id) as normal, 
+(SELECT COALESCE(SUM(ROUND(TIME_TO_SEC(TIMEDIFF(timesheets_timesheet.time_out,timesheets_timesheet.time_in))/60/60,2)),0) FROM timesheets_timesheet WHERE timesheets_timesheet.activity_id = 3 and timesheets_person.user_id = timesheets_timesheet.user_id) as overtime,
+(SELECT COALESCE(SUM(ROUND(TIME_TO_SEC(TIMEDIFF(timesheets_timesheet.time_out,timesheets_timesheet.time_in))/60/60,2)),0) FROM timesheets_timesheet WHERE timesheets_timesheet.activity_id = 4 and timesheets_person.user_id = timesheets_timesheet.user_id) as holiday 
+FROM timesheets_person JOIN timesheets_timesheet ON timesheets_person.user_id = timesheets_timesheet.user_id GROUP BY timesheets_person.user_id";
 
     return $query;
 }
