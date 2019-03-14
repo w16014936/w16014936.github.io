@@ -285,7 +285,7 @@ function getLoginForm()
     return $loginForm;
 }
 
-// Function to validate the users entry into the lodin form
+// Function to validate the users entry into the login form
 function validateLoginForm($dbConn)
 {
     // Create the input array for the username and password
@@ -322,7 +322,6 @@ function validateLoginForm($dbConn)
             // Check the query returned some results
             if ($stmt->rowCount() > 0) {
                 $passwordHash = $row->passwordHash;
-
                 // If the password is a match
                 if (password_verify($input['password'], $passwordHash)) {
                     $_SESSION['username'] = $input['username'];
@@ -488,4 +487,31 @@ function getProjects($dbConn, $loggedIn){
         return array_combine($project_ids, $project_names);
     }
 
+}
+
+function sqlQuerySearchAndConvertToJson($dbConn, $loggedIn, $sqlQuery){
+
+    // Try to carry out the database search
+    try{
+        $stmt = $dbConn->prepare($sqlQuery);
+        $stmt->execute(array(':username' => $loggedIn));
+        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        // Check the query returned some results
+        if($stmt->rowCount() > 0){
+            $myJSON = json_encode($rows);
+        } else{
+            $error = "Sorry, it appears you don't have a role associated with your account. Please contact your admnistrator to receive a role.";
+        }
+
+        // Log the exception
+    } catch(Exception $e){
+        $retval =  "<p>Query failed: " . $e->getMessage() . "</p>\n";
+    }
+
+    if (!empty($error)){
+        return "<script>window.data = " . $error . "</script>";
+    } else{
+        return "<script>window.data = " . $myJSON . "</script>";
+    }
 }

@@ -6,6 +6,7 @@
 require_once 'env/environment.php';
 require_once 'functions/functions.php';
 require_once 'class/PDODB.php';
+require_once 'functions/reportQueies.php';
 session_start();
 
 // Attempt to make connection to the database
@@ -188,6 +189,8 @@ if (isset($errorText)){
     </div>
     <?php
 }
+
+echo sqlQuerySearchAndConvertToJson($dbConn, $loggedIn, getAllEmployeeTime());
 echo getHTMLFooter();
 
 ?>
