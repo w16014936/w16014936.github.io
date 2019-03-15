@@ -6,7 +6,7 @@
 require_once 'env/environment.php';
 require_once 'functions/functions.php';
 require_once 'class/PDODB.php';
-require_once 'functions/reportQueies.php';
+require_once 'functions/reportQueries.php';
 session_start();
 
 // Attempt to make connection to the database

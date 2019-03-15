@@ -3,7 +3,7 @@ require_once 'env/environment.php';
 require_once 'functions/functions.php';
 require_once 'class/PDODB.php';
 
-function getAllEmployeeTimeSheets(){
+function getAllEmployeeTime(){
     $query =
         "SELECT CONCAT(`forename`, ' ', `surname`) AS name, 
         (SELECT COALESCE(SUM(ROUND(TIME_TO_SEC(TIMEDIFF(timesheets_timesheet.time_out,timesheets_timesheet.time_in))/60/60,2)),0) 

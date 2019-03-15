@@ -10,7 +10,7 @@
         endDatePicker      = document.getElementById('endDate');
 
 
-    const jsonfile = window.data;
+    var jsonfile = window.data;
 
 
 
@@ -166,11 +166,18 @@ function createDataSets(json){
     var holidayData = json.map(function (e) {
         return e.holiday;
     });
-
+    var absentData = json.map(function (e) {
+        return e.absent;
+    });
+    var sickData = json.map(function (e) {
+        return e.sick;
+    });
     var objects = [];
     objects.push(hoursData);
     objects.push(overtimeData);
     objects.push(holidayData);
+    objects.push(absentData);
+    objects.push(sickData);
 
 
     var keys = [];
