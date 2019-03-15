@@ -39,11 +39,64 @@ function getAllEmployeeTime(){
 }
 
 /**
- * SQL Query of single employee time sheet totals for activity types.
- * @param $user_id
+ * SQL Query of all employee's time sheets totals for activity types between two Dates.
+ *
+ * @param $startDate
+ * @param $endDate
  * @return string
  */
-function getEmployeeTime($user_id){
+function getAllEmployeeTimeBetweenTwoDates($startDate, $endDate){
+    $query =
+        "SELECT CONCAT(`forename`, ' ', `surname`) AS name, 
+        (SELECT COALESCE(SUM(ROUND(TIME_TO_SEC(TIMEDIFF(timesheets_timesheet.time_out,timesheets_timesheet.time_in))/60/60,2)),0) 
+        FROM timesheets_timesheet 
+        JOIN timesheets_activity ON timesheets_activity.activity_id = timesheets_timesheet.activity_id 
+        WHERE timesheets_activity.type = 'Normal'
+        AND timesheets_person.user_id = timesheets_timesheet.user_id
+        AND timesheets_timesheet.date Between $startDate AND $endDate) 
+        AS normal, 
+        (SELECT COALESCE(SUM(ROUND(TIME_TO_SEC(TIMEDIFF(timesheets_timesheet.time_out,timesheets_timesheet.time_in))/60/60,2)),0) 
+        FROM timesheets_timesheet 
+        JOIN timesheets_activity ON timesheets_activity.activity_id = timesheets_timesheet.activity_id 
+        WHERE timesheets_activity.type = 'Overtime'
+        AND timesheets_person.user_id = timesheets_timesheet.user_id
+        AND timesheets_timesheet.date Between $startDate AND $endDate) 
+        AS overtime,
+        (SELECT COALESCE(SUM(ROUND(TIME_TO_SEC(TIMEDIFF(timesheets_timesheet.time_out,timesheets_timesheet.time_in))/60/60,2)),0) 
+        FROM timesheets_timesheet 
+        JOIN timesheets_activity ON timesheets_activity.activity_id = timesheets_timesheet.activity_id 
+        WHERE timesheets_activity.type = 'Holiday'
+        AND timesheets_person.user_id = timesheets_timesheet.user_id
+        AND timesheets_timesheet.date Between $startDate AND $endDate)
+        AS holiday,
+        (SELECT COALESCE(SUM(ROUND(TIME_TO_SEC(TIMEDIFF(timesheets_timesheet.time_out,timesheets_timesheet.time_in))/60/60,2)),0) 
+        FROM timesheets_timesheet 
+        JOIN timesheets_activity ON timesheets_activity.activity_id = timesheets_timesheet.activity_id 
+        WHERE timesheets_activity.type = 'Absent'
+        AND timesheets_person.user_id = timesheets_timesheet.user_id
+        AND timesheets_timesheet.date Between $startDate AND $endDate) 
+        AS absent,
+        (SELECT COALESCE(SUM(ROUND(TIME_TO_SEC(TIMEDIFF(timesheets_timesheet.time_out,timesheets_timesheet.time_in))/60/60,2)),0) 
+        FROM timesheets_timesheet 
+        JOIN timesheets_activity ON timesheets_activity.activity_id = timesheets_timesheet.activity_id 
+        WHERE timesheets_activity.type = 'Sick'
+        AND timesheets_person.user_id = timesheets_timesheet.user_id
+        AND timesheets_timesheet.date Between $startDate AND $endDate) 
+        AS sick
+        FROM timesheets_person 
+        JOIN timesheets_timesheet ON timesheets_person.user_id = timesheets_timesheet.user_id
+        GROUP BY timesheets_person.user_id";
+
+    return $query;
+}
+
+/**
+ * SQL Query of single employee time sheet totals for activity types.
+ *
+ * @param $userId
+ * @return string
+ */
+function getEmployeeTime($userId){
     $query =
         "SELECT CONCAT(`forename`, ' ', `surname`) AS name,
         (SELECT COALESCE(SUM(ROUND(TIME_TO_SEC(TIMEDIFF(timesheets_timesheet.time_out,timesheets_timesheet.time_in))/60/60,2)),0) 
@@ -68,9 +121,65 @@ function getEmployeeTime($user_id){
         WHERE timesheets_activity.type = 'Sick' and timesheets_person.user_id = timesheets_timesheet.user_id) AS sick 
         FROM timesheets_person 
         JOIN timesheets_timesheet ON timesheets_person.user_id = timesheets_timesheet.user_id 
-        WHERE timesheets_person.user_id = $user_id GROUP BY timesheets_person.user_id";
+        WHERE timesheets_person.user_id = $userId 
+        GROUP BY timesheets_person.user_id";
 
     return $query;
 }
+
+/**
+ * SQL Query of single employee time sheet totals for activity types between two dates.
+ *
+ * @param $userId
+ * @param $startDate
+ * @param $endDate
+ * @return string
+ */
+function getEmployeeTimeBetweenTwoDates($userId,$startDate, $endDate){
+    $query =
+        "SELECT CONCAT(`forename`, ' ', `surname`) AS name, 
+        (SELECT COALESCE(SUM(ROUND(TIME_TO_SEC(TIMEDIFF(timesheets_timesheet.time_out,timesheets_timesheet.time_in))/60/60,2)),0) 
+        FROM timesheets_timesheet 
+        JOIN timesheets_activity ON timesheets_activity.activity_id = timesheets_timesheet.activity_id 
+        WHERE timesheets_activity.type = 'Normal'
+        AND timesheets_person.user_id = timesheets_timesheet.user_id
+        AND timesheets_timesheet.date Between $startDate AND $endDate) 
+        AS normal, 
+        (SELECT COALESCE(SUM(ROUND(TIME_TO_SEC(TIMEDIFF(timesheets_timesheet.time_out,timesheets_timesheet.time_in))/60/60,2)),0) 
+        FROM timesheets_timesheet 
+        JOIN timesheets_activity ON timesheets_activity.activity_id = timesheets_timesheet.activity_id 
+        WHERE timesheets_activity.type = 'Overtime'
+        AND timesheets_person.user_id = timesheets_timesheet.user_id
+        AND timesheets_timesheet.date Between $startDate AND $endDate) 
+        AS overtime,
+        (SELECT COALESCE(SUM(ROUND(TIME_TO_SEC(TIMEDIFF(timesheets_timesheet.time_out,timesheets_timesheet.time_in))/60/60,2)),0) 
+        FROM timesheets_timesheet 
+        JOIN timesheets_activity ON timesheets_activity.activity_id = timesheets_timesheet.activity_id 
+        WHERE timesheets_activity.type = 'Holiday'
+        AND timesheets_person.user_id = timesheets_timesheet.user_id
+        AND timesheets_timesheet.date Between $startDate AND $endDate)
+        AS holiday,
+        (SELECT COALESCE(SUM(ROUND(TIME_TO_SEC(TIMEDIFF(timesheets_timesheet.time_out,timesheets_timesheet.time_in))/60/60,2)),0) 
+        FROM timesheets_timesheet 
+        JOIN timesheets_activity ON timesheets_activity.activity_id = timesheets_timesheet.activity_id 
+        WHERE timesheets_activity.type = 'Absent'
+        AND timesheets_person.user_id = timesheets_timesheet.user_id
+        AND timesheets_timesheet.date Between $startDate AND $endDate) 
+        AS absent,
+        (SELECT COALESCE(SUM(ROUND(TIME_TO_SEC(TIMEDIFF(timesheets_timesheet.time_out,timesheets_timesheet.time_in))/60/60,2)),0) 
+        FROM timesheets_timesheet 
+        JOIN timesheets_activity ON timesheets_activity.activity_id = timesheets_timesheet.activity_id 
+        WHERE timesheets_activity.type = 'Sick'
+        AND timesheets_person.user_id = timesheets_timesheet.user_id
+        AND timesheets_timesheet.date Between $startDate AND $endDate) 
+        AS sick
+        FROM timesheets_person 
+        JOIN timesheets_timesheet ON timesheets_person.user_id = timesheets_timesheet.user_id
+        WHERE timesheets_person.user_id = $userId 
+        GROUP BY timesheets_person.user_id";
+
+    return $query;
+}
+
 
 
