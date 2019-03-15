@@ -4,7 +4,7 @@ require_once 'functions/functions.php';
 require_once 'class/PDODB.php';
 
 /**
- * SQL Query of all employee's timesheets totals for activity types.
+ * SQL Query of all employee's time sheets totals for activity types.
  *
  * @return string
  */
@@ -39,15 +39,13 @@ function getAllEmployeeTime(){
 }
 
 /**
+ * SQL Query of single employee time sheet totals for activity types.
  * @param $user_id
  * @return string
  */
 function getEmployeeTime($user_id){
     $query =
-        "SELECT CONCAT(`forename`, ' ', `surname`) AS name, 
-        (SELECT COALESCE(SUM(ROUND(TIME_TO_SEC(TIMEDIFF(timesheets_timesheet.time_out,timesheets_timesheet.time_in))/60/60,2)),0) 
-         FROM timesheets_timesheet JOIN timesheets_activity ON timesheets_activity.activity_id = timesheets_timesheet.activity_id 
-         WHERE timesheets_person.user_id = timesheets_timesheet.user_id) as total,
+        "SELECT CONCAT(`forename`, ' ', `surname`) AS name,
         (SELECT COALESCE(SUM(ROUND(TIME_TO_SEC(TIMEDIFF(timesheets_timesheet.time_out,timesheets_timesheet.time_in))/60/60,2)),0) 
         FROM timesheets_timesheet 
         JOIN timesheets_activity ON timesheets_activity.activity_id = timesheets_timesheet.activity_id 
