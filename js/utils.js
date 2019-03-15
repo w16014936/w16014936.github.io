@@ -2,10 +2,10 @@
 
 window.chartColors = {
     blue: 'rgb(54, 162, 235)',
-    red: 'rgb(255, 99, 132)',
-    green: 'rgb(75, 192, 192)',
     yellow: 'rgb(255, 205, 86)',
     purple: 'rgb(153, 102, 255)',
+    red: 'rgb(255, 99, 132)',
+    green: 'rgb(75, 192, 192)',
     grey: 'rgb(201, 203, 207)',
     black: 'rgb(0, 0, 0)'	
 };
