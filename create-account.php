@@ -42,22 +42,8 @@ if (!isset($loggedIn)){
     <!-- Get signupFormFunctions.js functions --->
     <script type="text/javascript" src="js/signupFormFunctions.js"></script>
     <div class="jumbotron text-center">
-        <?php
-        // Create heading depending on chosen account type
-        $accountType = filter_has_var(INPUT_GET, "accountType") ? $_GET["accountType"] : null;
-        if (!isset($accountType)) {
-            echo("<h1>Sign up for a free account</h1>");
-        } else if ($accountType == 1) {
-            echo("<h1>Sign up for a free account</h1>");
-        } else if ($accountType == 2) {
-            echo("<h1>Sign up for a pro account");
-        } else {
-            echo("<h1>Sign up for a free account</h1>");
-        }
-        ?>
+        <h1>Create an account</h1>
     </div>
-
-
 <?php
 // ------------------------- SQL query to Retrieve departments, teams and jobs from database ----------------------- //
 
@@ -95,6 +81,7 @@ echo('
 <h4 class="formPage1 formTitles">Please enter a username and password:</h4>
 <h4 id="formPage2Title" class="formPage2 formTitles" style="display: none">Please enter your personal information:</h4>
 <h4 class="formPage3 formTitles" style="display: none">Please enter your address details:</h4>
+<h4 class="formPage4 formTitles" style="display: none">Please enter your employment details:</h4>
 <br>
         <div class="row justify-content-center align-items-center">
            
@@ -120,7 +107,7 @@ echo('
                     </div>
                     <div class="login-error">
                     </div>
-                    
+                    <br/>
                     <span onclick="goSignUpPage2(); validateFormPage2()" id="goPage2Button" class="formButtons formPage1">Go to page 2</span>
                     
                     </div>
@@ -163,7 +150,7 @@ echo('
                                <p id="phoneValidationMsg" class="formPage2 formErrorMessages" style="display: none"></p>
                     </div>
                     
-                    
+                    <br/>
                     <span onclick="returnPage1()" id="returnPage1Button" class="formButtons formPage2">Go to page 1</span>
                     <span onclick="goSignUpPage3()" id="goPage3Button" class="formButtons formPage2">Go to page 3</span>
                     </div>           
@@ -199,7 +186,7 @@ echo('
                                name="postcode" />
                                <p id="postCodeValidationMsg" class="formPage3 formErrorMessages" style="display: none"></p>
                     </div>
-                   
+                   <br/>
                    <span onclick="returnPage2()" id="returnPage2Button" class="formButtons formPage3">Go to page 2</span>
                    <span onclick="goSignUpPage4()" id="goPage4Button" class="formButtons formPage3">Go to page 4</span>
                    </div>
@@ -259,7 +246,7 @@ echo('
                                <p id="contractedHoursValidationMsg" class="formPage4 formErrorMessages" style="display: none"></p>
                    </div>
                    
-                   
+                  <br/>
                   <span onclick="returnPage3()" id="returnPage3Button" class="formButtons formPage4">Go to page 3</span>
                   <span onclick="submitForm()" id="submitFormButton" class="formButtons formPage4">Submit Form</span>
                    
