@@ -106,23 +106,40 @@ if (isset($errorText)){
                     </select>
                 </div>
                 <div class="reportConfig form-group row">
-                    <button id="reportUpdate" class="btn btn-secondary btn-lg btn-block">Generate Graph</button>
+                    <button id="reportUpdate" class="btn btn-primary btn-lg btn-block">Generate Graph</button>
                 </div>
 
             </form>
         </div>
 
-        <div id="reportCanvas" class="col-md-8">
+		<div id="reportCanvas" class="col-md-9">
             <canvas id="canvas"></canvas>
         </div>
-        <div id="reportConfigContainer" class="col-md-2">
-            <div class="reportConfig form-group row">
+		<!-- graph settings -->
+		       <div id="reportConfigContainer" class="col-md-1">
+		<!-- Button trigger modal -->
+		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#settings">
+		  Settings
+		</button>
+
+		<!-- Modal -->
+		<div class="modal fade" id="settings" tabindex="-1" role="dialog" aria-hidden="true">
+		  <div class="modal-dialog" role="document">
+			<div class="modal-content">
+			  <div class="modal-header">
+				<h5 class="modal-title">Graph Settings</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				  <span aria-hidden="true">&times;</span>
+				</button>
+			  </div>
+			  <div class="modal-body">
+				            <div class="reportConfig form-group row">
                 <div class="input-group-prepend">
                     <label class="input-group-text" for="type">Chart Type</label>
                 </div>
                 <select class="custom-select" id="type">
+				    <option value="bar">Vertical Bar</option>
                     <option value="line">Line</option>
-                    <option value="bar">Vertical Bar</option>
                     <option value="polarArea">Polar Area</option>
                     <option value="radar">Radar</option>
                 </select>
@@ -190,6 +207,15 @@ if (isset($errorText)){
                     </div>
                 </div>
             </div>
+			  </div>
+			  <div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+			  </div>
+			</div>
+		  </div>
+		</div>
+		
+
         </div>
     </div>
     <?php
