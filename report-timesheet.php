@@ -58,52 +58,64 @@ if (isset($errorText)){
 	// The main page content if user has correct permissions
 	?>
     <div class="row">
-        <div id="reportConfigContainer" class="col-md-2">
+        <div class="col-md-2">
             <h4 class="blockquote text-center">Report Configuration</h4>
-            <div class="reportConfig form-group row">
-                <label class="col-sm-4 col-form-label">Start Date:</label>
-                <div class="col-sm-8">
-                    <input type="date" name="startDate" id="startDate" class="form-control">
+            <form name="form" action="" method="get">
+                <div class="reportConfig form-group row">
+                    <label class="input-group-text">Start Date:</label>
+                    <div class="col-sm-12">
+                        <input type="date" name="startDate" id="startDate" class="form-control">
+                    </div>
                 </div>
-            </div>
-            <div class="reportConfig form-group row">
-                <label class="col-sm-4 col-form-label">End Date:</label>
-                <div class="col-sm-8">
-                    <input type="date" name="endDate" id="endDate" class="form-control">
+                <div class="reportConfig form-group row">
+                    <label class="input-group-text">End Date:</label>
+                    <div class="col-sm-12">
+                        <input type="date" name="endDate" id="endDate" class="form-control">
+                    </div>
                 </div>
-            </div>
-            <div class="reportConfig form-group row">
-                <div class="input-group-prepend">
-                    <label class="input-group-text" for="department">Department</label>
+                <div class="reportConfig form-group row">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text" for="department">Department</label>
+                    </div>
+                    <select class="custom-select" id="department">
+                        <option value="all">All</option>
+                        <?php
+                            // Loop though each of the roles to get type and id
+                            Foreach ($departments as $key => $value) {
+                                echo "<option value=" . $key . ">" . $value . "</option>";
+                            }
+
+
+                        ?>
+                    </select>
                 </div>
-                <select class="custom-select" id="department">
-                    <option value="all">All</option>
-                    <?php
+                <div class="reportConfig form-group row">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text" for="project">Project</label>
+                    </div>
+                    <select class="custom-select" id="project">
+                        <option value="all">All</option>
+                        <?php
                         // Loop though each of the roles to get type and id
-                        Foreach ($departments as $key => $value) {
+                        Foreach ($projects as $key => $value) {
                             echo "<option value=" . $key . ">" . $value . "</option>";
                         }
 
 
-                    ?>
-                </select>
-            </div>
-            <div class="reportConfig form-group row">
-                <div class="input-group-prepend">
-                    <label class="input-group-text" for="project">Project</label>
+                        ?>
+                    </select>
                 </div>
-                <select class="custom-select" id="project">
-                    <option value="all">All</option>
-                    <?php
-                    // Loop though each of the roles to get type and id
-                    Foreach ($projects as $key => $value) {
-                        echo "<option value=" . $key . ">" . $value . "</option>";
-                    }
+                <div class="reportConfig form-group row">
+                    <button id="reportUpdate" class="btn btn-secondary btn-lg btn-block">Generate Graph</button>
+                </div>
 
+            </form>
+        </div>
 
-                    ?>
-                </select>
-            </div>
+        <div id="reportCanvas" class="col-md-8">
+            <canvas id="canvas"></canvas>
+        </div>
+        <div id="reportConfigContainer" class="col-md-2">
             <div class="reportConfig form-group row">
                 <div class="input-group-prepend">
                     <label class="input-group-text" for="type">Chart Type</label>
@@ -178,24 +190,27 @@ if (isset($errorText)){
                     </div>
                 </div>
             </div>
-
-            <div class="reportConfig form-group row">
-                <button id="reportUpdate" class="btn btn-secondary btn-lg btn-block">Generate Graph</button>
-            </div>
-        </div>
-        <div id="reportCanvas" class="col-md-10">
-            <canvas id="canvas"></canvas>
         </div>
     </div>
     <?php
 }
 
-echo sqlQuerySearchAndConvertToJson($dbConn, $loggedIn, getAllEmployeeTime());
 echo getHTMLFooter();
+
+if ( isset( $_GET['startDate']) && isset( $_GET['endDate'])){
+    $start = $_GET['startDate'];
+    $end = $_GET['endDate'];
+    echo sqlQuerySearchAndConvertToJson($dbConn, $loggedIn, getAllEmployeeTimeBetweenTwoDates($start, $end));
+}
+else{
+    echo sqlQuerySearchAndConvertToJson($dbConn, $loggedIn, getAllEmployeeTime());
+
+}
 
 ?>
 <script src="js/utils.js"></script>
 <script src="js/libraries/Chart.min.js" type="text/javascript"></script>
 <script src="js/graphs.js" type="text/javascript"></script>
+
 <?php
 echo getHTMLEnd();

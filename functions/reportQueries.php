@@ -64,7 +64,7 @@ function getAllEmployeeTimeBetweenTwoDates($startDate, $endDate){
         WHERE timesheets_activity.type = 'Normal'
         AND timesheets_person.user_id = timesheets_timesheet.user_id
         AND timesheets_timesheet.date 
-        BETWEEN $startDate AND $endDate) 
+        BETWEEN '$startDate' AND '$endDate') 
         AS normal, 
         (SELECT COALESCE(SUM(ROUND(TIME_TO_SEC(TIMEDIFF(timesheets_timesheet.time_out,timesheets_timesheet.time_in))/60/60,2)),0) 
         FROM timesheets_timesheet 
@@ -72,7 +72,7 @@ function getAllEmployeeTimeBetweenTwoDates($startDate, $endDate){
         WHERE timesheets_activity.type = 'Overtime'
         AND timesheets_person.user_id = timesheets_timesheet.user_id
         AND timesheets_timesheet.date 
-        BETWEEN $startDate AND $endDate) 
+        BETWEEN '$startDate' AND '$endDate') 
         AS overtime,
         (SELECT COALESCE(SUM(ROUND(TIME_TO_SEC(TIMEDIFF(timesheets_timesheet.time_out,timesheets_timesheet.time_in))/60/60,2)),0) 
         FROM timesheets_timesheet 
@@ -80,7 +80,7 @@ function getAllEmployeeTimeBetweenTwoDates($startDate, $endDate){
         WHERE timesheets_activity.type = 'Holiday'
         AND timesheets_person.user_id = timesheets_timesheet.user_id
         AND timesheets_timesheet.date 
-        BETWEEN $startDate AND $endDate)
+        BETWEEN '$startDate' AND '$endDate')
         AS holiday,
         (SELECT COALESCE(SUM(ROUND(TIME_TO_SEC(TIMEDIFF(timesheets_timesheet.time_out,timesheets_timesheet.time_in))/60/60,2)),0) 
         FROM timesheets_timesheet 
@@ -88,7 +88,7 @@ function getAllEmployeeTimeBetweenTwoDates($startDate, $endDate){
         WHERE timesheets_activity.type = 'Absent'
         AND timesheets_person.user_id = timesheets_timesheet.user_id
         AND timesheets_timesheet.date 
-        BETWEEN $startDate AND $endDate) 
+        BETWEEN '$startDate' AND '$endDate') 
         AS absent,
         (SELECT COALESCE(SUM(ROUND(TIME_TO_SEC(TIMEDIFF(timesheets_timesheet.time_out,timesheets_timesheet.time_in))/60/60,2)),0) 
         FROM timesheets_timesheet 
@@ -96,7 +96,7 @@ function getAllEmployeeTimeBetweenTwoDates($startDate, $endDate){
         WHERE timesheets_activity.type = 'Sick'
         AND timesheets_person.user_id = timesheets_timesheet.user_id
         AND timesheets_timesheet.date 
-        BETWEEN $startDate AND $endDate) 
+        BETWEEN '$startDate' AND '$endDate') 
         AS sick
         FROM timesheets_person 
         JOIN timesheets_timesheet ON timesheets_person.user_id = timesheets_timesheet.user_id
