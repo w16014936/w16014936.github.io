@@ -515,3 +515,35 @@ function sqlQuerySearchAndConvertToJson($dbConn, $loggedIn, $sqlQuery){
         return "<script>window.data = " . $myJSON . "</script>";
     }
 }
+
+
+// get the actiity 
+function getActivity($dbConn, $activity_id){
+  // Try to carry out the database search
+  try{
+    $sqlQuery = "SELECT activity_type
+                   FROM timesheets_activity
+                  WHERE activity_id = :activity_id";
+
+    $stmt = $dbConn->prepare($sqlQuery);
+    $stmt->execute(array(':activity_id' => $activity_id));
+    $rows = $stmt->fetchObject();
+
+    // Check the query returned some results
+    if($stmt->rowCount() > 0){
+      $activity_type = $rows->activity_type;
+
+    } else{
+      $activity_type = null;
+    }
+
+  // Log the exception
+  } catch(Exception $e){
+    $retval =  "<p>Query failed: " . $e->getMessage() . "</p>\n";
+    $activity_type = null;
+  }
+
+  
+  return $activity_type;
+  
+}
