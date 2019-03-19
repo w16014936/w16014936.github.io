@@ -103,7 +103,7 @@ if (!isset($loggedIn)){
           <div class="col-sm-6 text-center">
             <form action="select-role.php" name="role-form" method="POST">
               <input type="hidden" name="role_id" value="<?php echo $key; ?>" />
-              <input type="submit" class="btn btn-info btn-lg btn-block btn-select-role" name="role_type" value="<?php echo $value; ?>" <?php echo $disable;?>/>
+              <input type="submit" class="btn btn-info btn-lg btn-block btn-select-role" name="role_type" value="<?php echo ucfirst($value); ?>" <?php echo $disable;?>/>
             </form>
           </div>
           <?php
