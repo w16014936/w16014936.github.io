@@ -58,19 +58,29 @@ if (!isset($loggedIn)){
 
     } else{
 
+	  // Get array of available roles
+	  $roles = getUserRoles($dbConn, $loggedIn);
+	  $userTitle = $userRole;
+	  
       // Get the users current role if they have one selected
       if (isset($userRole)){
+		// Loop though each of the roles to get type and id
+        foreach ($roles as $key => $value) {
+          // Check the users current role
+          if(isset($userRole)){
+            if ($userRole == $key){
+              $userTitle = $value;
+            } 
+          }
+		}
         ?>
         <div class="row">
           <div class="col-sm-12">
-            <h3>Active Role: <?php echo $userRole;?></h3>
+            <h3>Active Role: <?php echo ucfirst($userTitle)?></h3>
           </div>
         </div>
         <?php
       }
-
-      // Get array of available roles
-      $roles = getUserRoles($dbConn, $loggedIn);
 
       if (is_array($roles)){
         ?>

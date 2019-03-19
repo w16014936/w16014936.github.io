@@ -92,7 +92,7 @@ document.getElementById('reportUpdate').addEventListener('click', function () {
 
 });
 
-document.getElementById('reportConfigContainer').addEventListener('click', function () {
+document.getElementById('reportSettings').addEventListener('click', function () {
 
     var stackRadioBoolean  = document.getElementById('stackTrue').checked,
         fillLinesBoolean   = document.getElementById('fillTrue').checked,

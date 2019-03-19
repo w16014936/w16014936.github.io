@@ -57,164 +57,163 @@ if (isset($errorText)){
 } else{
 	// The main page content if user has correct permissions
 	?>
-    <div class="row">
-        <div class="col-md-2">
-            <h4 class="blockquote text-center">Report Configuration</h4>
-            <form name="form" action="" method="get">
-                <div class="reportConfig form-group row">
-                    <label class="input-group-text">Start Date:</label>
-                    <div class="col-sm-12">
-                        <input type="date" name="startDate" id="startDate" class="form-control">
-                    </div>
-                </div>
-                <div class="reportConfig form-group row">
-                    <label class="input-group-text">End Date:</label>
-                    <div class="col-sm-12">
-                        <input type="date" name="endDate" id="endDate" class="form-control">
-                    </div>
-                </div>
-                <div class="reportConfig form-group row">
-                    <div class="input-group-prepend">
-                        <label class="input-group-text" for="department">Department</label>
-                    </div>
-                    <select class="custom-select" id="department">
-                        <option value="all">All</option>
-                        <?php
-                            // Loop though each of the roles to get type and id
-                            Foreach ($departments as $key => $value) {
-                                echo "<option value=" . $key . ">" . $value . "</option>";
-                            }
+    <div class="container-fluid">
+		<div class="row">
+			<div id="reportConfigContainer" class="col-md-2">
+				<h4 class="blockquote text-center">Report Data</h4>
+				<form name="form" action="" method="get">
+					<div class="reportConfig form-group row">
+						<label class="input-group-text">Start Date:</label>
+						<div class="col-sm-12">
+							<input type="date" name="startDate" id="startDate" class="form-control">
+						</div>
+					</div>
+					<div class="reportConfig form-group row">
+						<label class="input-group-text">End Date:</label>
+						<div class="col-sm-12">
+							<input type="date" name="endDate" id="endDate" class="form-control">
+						</div>
+					</div>
+					<div class="reportConfig form-group row">
+						<div class="input-group-prepend">
+							<label class="input-group-text" for="department">Department</label>
+						</div>
+						<select class="custom-select" id="department">
+							<option value="all">All</option>
+							<?php
+								// Loop though each of the roles to get type and id
+								Foreach ($departments as $key => $value) {
+									echo "<option value=" . $key . ">" . $value . "</option>";
+								}
+							?>
+						</select>
+					</div>
+					<div class="reportConfig form-group row">
+						<div class="input-group-prepend">
+							<label class="input-group-text" for="project">Project</label>
+						</div>
+						<select class="custom-select" id="project">
+							<option value="all">All</option>
+							<?php
+							// Loop though each of the roles to get type and id
+							Foreach ($projects as $key => $value) {
+								echo "<option value=" . $key . ">" . $value . "</option>";
+							}
 
 
-                        ?>
-                    </select>
-                </div>
-                <div class="reportConfig form-group row">
-                    <div class="input-group-prepend">
-                        <label class="input-group-text" for="project">Project</label>
-                    </div>
-                    <select class="custom-select" id="project">
-                        <option value="all">All</option>
-                        <?php
-                        // Loop though each of the roles to get type and id
-                        Foreach ($projects as $key => $value) {
-                            echo "<option value=" . $key . ">" . $value . "</option>";
-                        }
+							?>
+						</select>
+					</div>
+					<div class="reportConfig form-group row">
+						<button id="reportUpdate" class="btn btn-primary btn-lg btn-block">Generate Graph</button>
+					</div>
 
+				</form>
+			</div>
 
-                        ?>
-                    </select>
-                </div>
-                <div class="reportConfig form-group row">
-                    <button id="reportUpdate" class="btn btn-primary btn-lg btn-block">Generate Graph</button>
-                </div>
+			<div id="reportCanvas" class="col-md-9">
+				<canvas id="canvas"></canvas>
+			</div>
+			<!-- graph settings -->
+				   <div class="col-md-1">
+			<!-- Button trigger modal -->
+			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#settings">
+			  Settings
+			</button>
 
-            </form>
-        </div>
-
-		<div id="reportCanvas" class="col-md-9">
-            <canvas id="canvas"></canvas>
-        </div>
-		<!-- graph settings -->
-		       <div id="reportConfigContainer" class="col-md-1">
-		<!-- Button trigger modal -->
-		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#settings">
-		  Settings
-		</button>
-
-		<!-- Modal -->
-		<div class="modal fade" id="settings" tabindex="-1" role="dialog" aria-hidden="true">
-		  <div class="modal-dialog" role="document">
-			<div class="modal-content">
-			  <div class="modal-header">
-				<h5 class="modal-title">Graph Settings</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-				  <span aria-hidden="true">&times;</span>
-				</button>
-			  </div>
-			  <div class="modal-body">
-				            <div class="reportConfig form-group row">
-                <div class="input-group-prepend">
-                    <label class="input-group-text" for="type">Chart Type</label>
-                </div>
-                <select class="custom-select" id="type">
-				    <option value="bar">Vertical Bar</option>
-                    <option value="line">Line</option>
-                    <option value="polarArea">Polar Area</option>
-                    <option value="radar">Radar</option>
-                </select>
-            </div>
-            <div class="reportConfig form-group row">
-                <legend class="col-form-label col-sm-4 pt-0">High Contrast:</legend>
-                <div class="col-sm-8">
-                    <div class="form-check-inline">
-                        <input class="form-check-input" type="radio" name="highContrast" id="highContrastTrue">
-                        <label class="form-check-label">
-                            Yes
-                        </label>
-                    </div>
-                    <div class="form-check-inline">
-                        <input class="form-check-input" type="radio" name="highContrast" id="highContrastFalse" checked>
-                        <label class="form-check-label">
-                            No
-                        </label>
-                    </div>
-                </div>
-            </div>
-            <div class="reportConfig form-group row" id="stackRadio">
-                <legend class="col-form-label col-sm-4 pt-0">Stack data:</legend>
-                <div class="col-sm-8">
-                    <div class="form-check-inline">
-                        <input class="form-check-input" type="radio" name="stack" id="stackTrue" checked>
-                        <label class="form-check-label">
-                            Yes
-                        </label>
-                    </div>
-                    <div class="form-check-inline">
-                        <input class="form-check-input" type="radio" name="stack" id="stackFalse">
-                        <label class="form-check-label">
-                            No
-                        </label>
-                    </div>
-                </div>
-            </div>
-            <div id ="smoothLines" class="reportConfig form-group row" id="smoothLines">
-                <legend class="col-form-label col-sm-4 pt-0">Line Stiffness:</legend>
-                <div class="col-sm-8">
-                    <input id="smoothLineSlider" class="form-control-range" type="range" value="0.5" min="0.25" max="1" step="0.01">
-                </div>
-            </div>
-            <div id ="pointRadius" class="reportConfig form-group row">
-                <legend class="col-form-label col-sm-4 pt-0">Point Radius:</legend>
-                <div class="col-sm-8">
-                    <input id="pointRadiusSlider" class="form-control-range" type="range" value="5" min="0" max="10" step="1">
-                </div>
-            </div>
-            <div class="reportConfig form-group row"  id="fillSpace">
-                <legend class="col-form-label col-sm-4 pt-0">Fill space:</legend>
-                <div class="col-sm-8">
-                    <div class="form-check-inline">
-                        <input class="form-check-input" type="radio" name="fillLines" id="fillTrue"  class="form-control" checked>
-                        <label class="form-check-label">
-                            Yes
-                        </label>
-                    </div>
-                    <div class="form-check-inline">
-                        <input class="form-check-input" type="radio" name="fillLines" id="fillFalse" checked>
-                        <label class="form-check-label">
-                            No
-                        </label>
-                    </div>
-                </div>
-            </div>
-			  </div>
-			  <div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+			<!-- Modal -->
+			<div class="modal fade" id="settings" tabindex="-1" role="dialog" aria-hidden="true">
+			  <div class="modal-dialog modal-dialog-centered" role="document">
+				<div class="modal-content">
+				  <div class="modal-header">
+					<h5 class="modal-title">Graph Settings</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					  <span aria-hidden="true">&times;</span>
+					</button>
+				  </div>
+				  <div id="reportSettings" class="modal-body">
+					<div class="reportConfig form-group row">
+						<div class="input-group-prepend">
+							<label class="input-group-text" for="type">Chart Type</label>
+						</div>
+						<select class="custom-select" id="type">
+							<option value="bar">Vertical Bar</option>
+							<option value="line">Line</option>
+							<option value="polarArea">Polar Area</option>
+							<option value="radar">Radar</option>
+						</select>
+					</div>
+					<div class="reportConfig form-group row">
+						<legend class="col-form-label col-sm-4 pt-0">High Contrast:</legend>
+						<div class="col-sm-8">
+							<div class="form-check-inline">
+								<input class="form-check-input" type="radio" name="highContrast" id="highContrastTrue">
+								<label class="form-check-label">
+									Yes
+								</label>
+							</div>
+							<div class="form-check-inline">
+								<input class="form-check-input" type="radio" name="highContrast" id="highContrastFalse" checked>
+								<label class="form-check-label">
+									No
+								</label>
+							</div>
+						</div>
+					</div>
+					<div class="reportConfig form-group row" id="stackRadio">
+						<legend class="col-form-label col-sm-4 pt-0">Stack data:</legend>
+						<div class="col-sm-8">
+							<div class="form-check-inline">
+								<input class="form-check-input" type="radio" name="stack" id="stackTrue" checked>
+								<label class="form-check-label">
+									Yes
+								</label>
+							</div>
+							<div class="form-check-inline">
+								<input class="form-check-input" type="radio" name="stack" id="stackFalse">
+								<label class="form-check-label">
+									No
+								</label>
+							</div>
+						</div>
+					</div>
+					<div id ="smoothLines" class="reportConfig form-group row" id="smoothLines">
+						<legend class="col-form-label col-sm-4 pt-0">Line Stiffness:</legend>
+						<div class="col-sm-8">
+							<input id="smoothLineSlider" class="form-control-range" type="range" value="0.5" min="0.25" max="1" step="0.01">
+						</div>
+					</div>
+					<div id ="pointRadius" class="reportConfig form-group row">
+						<legend class="col-form-label col-sm-4 pt-0">Point Radius:</legend>
+						<div class="col-sm-8">
+							<input id="pointRadiusSlider" class="form-control-range" type="range" value="5" min="0" max="10" step="1">
+						</div>
+					</div>
+					<div class="reportConfig form-group row"  id="fillSpace">
+						<legend class="col-form-label col-sm-4 pt-0">Fill space:</legend>
+						<div class="col-sm-8">
+							<div class="form-check-inline">
+								<input class="form-check-input" type="radio" name="fillLines" id="fillTrue"  class="form-control" checked>
+								<label class="form-check-label">
+									Yes
+								</label>
+							</div>
+							<div class="form-check-inline">
+								<input class="form-check-input" type="radio" name="fillLines" id="fillFalse" checked>
+								<label class="form-check-label">
+									No
+								</label>
+							</div>
+						</div>
+					</div>
+				  </div>
+				  <div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				  </div>
+				</div>
 			  </div>
 			</div>
-		  </div>
 		</div>
-		
 
         </div>
     </div>
