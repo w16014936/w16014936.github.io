@@ -51,8 +51,8 @@ function getActivitiesTable($dbConn, $loggedIn = null){
         $activities .= "<tr>
                           <td>$activity_type</td>
                           <td class='actions'>
-                            <a href='editActivity.php?activity=$activity_id' alt='Edit' title='Edit'><i class='fas fa-pencil-alt action-icon' ></i></a>
-                            <a href='deleteActivity.php?activity=$activity_id' alt='delete' title='Delete'><i class='fas fa-times action-icon'></i></a>
+                            <a href='edit-activity.php?activity_id=$activity_id' title='Edit'><i class='fas fa-pencil-alt action-icon' ></i></a>
+                            <a href='delete-activity.php?activity_id=$activity_id' title='Delete'><i class='fas fa-times action-icon'></i></a>
                           </td>
                         </tr>";
 

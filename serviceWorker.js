@@ -1,7 +1,7 @@
 var CACHE = 'cache-update-and-refresh';
 
 const staticAssets = [
-    'index.html',
+    'index.php',
     'style.css'
 ];
 

@@ -58,19 +58,29 @@ if (!isset($loggedIn)){
 
     } else{
 
+	  // Get array of available roles
+	  $roles = getUserRoles($dbConn, $loggedIn);
+	  $userTitle = $userRole;
+	  
       // Get the users current role if they have one selected
       if (isset($userRole)){
+		// Loop though each of the roles to get type and id
+        foreach ($roles as $key => $value) {
+          // Check the users current role
+          if(isset($userRole)){
+            if ($userRole == $key){
+              $userTitle = $value;
+            } 
+          }
+		}
         ?>
         <div class="row">
           <div class="col-sm-12">
-            <h3>Active Role: <?php echo $userRole;?></h3>
+            <h3>Active Role: <?php echo ucfirst($userTitle)?></h3>
           </div>
         </div>
         <?php
       }
-
-      // Get array of available roles
-      $roles = getUserRoles($dbConn, $loggedIn);
 
       if (is_array($roles)){
         ?>
@@ -93,7 +103,7 @@ if (!isset($loggedIn)){
           <div class="col-sm-6 text-center">
             <form action="select-role.php" name="role-form" method="POST">
               <input type="hidden" name="role_id" value="<?php echo $key; ?>" />
-              <input type="submit" class="btn btn-info btn-lg btn-block btn-select-role" name="role_type" value="<?php echo $value; ?>" <?php echo $disable;?>/>
+              <input type="submit" class="btn btn-info btn-lg btn-block btn-select-role" name="role_type" value="<?php echo ucfirst($value); ?>" <?php echo $disable;?>/>
             </form>
           </div>
           <?php

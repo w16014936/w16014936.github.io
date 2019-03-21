@@ -12,7 +12,7 @@
 }
 
 #reportConfigContainer {
-    padding: 1em 0em 0em 3em;
+    padding: 0em 0em 0em 1.5em;
 }
 
 .action-icon {
@@ -30,7 +30,7 @@
 }
 
 #reportCanvas {
-    margin-top: 35px;
+    margin-top: 5px;
 }
 
 html, body {

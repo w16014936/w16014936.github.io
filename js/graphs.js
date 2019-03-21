@@ -86,12 +86,18 @@ pointRadiusSlider.addEventListener('change', function () {
     });
 });
 
+//Update Graph
 document.getElementById('reportUpdate').addEventListener('click', function () {
 		
+
+});
+
+document.getElementById('reportSettings').addEventListener('click', function () {
+
     var stackRadioBoolean  = document.getElementById('stackTrue').checked,
-		fillLinesBoolean   = document.getElementById('fillTrue').checked,
-		highContrastMode   = document.getElementById('highContrastTrue').checked,
-		type 			   = chartType.value;
+        fillLinesBoolean   = document.getElementById('fillTrue').checked,
+        highContrastMode   = document.getElementById('highContrastTrue').checked,
+        type 			   = chartType.value;
 
     //Update the graph config from input values
     cfg.type = type;
@@ -102,22 +108,20 @@ document.getElementById('reportUpdate').addEventListener('click', function () {
     chart.config.data.datasets.forEach(function(entry) {
 
         var rgba = entry.backgroundColor.substring(entry.backgroundColor.indexOf('(') + 1, entry.backgroundColor.lastIndexOf(')')).split(/,\s*/);
-            //set the alpha of the rgb depending on highContrastMode value
-            rgba[3] = highContrastMode ? "1" : "0.4";
+        //set the alpha of the rgb depending on highContrastMode value
+        rgba[3] = highContrastMode ? "1" : "0.4";
 
-       entry.type = type;
-	   entry.fill = fillLinesBoolean;
-	   entry.backgroundColor = "rgba("+rgba+")";
+        entry.type = type;
+        entry.fill = fillLinesBoolean;
+        entry.backgroundColor = "rgba("+rgba+")";
 
         updateSlider(entry, smoothLineSlider, pointRadiusSlider);
+        setHighContrastMode(document.getElementById('highContrastTrue').checked, chartType.value);
+
 
     });
 
     chart.update();
-});
-
-document.getElementById('reportConfigContainer').addEventListener('click', function () {
-    setHighContrastMode(document.getElementById('highContrastTrue').checked, chartType.value);
 });
 
 
@@ -156,7 +160,6 @@ function createDataSets(json){
 
     var dataSets = [];
 
-    //todo remove hard-coded
     var hoursData = json.map(function (e) {
         return e.normal;
     });
@@ -197,7 +200,7 @@ function createDataSets(json){
         backgroundColor:  window.chartColors[Object.keys(window.chartColors)[i]],
         borderColor: window.chartColors[Object.keys(window.chartColors)[i]],
         data: Object.values(data),
-        type: 'line',
+        type: 'bar',
         pointRadius: 5,
         fill: false,
         lineTension: 0.2,
