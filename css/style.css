@@ -32,8 +32,9 @@
 #reportCanvas {
     margin-top: 5px;
 }
-
 html, body {
+	position: relative;
+	min-height: 100%;
     padding: 0;
     margin: 0;
     height: 100%;
@@ -45,13 +46,10 @@ html, body {
 }
 
 footer {
-    position: absolute;
-    bottom: 0;
     width: 100%;
     background-color: #343a40;
     color: #9b9b9b;
     text-align: center;
-    vertical-align: middle;
 }
 
 .container {
@@ -70,6 +68,7 @@ footer {
 
 .formButtons:hover {
     background-color: #0051a1;
+    cursor: pointer;
 }
 
 .formTitles {

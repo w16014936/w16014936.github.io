@@ -59,7 +59,7 @@ if (isset($errorText)){
 	?>
     <div class="container-fluid">
 		<div class="row">
-			<div id="reportConfigContainer" class="col-md-2">
+			<div id="reportConfigContainer" class="col-lg-2">
 				<h4 class="blockquote text-center">Report Data</h4>
 				<form name="form" action="" method="get">
 					<div class="reportConfig form-group row">
@@ -78,7 +78,7 @@ if (isset($errorText)){
 						<div class="input-group-prepend">
 							<label class="input-group-text" for="department">Department</label>
 						</div>
-						<select class="custom-select" id="department">
+						<select name="department" class="custom-select" id="department">
 							<option value="all">All</option>
 							<?php
 								// Loop though each of the roles to get type and id
@@ -92,7 +92,7 @@ if (isset($errorText)){
 						<div class="input-group-prepend">
 							<label class="input-group-text" for="project">Project</label>
 						</div>
-						<select class="custom-select" id="project">
+						<select name="project" class="custom-select" id="project">
 							<option value="all">All</option>
 							<?php
 							// Loop though each of the roles to get type and id
@@ -111,14 +111,14 @@ if (isset($errorText)){
 				</form>
 			</div>
 
-			<div id="reportCanvas" class="col-md-9">
+			<div id="reportCanvas" class="col-lg-9">
 				<canvas id="canvas"></canvas>
 			</div>
 			<!-- graph settings -->
-				   <div class="col-md-1">
+				   <div class="col-lg-1">
 			<!-- Button trigger modal -->
-			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#settings">
-			  Settings
+			<button type="button" class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target="#settings">
+			  <i class ="modal-title fas fa-cog"></i>
 			</button>
 
 			<!-- Modal -->
@@ -222,14 +222,23 @@ if (isset($errorText)){
 
 echo getHTMLFooter();
 
-if ( isset( $_GET['startDate']) && isset( $_GET['endDate'])){
-    $start = $_GET['startDate'];
-    $end = $_GET['endDate'];
-    echo sqlQuerySearchAndConvertToJson($dbConn, $loggedIn, getAllEmployeeTimeBetweenTwoDates($start, $end));
+$departmentSet = isset( $_GET['department']) &&  $_GET['department'] != "all";
+$projectSet    = isset( $_GET['project']) &&  $_GET['project'] != "all";
+
+if ($departmentSet && $projectSet &&  isset( $_GET['startDate']) && isset( $_GET['endDate'])){
+    echo sqlQuerySearchAndConvertToJson($dbConn, $loggedIn, getDepartmentProjectEmployeeTimeBetweenTwoDates($_GET['department'], $_GET['project'], $_GET['startDate'],  $_GET['endDate']));
+}
+else if ($projectSet &&  isset( $_GET['startDate']) && isset( $_GET['endDate'])){
+    echo sqlQuerySearchAndConvertToJson($dbConn, $loggedIn, getProjectEmployeeTimeBetweenTwoDates($_GET['project'], $_GET['startDate'],  $_GET['endDate']));
+}
+else if ($departmentSet &&  isset( $_GET['startDate']) && isset( $_GET['endDate'])){
+    echo sqlQuerySearchAndConvertToJson($dbConn, $loggedIn, getDepartmentEmployeeTimeBetweenTwoDates($_GET['department'], $_GET['startDate'],  $_GET['endDate']));
+}
+else if ( isset( $_GET['startDate']) && isset( $_GET['endDate'])){
+    echo sqlQuerySearchAndConvertToJson($dbConn, $loggedIn, getAllEmployeeTimeBetweenTwoDates($_GET['startDate'],  $_GET['endDate']));
 }
 else{
     echo sqlQuerySearchAndConvertToJson($dbConn, $loggedIn, getAllEmployeeTime());
-
 }
 
 ?>
