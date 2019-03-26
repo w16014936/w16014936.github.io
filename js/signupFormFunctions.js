@@ -227,45 +227,51 @@ function validateFormPage1() {
 // Add appropriate styling if taken
 function checkUsernameTaken() {
     var inputtedUsername = document.getElementById("signUp-username");
+
     var usernameValidationMsg = document.getElementById("usernameValidationMsg");
 
-    // Ajax check if username already exists in the database
-    // Returns true if taken, false if available
-    // Do ajax call
-    $.ajax({
-        method: "POST",
-        url: 'getUsers.php',
-        contentType: "application/json",
-        response: "data",
-        dataType: "json",
-        success: checkUsernameTaken
-        // On complete...
-    }).done(function (data, status, jqxhr) {
-        // Iterate through results and check if inputted username already exists
-        for (var dbEntry in data) {
-            // If exists, return true and exit loop
-            if (inputtedUsername.value == data[dbEntry].value) {
-                inputtedUsername.style.borderColor = "#f20014";
-                usernameValidationMsg.innerHTML = "Username is already taken &#10008";
-                usernameValidationMsg.style.display = "block";
-                usernameTaken = true;
-                break;
-                // Else if username left blank, return true and exit loop
-            } else if (inputtedUsername.value == null || inputtedUsername.value == "") {
-                inputtedUsername.style.borderColor = "#f20014";
-                usernameValidationMsg.innerHTML = "Username cannot be left blank &#10008";
-                usernameValidationMsg.style.display = "block";
-                usernameTaken = true;
-                break;
-                // Else username is OK, return false
-            } else {
-                inputtedUsername.style.borderColor = "#0a9800";
-                usernameValidationMsg.innerHTML = "Username is available &#10004";
-                usernameValidationMsg.style.display = "block";
-                usernameTaken = false;
+    inputtedUsername.onkeyup = checkTaken;
+
+    function checkTaken() {
+        // Ajax check if username already exists in the database
+        // Returns true if taken, false if available
+        // Do ajax call
+        $.ajax({
+            method: "POST",
+            url: 'getUsers.php',
+            contentType: "application/json",
+            response: "data",
+            dataType: "json",
+            success: checkUsernameTaken
+            // On complete...
+        }).done(function (data, status, jqxhr) {
+            // Iterate through results and check if inputted username already exists
+            for (var dbEntry in data) {
+                // If exists, return true and exit loop
+                if (inputtedUsername.value == data[dbEntry].value) {
+                    inputtedUsername.style.borderColor = "#f20014";
+                    usernameValidationMsg.innerHTML = "Username is already taken &#10008";
+                    usernameValidationMsg.style.display = "block";
+                    usernameTaken = true;
+                    break;
+                    // Else if username left blank, return true and exit loop
+                } else if (inputtedUsername.value == null || inputtedUsername.value == "") {
+                    inputtedUsername.style.borderColor = "#f20014";
+                    usernameValidationMsg.innerHTML = "Username cannot be left blank &#10008";
+                    usernameValidationMsg.style.display = "block";
+                    usernameTaken = true;
+                    break;
+                    // Else username is OK, return false
+                } else {
+                    inputtedUsername.style.borderColor = "#0a9800";
+                    usernameValidationMsg.innerHTML = "Username is available &#10004";
+                    usernameValidationMsg.style.display = "block";
+                    usernameTaken = false;
+                }
             }
-        }
-    });
+        });
+    }
+
 
     return usernameTaken;
 }
