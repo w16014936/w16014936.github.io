@@ -82,7 +82,7 @@ if (empty($username) || empty($password) || empty($hashedPassword) || empty($tit
 
 // ------------------------ GET USER ID OF USER JUST CREATED ------------------ //
 // Get userID of user just created
-    $getUserIDSQL = "SELECT userID
+    $getUserIDSQL = "SELECT user_id
                 FROM timesheets_user
                 WHERE username = '$username'";
 
@@ -90,7 +90,7 @@ if (empty($username) || empty($password) || empty($hashedPassword) || empty($tit
     $getUserStmt->execute();
     $row = $getUserStmt->fetchObject();
 
-    $userID = $row->userID;
+    $userID = $row->user_id;
 
 
 // ------------------------- INSERT PERSON INTO TIMESHEETS PERSON ---------------------- //
