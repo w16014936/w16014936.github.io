@@ -1,18 +1,13 @@
 'use strict';
 
-    var chartType          = document.getElementById('type'),
-	    smoothLines        = document.getElementById('smoothLines'),
-        smoothLineSlider   = document.getElementById('smoothLineSlider'),
-        pointRadius        = document.getElementById('pointRadius'),
-        pointRadiusSlider  = document.getElementById('pointRadiusSlider'),
-		fillSpace		   = document.getElementById('fillSpace'),
-        startDatePicker    = document.getElementById('startDate'),
-        endDatePicker      = document.getElementById('endDate');
+var chartType         = document.getElementById('type'),
+    smoothLines       = document.getElementById('smoothLines'),
+    smoothLineSlider  = document.getElementById('smoothLineSlider'),
+    pointRadius       = document.getElementById('pointRadius'),
+    pointRadiusSlider = document.getElementById('pointRadiusSlider'),
+    fillSpace         = document.getElementById('fillSpace');
 
-
-    var jsonfile = window.data;
-
-
+var jsonfile = window.data;
 
 var labels = jsonfile.map(function (e) {
     return e.name;
@@ -56,10 +51,6 @@ var cfg = {
 var chart = new Chart(context, cfg);
 
 window.addEventListener("load", function(){
-
-    var currentDate = new Date();
-    startDatePicker.valueAsDate = currentDate;
-    endDatePicker.valueAsDate   = currentDate;
     hideConfigElements(chartType, smoothLines, pointRadius, fillSpace);
     chart.config.data.datasets.forEach(function(entry) {
         updateSlider(entry, smoothLineSlider, pointRadiusSlider);
