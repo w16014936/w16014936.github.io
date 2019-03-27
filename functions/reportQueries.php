@@ -58,8 +58,8 @@ function getAllEmployeeTime(){
  * @return string
  */
 function getDepartmentProjectEmployeeTimeBetweenTwoDates($department, $project, $startDate, $endDate){
-    $startDate = $startDate == "" ? "3000-01-01" : $startDate;
-    $endDate   = $endDate == "" ? "1990-01-01" : $endDate;
+    $startDate = $startDate == "" ? "1990-01-01" : $startDate;
+    $endDate   = $endDate == "" ? "3000-01-01" : $endDate;
     $query =
         "SELECT CONCAT(`forename`, ' ', `surname`) AS name, 
         (SELECT COALESCE(SUM(ROUND(TIME_TO_SEC(TIMEDIFF(timesheets_timesheet.time_out,timesheets_timesheet.time_in))/60/60,2)),0) 
@@ -116,8 +116,8 @@ function getDepartmentProjectEmployeeTimeBetweenTwoDates($department, $project, 
  * @return string
  */
 function getDepartmentEmployeeTimeBetweenTwoDates($department, $startDate, $endDate){
-    $startDate = $startDate == "" ? "3000-01-01" : $startDate;
-    $endDate   = $endDate == "" ? "1990-01-01" : $endDate;
+    $startDate = $startDate == "" ? "1990-01-01" : $startDate;
+    $endDate   = $endDate == "" ? "3000-01-01" : $endDate;
     $query =
         "SELECT CONCAT(`forename`, ' ', `surname`) AS name, 
         (SELECT COALESCE(SUM(ROUND(TIME_TO_SEC(TIMEDIFF(timesheets_timesheet.time_out,timesheets_timesheet.time_in))/60/60,2)),0) 
@@ -175,8 +175,8 @@ function getDepartmentEmployeeTimeBetweenTwoDates($department, $startDate, $endD
  * @return string
  */
 function getProjectEmployeeTimeBetweenTwoDates($project, $startDate, $endDate){
-    $startDate = $startDate == "" ? "3000-01-01" : $startDate;
-    $endDate   = $endDate == "" ? "1990-01-01" : $endDate;
+    $startDate = $startDate == "" ? "1990-01-01" : $startDate;
+    $endDate   = $endDate == "" ? "3000-01-01" : $endDate;
     $query =
         "SELECT CONCAT(`forename`, ' ', `surname`) AS name, 
         (SELECT COALESCE(SUM(ROUND(TIME_TO_SEC(TIMEDIFF(timesheets_timesheet.time_out,timesheets_timesheet.time_in))/60/60,2)),0) 
@@ -235,8 +235,8 @@ function getProjectEmployeeTimeBetweenTwoDates($project, $startDate, $endDate){
  * @return string
  */
 function getAllEmployeeTimeBetweenTwoDates($startDate, $endDate){
-    $startDate = $startDate == "" ? "3000-01-01" : $startDate;
-    $endDate   = $endDate == "" ? "1990-01-01" : $endDate;
+    $startDate = $startDate == "" ? "1990-01-01" : $startDate;
+    $endDate   = $endDate == "" ? "3000-01-01" : $endDate;
     $query =
         "SELECT CONCAT(`forename`, ' ', `surname`) AS name, 
         (SELECT COALESCE(SUM(ROUND(TIME_TO_SEC(TIMEDIFF(timesheets_timesheet.time_out,timesheets_timesheet.time_in))/60/60,2)),0) 
