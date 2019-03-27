@@ -158,7 +158,6 @@ function getDepartmentEmployeeTimeBetweenTwoDates($department, $startDate, $endD
 }
 
 /**
- * TODO
  * @param $project
  * @param $startDate
  * @param $endDate
@@ -171,40 +170,50 @@ function getProjectEmployeeTimeBetweenTwoDates($project, $startDate, $endDate){
         "SELECT CONCAT(`forename`, ' ', `surname`) AS name, 
         (SELECT COALESCE(SUM(ROUND(TIME_TO_SEC(TIMEDIFF(timesheets_timesheet.time_out,timesheets_timesheet.time_in))/60/60,2)),0) 
         FROM timesheets_timesheet 
-        JOIN timesheets_activity ON timesheets_activity.activity_id = timesheets_timesheet.activity_id 
+        JOIN timesheets_activity ON timesheets_activity.activity_id = timesheets_timesheet.activity_id
+        JOIN timesheets_project ON timesheets_project.project_id = timesheets_timesheet.project_id
         WHERE timesheets_activity.type = 'Normal'
+        AND timesheets_project.name = '$project'
         AND timesheets_person.user_id = timesheets_timesheet.user_id
         AND timesheets_timesheet.date 
         BETWEEN '$startDate' AND '$endDate') 
         AS normal, 
         (SELECT COALESCE(SUM(ROUND(TIME_TO_SEC(TIMEDIFF(timesheets_timesheet.time_out,timesheets_timesheet.time_in))/60/60,2)),0) 
         FROM timesheets_timesheet 
-        JOIN timesheets_activity ON timesheets_activity.activity_id = timesheets_timesheet.activity_id 
+        JOIN timesheets_activity ON timesheets_activity.activity_id = timesheets_timesheet.activity_id
+        JOIN timesheets_project ON timesheets_project.project_id = timesheets_timesheet.project_id
         WHERE timesheets_activity.type = 'Overtime'
+        AND timesheets_project.name = '$project'
         AND timesheets_person.user_id = timesheets_timesheet.user_id
         AND timesheets_timesheet.date 
         BETWEEN '$startDate' AND '$endDate') 
         AS overtime,
         (SELECT COALESCE(SUM(ROUND(TIME_TO_SEC(TIMEDIFF(timesheets_timesheet.time_out,timesheets_timesheet.time_in))/60/60,2)),0) 
         FROM timesheets_timesheet 
-        JOIN timesheets_activity ON timesheets_activity.activity_id = timesheets_timesheet.activity_id 
+        JOIN timesheets_activity ON timesheets_activity.activity_id = timesheets_timesheet.activity_id
+        JOIN timesheets_project ON timesheets_project.project_id = timesheets_timesheet.project_id 
         WHERE timesheets_activity.type = 'Holiday'
+        AND timesheets_project.name = '$project'
         AND timesheets_person.user_id = timesheets_timesheet.user_id
         AND timesheets_timesheet.date 
         BETWEEN '$startDate' AND '$endDate')
         AS holiday,
         (SELECT COALESCE(SUM(ROUND(TIME_TO_SEC(TIMEDIFF(timesheets_timesheet.time_out,timesheets_timesheet.time_in))/60/60,2)),0) 
         FROM timesheets_timesheet 
-        JOIN timesheets_activity ON timesheets_activity.activity_id = timesheets_timesheet.activity_id 
+        JOIN timesheets_activity ON timesheets_activity.activity_id = timesheets_timesheet.activity_id
+        JOIN timesheets_project ON timesheets_project.project_id = timesheets_timesheet.project_id 
         WHERE timesheets_activity.type = 'Absent'
+        AND timesheets_project.name = '$project'
         AND timesheets_person.user_id = timesheets_timesheet.user_id
         AND timesheets_timesheet.date 
         BETWEEN '$startDate' AND '$endDate') 
         AS absent,
         (SELECT COALESCE(SUM(ROUND(TIME_TO_SEC(TIMEDIFF(timesheets_timesheet.time_out,timesheets_timesheet.time_in))/60/60,2)),0) 
         FROM timesheets_timesheet 
-        JOIN timesheets_activity ON timesheets_activity.activity_id = timesheets_timesheet.activity_id 
+        JOIN timesheets_activity ON timesheets_activity.activity_id = timesheets_timesheet.activity_id
+        JOIN timesheets_project ON timesheets_project.project_id = timesheets_timesheet.project_id 
         WHERE timesheets_activity.type = 'Sick'
+        AND timesheets_project.name = '$project'
         AND timesheets_person.user_id = timesheets_timesheet.user_id
         AND timesheets_timesheet.date 
         BETWEEN '$startDate' AND '$endDate') 
