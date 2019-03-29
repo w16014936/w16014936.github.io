@@ -394,7 +394,6 @@ function getEmployeeTime($userId){
 }
 
 /**
- * TODO
  * SQL Query of single employee time sheet totals for activity types between two dates.
  *
  * @param $userId
