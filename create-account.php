@@ -48,18 +48,18 @@ if (!isset($loggedIn)){
 // ------------------------- SQL query to Retrieve departments, teams and jobs from database ----------------------- //
 
 // Retrieve department ID's and names from database
-$departmentsSQL = "SELECT department_id, name
+$departmentsSQL = "SELECT department_id, department_name
                     FROM timesheets_department
-                    ORDER BY name";
+                    ORDER BY department_name";
 // Execute the statement
 $rsDepartments = $dbConn->prepare($departmentsSQL);
 $rsDepartments->execute();
 $departmentResults = $rsDepartments->fetchAll();
 
 // Retrieve team ID's and names from database
-$teamsSQL = "SELECT team_id, department_id, name
+$teamsSQL = "SELECT team_id, department_id, team_name
                 FROM timesheets_team
-                ORDER BY name";
+                ORDER BY team_name";
 // Execute the statement
 $rsTeams = $dbConn->prepare($teamsSQL);
 $rsTeams->execute();
@@ -67,9 +67,9 @@ $teamsResults = $rsTeams->fetchAll();
 
 
 // Retrieve job ID's and names from database
-$jobsSQL = "SELECT job_id, department_id, title
+$jobsSQL = "SELECT job_id, department_id, job_title
                 FROM timesheets_job
-                ORDER BY title";
+                ORDER BY job_title";
 // Execute the statement
 $rsJobs = $dbConn->prepare($jobsSQL);
 $rsJobs->execute();
@@ -199,7 +199,7 @@ echo('
 // Iterate through department results
 foreach ($departmentResults as $row) {
     $departmentID = $row['department_id'];
-    $departmentName = $row['name'];
+    $departmentName = $row['department_name'];
     echo("
                                     <option value='$departmentID'>$departmentName</option>
                                 ");
@@ -216,7 +216,7 @@ echo("<option class='teamSelects' value='' selected disabled hidden>Select a Tea
 foreach ($teamsResults as $row) {
     $teamID = $row['team_id'];
     $teamDepartmentID = $row['department_id'];
-    $teamName = $row['name'];
+    $teamName = $row['team_name'];
     // Assign team options to classes based on department ID's they belong to
     echo("<option class='teamSelects team-department-$teamDepartmentID' value='$teamID'>$teamName</option>");
 }
@@ -232,7 +232,7 @@ echo("<option class='jobSelects' value='' selected disabled hidden>Select a Job<
 foreach ($jobsResults as $row) {
     $jobID = $row['job_id'];
     $jobDepartmentID = $row['department_id'];
-    $jobName = $row['title'];
+    $jobName = $row['job_title'];
     // Assign job options to classes based on department ID's they belong to
     echo("<option class='jobSelects job-department-$jobDepartmentID' value='$jobID'>$jobName</option>");
 }
