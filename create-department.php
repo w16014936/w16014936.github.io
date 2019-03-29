@@ -6,6 +6,7 @@
 require_once 'env/environment.php';
 require_once 'functions/functions.php';
 require_once 'class/PDODB.php';
+require_once'functions/department-functions.php';
 session_start();
 
 // Attempt to make connection to the database
@@ -39,44 +40,66 @@ if (!isset($loggedIn)){
 }
   
 ?>
-<div class="jumbotron text-center">
-  <h1><?php echo $pageTitle;?></h1>
-</div>
 
-<div class="container">
-  <div class="row">
-    <div class="col-sm-12">
-    <?php
-
-    // If not logged in show text
-    if (isset($errorText)){
-      echo "<p>$errorText</p>";
-
-    } else{
-        // The main page content if user has correct permissions
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    }
-
-    ?>
+    <div class="jumbotron text-center">
+        <h1><?php echo $pageTitle; ?></h1>
     </div>
-  </div>
-</div>
+<?php
+
+// Check if department has been submitted from form
+if (isset($_REQUEST['department'])) {
+    // Add the department to the $input array
+    $input = array();
+    $input['department'] = isset($_POST['department']) ? $_POST['department'] : null;
+
+    // Run the SQL
+    if (createDepartment($dbConn, $input)) {
+        $querySuccessMsg = "<div class= 'row justify-content-center align-items-center'>
+                                <h3>You have successfully created a new department</h3>
+                            </div>";
+    }
+}
+
+
+// Show success message if query ran/succeeded
+if (isset($querySuccessMsg)) {
+    echo($querySuccessMsg);
+    // Else display form
+} else {
+    echo('
+    <div class="container">
+        <div class="row justify-content-center align-items-center">
+            <div class="col-sm-4"></div>
+            <div class="col-sm-4">
+                <form action="create-department.php" name="createDepartmentForm" method="POST">
+                    <h3 class="text-center">Enter the department details</h3>
+                    <div class="form-group">
+                        <label for="department">Department:</label>
+                        <input type="text" class="form-control" placeholder="department" name="department" required/>
+                    </div>
+                    <div class="login-error">
+    ');
+    if (!empty($errors)) {
+        foreach ($errors as $error) {
+            echo "<p class=\'error\'>$error</p>";
+
+        }
+    }
+    echo('
+                    </div>
+                    <button type="submit" id="submitButton" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+            <div class="col-sm-4"></div>
+        </div>
+    </div>
+    ');
+}
+
+
+?>
+
+
 <?php
 echo getHTMLFooter();
 getHTMLEnd();
