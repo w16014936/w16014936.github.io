@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Mar 15, 2019 at 01:10 PM
+-- Generation Time: Mar 29, 2019 at 12:30 PM
 -- Server version: 5.5.58-0+deb7u1-log
 -- PHP Version: 5.6.31-1~dotdeb+7.1
 
@@ -28,14 +28,14 @@ SET time_zone = "+00:00";
 
 CREATE TABLE IF NOT EXISTS `timesheets_activity` (
 `activity_id` int(11) NOT NULL,
-  `type` varchar(50) COLLATE utf8_bin NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+  `activity_type` varchar(50) COLLATE utf8_bin NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
 -- Dumping data for table `timesheets_activity`
 --
 
-INSERT INTO `timesheets_activity` (`activity_id`, `type`) VALUES
+INSERT INTO `timesheets_activity` (`activity_id`, `activity_type`) VALUES
 (5, 'Absent'),
 (3, 'Holiday'),
 (1, 'Normal'),
@@ -71,14 +71,14 @@ INSERT INTO `timesheets_contact` (`contact_id`, `contact_name`, `contact_email`,
 
 CREATE TABLE IF NOT EXISTS `timesheets_department` (
 `department_id` int(11) NOT NULL,
-  `name` varchar(50) COLLATE utf8_bin NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+  `department_name` varchar(50) COLLATE utf8_bin NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
 -- Dumping data for table `timesheets_department`
 --
 
-INSERT INTO `timesheets_department` (`department_id`, `name`) VALUES
+INSERT INTO `timesheets_department` (`department_id`, `department_name`) VALUES
 (1, 'Finance'),
 (2, 'Human Resource'),
 (5, 'IT Services'),
@@ -94,14 +94,14 @@ INSERT INTO `timesheets_department` (`department_id`, `name`) VALUES
 CREATE TABLE IF NOT EXISTS `timesheets_job` (
 `job_id` int(11) NOT NULL,
   `department_id` int(11) NOT NULL,
-  `title` varchar(50) COLLATE utf8_bin NOT NULL
+  `job_title` varchar(50) COLLATE utf8_bin NOT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
 -- Dumping data for table `timesheets_job`
 --
 
-INSERT INTO `timesheets_job` (`job_id`, `department_id`, `title`) VALUES
+INSERT INTO `timesheets_job` (`job_id`, `department_id`, `job_title`) VALUES
 (1, 4, 'Software Engineer'),
 (2, 4, 'Senior Software Engineer'),
 (3, 4, 'Apprentice Software Engineer'),
@@ -143,49 +143,50 @@ CREATE TABLE IF NOT EXISTS `timesheets_person` (
   `address_line_4` varchar(50) COLLATE utf8_bin NOT NULL,
   `address_line_5` varchar(50) COLLATE utf8_bin NOT NULL,
   `post_code` varchar(8) COLLATE utf8_bin NOT NULL,
-  `date_of_birth` date NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+  `date_of_birth` date NOT NULL,
+  `archive` tinyint(1) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
 -- Dumping data for table `timesheets_person`
 --
 
-INSERT INTO `timesheets_person` (`person_id`, `user_id`, `job_id`, `team_id`, `department_id`, `contracted_hours`, `title`, `forename`, `surname`, `phone_number`, `email`, `address_line_1`, `address_line_2`, `address_line_3`, `address_line_4`, `address_line_5`, `post_code`, `date_of_birth`) VALUES
-(1, 1, 6, 5, 4, 37.5, 'Dr', 'Mara', 'Jerrom', 533, 'mjerrom0@printfriendly.com', '51', 'The Green', 'WESTERN CENTRAL LONDON', '', '', 'WC85 9TH', '1964-08-17'),
-(2, 2, 2, 6, 4, 40, 'Rev', 'Abner', 'Souley', 307, 'asouley1@g.co', '88', 'Chester Road', 'KILMARNOCK', '', '', 'KA2 7CH', '1957-03-05'),
-(3, 3, 4, 6, 4, 37.5, 'Ms', 'Sibella', 'Apfel', 584, 'sapfel2@histats.com', '619', 'London Road', 'SOUTHEND-ON-SEA ', '', '', 'SS45 9MN', '1994-08-11'),
-(4, 4, 1, 5, 4, 40, 'Ms', 'Tyson', 'de Cullip', 362, 'tdecullip3@51.la', '861', 'North Road', 'CARDIFF', '', '', 'CF39 1PQ', '1962-08-17'),
-(5, 5, 5, 7, 4, 37.5, 'Mr', 'Mae', 'Pikett', 729, 'mpikett4@youtube.com', '987', 'North Street', 'ILFORD', '', '', 'IG86 0BY', '1955-03-26'),
-(6, 6, 2, 6, 4, 35, 'Ms', 'Katuscha', 'Kment', 214, 'kkment5@tumblr.com', '8601', 'The Grove', 'WARRINGTON', '', '', 'WA42 0PK', '1981-10-05'),
-(7, 7, 2, 5, 4, 35, 'Ms', 'Valaria', 'Biasini', 985, 'vbiasini6@google.co.jp', '720', 'Windsor Road', 'EAST CENTRAL LONDON', '', '', 'EC52 2LZ', '1975-09-24'),
-(8, 8, 3, 7, 4, 35, 'Mrs', 'Kathie', 'Silman', 124, 'ksilman7@census.gov', '26', 'George Street', 'SHEFFIELD', '', '', 'S34 0SO', '1975-12-28'),
-(9, 9, 3, 7, 4, 40, 'Mr', 'Briant', 'Conneau', 661, 'bconneau8@altervista.org', '933', 'Manchester Road', 'WAKEFIELD', '', '', 'WF90 4IK', '1975-02-03'),
-(10, 10, 3, 7, 4, 35, 'Dr', 'Madelina', 'Loomis', 263, 'mloomis9@furl.net', '517', 'Station Road', 'ROCHESTER', '', '', 'ME67 3TN', '1962-10-01'),
-(11, 11, 5, 6, 4, 40, 'Mrs', 'Clemmy', 'Kurtis', 668, 'ckurtisa@disqus.com', '8665', 'Green Lane', 'DURHAM', '', '', 'DH29 9DB', '1999-07-26'),
-(12, 12, 2, 5, 4, 35, 'Dr', 'Bryn', 'Sandifer', 571, 'bsandiferb@devhub.com', '7992', 'The Avenue', 'LEICESTER', '', '', 'LE28 7WX', '1981-03-18'),
-(13, 13, 4, 5, 4, 35, 'Dr', 'Gracie', 'Swanson', 318, 'gswansonc@google.com.au', '77', 'St. John’s Road', 'SWANSEA', '', '', 'SA28 8EA', '1969-01-08'),
-(14, 14, 2, 5, 4, 35, 'Ms', 'Wildon', 'Wickling', 595, 'wwicklingd@soup.io', '517', 'Station Road', 'ROCHESTER', '', '', 'ME67 3TN', '1993-01-14'),
-(15, 15, 4, 7, 4, 40, 'Mr', 'Gardie', 'Dudney', 525, 'gdudneye@gnu.org', '7133', 'Queensway', 'LINCOLN', '', '', 'LN11 3DV', '1990-03-11'),
-(16, 16, 2, 5, 4, 40, 'Mr', 'Mariana', 'Tooth', 162, 'mtoothf@unicef.org', '88', 'London Road', 'DUNDEE', '', '', 'DD87 0SE', '1984-06-29'),
-(17, 17, 9, 1, 1, 35, 'Rev', 'Eulalie', 'Killick', 126, 'ekillick0@tmall.com', '8796', 'George Street', 'NEWPORT', '', '', 'NP92 0MA', '1955-07-19'),
-(18, 18, 8, 1, 1, 37.5, 'Mr', 'Elysha', 'Ricarde', 593, 'ericarde1@accuweather.com', '7557', 'St. John’s Road', 'BRISTOL', '', '', 'BS95 3QV', '1999-12-25'),
-(19, 19, 9, 1, 1, 35, 'Mr', 'Frederik', 'Gehrts', 682, 'fgehrts2@bing.com', '9602', 'Alexander Road', 'KILMARNOCK', '', '', 'KA69 6EX', '1983-12-22'),
-(20, 20, 7, 1, 1, 35, 'Dr', 'Cecil', 'Rounsefull', 467, 'crounsefull3@hexun.com', '2', 'Manchester Road', 'SOUTHEND-ON-SEA', '', '', 'SS94 4QG', '1994-09-06'),
-(21, 21, 7, 1, 1, 35, 'Mr', 'Beitris', 'Olpin', 458, 'bolpin4@cdc.gov', '82', 'West Street', 'CROYDON', '', '', 'CR57 7YB', '1988-02-02'),
-(22, 22, 11, 2, 2, 37.5, 'Ms', 'Staci', 'Clapton', 762, 'sclapton0@hexun.com', '743', 'Highfield Road', 'WATFORD', '', '', 'WD72 2TL', '1963-01-30'),
-(23, 23, 10, 2, 2, 35, 'Ms', 'Gerek', 'Posselt', 201, 'gposselt1@com.com', '8549', 'West Street', 'OXFORD', '', '', 'OX98 1NX', '1997-03-13'),
-(24, 24, 11, 2, 2, 37.5, 'Ms', 'Gardy', 'Bowmer', 894, 'gbowmer2@facebook.com', '6', 'Main Street', 'HEMEL HEMPSTEAD', '', '', 'HP79 8EJ', '1955-06-24'),
-(25, 25, 13, 3, 3, 37.5, 'Mr', 'Shara', 'Pechan', 412, 'spechan0@nydailynews.com', '8145', 'Park Road', 'PLYMOUTH', '', '', 'PL60 6YA', '1962-02-22'),
-(26, 26, 12, 4, 3, 37.5, 'Mrs', 'Frants', 'Fleeman', 934, 'ffleeman1@java.com', '694', 'Windsor Road', 'CLEVELAND', '', '', 'TS21 0CQ', '1961-07-26'),
-(27, 27, 12, 4, 3, 35, 'Mrs', 'Sanson', 'Kemmons', 127, 'skemmons2@imdb.com', '409', 'Victoria Road', 'SLOUGH', '', '', 'SL91 9GU', '1960-12-08'),
-(28, 28, 13, 4, 3, 35, 'Ms', 'Zedekiah', 'Drage', 259, 'zdrage3@moonfruit.com', '8934', 'St. John’s Road', 'CAMBRIDGE', '', '', 'CB56 1MO', '1974-12-22'),
-(29, 29, 12, 4, 3, 35, 'Ms', 'August', 'Comello', 783, 'acomello4@sina.com.cn', '52', 'Park Avenue', 'ROCHESTER', '', '', 'ME24 8QO', '1972-03-11'),
-(30, 30, 14, 3, 3, 37.5, 'Mr', 'Conny', 'Leneham', 823, 'cleneham5@pbs.org', '239', 'Church Road', 'SALISBURY', '', '', 'SP72 4BK', '1997-01-20'),
-(31, 31, 15, 8, 5, 40, 'Mr', 'Guy', 'Giddons', 872, 'ggiddons0@feedburner.com', '637', 'Chester Road', 'NORWICH', '', '', 'NR84 2OV', '1994-05-03'),
-(32, 32, 15, 8, 5, 40, 'Mr', 'Whitman', 'Grindlay', 131, 'wgrindlay1@ehow.com', '39', 'Queensway', 'ILFORD', '', '', 'IG30 4UO', '1966-02-07'),
-(33, 33, 17, 8, 5, 35, 'Dr', 'Nani', 'Trustie', 567, 'ntrustie2@alexa.com', '8428', 'The Drive', 'CHELMSFORD', '', '', 'CM51 0JE', '1977-09-11'),
-(34, 34, 15, 8, 5, 35, 'Ms', 'Mordy', 'Backshell', 656, 'mbackshell3@phoca.cz', '681', 'Kingsway', 'BRADFORD', '', '', 'BD48 2MZ', '1997-12-23'),
-(35, 35, 16, 8, 5, 37.5, 'Mr', 'Geoff', 'Greenroad', 152, 'ggreenroad4@icq.com', '819', 'Manchester Road', 'SOUTHAMPTON', '', '', 'SO42 0IF', '1969-01-23');
+INSERT INTO `timesheets_person` (`person_id`, `user_id`, `job_id`, `team_id`, `department_id`, `contracted_hours`, `title`, `forename`, `surname`, `phone_number`, `email`, `address_line_1`, `address_line_2`, `address_line_3`, `address_line_4`, `address_line_5`, `post_code`, `date_of_birth`, `archive`) VALUES
+(1, 1, 6, 5, 4, 37.5, 'Dr', 'Mara', 'Jerrom', 533, 'mjerrom0@printfriendly.com', '51', 'The Green', 'WESTERN CENTRAL LONDON', '', '', 'WC85 9TH', '1964-08-17', 1),
+(2, 2, 2, 6, 4, 40, 'Rev', 'Abner', 'Souley', 307, 'asouley1@g.co', '88', 'Chester Road', 'KILMARNOCK', '', '', 'KA2 7CH', '1957-03-05', 0),
+(3, 3, 4, 6, 4, 37.5, 'Ms', 'Sibella', 'Apfel', 584, 'sapfel2@histats.com', '619', 'London Road', 'SOUTHEND-ON-SEA ', '', '', 'SS45 9MN', '1994-08-11', 0),
+(4, 4, 1, 5, 4, 40, 'Ms', 'Tyson', 'de Cullip', 362, 'tdecullip3@51.la', '861', 'North Road', 'CARDIFF', '', '', 'CF39 1PQ', '1962-08-17', 0),
+(5, 5, 5, 7, 4, 37.5, 'Mr', 'Mae', 'Pikett', 729, 'mpikett4@youtube.com', '987', 'North Street', 'ILFORD', '', '', 'IG86 0BY', '1955-03-26', 0),
+(6, 6, 2, 6, 4, 35, 'Ms', 'Katuscha', 'Kment', 214, 'kkment5@tumblr.com', '8601', 'The Grove', 'WARRINGTON', '', '', 'WA42 0PK', '1981-10-05', 0),
+(7, 7, 2, 5, 4, 35, 'Ms', 'Valaria', 'Biasini', 985, 'vbiasini6@google.co.jp', '720', 'Windsor Road', 'EAST CENTRAL LONDON', '', '', 'EC52 2LZ', '1975-09-24', 0),
+(8, 8, 3, 7, 4, 35, 'Mrs', 'Kathie', 'Silman', 124, 'ksilman7@census.gov', '26', 'George Street', 'SHEFFIELD', '', '', 'S34 0SO', '1975-12-28', 0),
+(9, 9, 3, 7, 4, 40, 'Mr', 'Briant', 'Conneau', 661, 'bconneau8@altervista.org', '933', 'Manchester Road', 'WAKEFIELD', '', '', 'WF90 4IK', '1975-02-03', 0),
+(10, 10, 3, 7, 4, 35, 'Dr', 'Madelina', 'Loomis', 263, 'mloomis9@furl.net', '517', 'Station Road', 'ROCHESTER', '', '', 'ME67 3TN', '1962-10-01', 0),
+(11, 11, 5, 6, 4, 40, 'Mrs', 'Clemmy', 'Kurtis', 668, 'ckurtisa@disqus.com', '8665', 'Green Lane', 'DURHAM', '', '', 'DH29 9DB', '1999-07-26', 0),
+(12, 12, 2, 5, 4, 35, 'Dr', 'Bryn', 'Sandifer', 571, 'bsandiferb@devhub.com', '7992', 'The Avenue', 'LEICESTER', '', '', 'LE28 7WX', '1981-03-18', 0),
+(13, 13, 4, 5, 4, 35, 'Dr', 'Gracie', 'Swanson', 318, 'gswansonc@google.com.au', '77', 'St. John’s Road', 'SWANSEA', '', '', 'SA28 8EA', '1969-01-08', 0),
+(14, 14, 2, 5, 4, 35, 'Ms', 'Wildon', 'Wickling', 595, 'wwicklingd@soup.io', '517', 'Station Road', 'ROCHESTER', '', '', 'ME67 3TN', '1993-01-14', 0),
+(15, 15, 4, 7, 4, 40, 'Mr', 'Gardie', 'Dudney', 525, 'gdudneye@gnu.org', '7133', 'Queensway', 'LINCOLN', '', '', 'LN11 3DV', '1990-03-11', 0),
+(16, 16, 2, 5, 4, 40, 'Mr', 'Mariana', 'Tooth', 162, 'mtoothf@unicef.org', '88', 'London Road', 'DUNDEE', '', '', 'DD87 0SE', '1984-06-29', 0),
+(17, 17, 9, 1, 1, 35, 'Rev', 'Eulalie', 'Killick', 126, 'ekillick0@tmall.com', '8796', 'George Street', 'NEWPORT', '', '', 'NP92 0MA', '1955-07-19', 0),
+(18, 18, 8, 1, 1, 37.5, 'Mr', 'Elysha', 'Ricarde', 593, 'ericarde1@accuweather.com', '7557', 'St. John’s Road', 'BRISTOL', '', '', 'BS95 3QV', '1999-12-25', 0),
+(19, 19, 9, 1, 1, 35, 'Mr', 'Frederik', 'Gehrts', 682, 'fgehrts2@bing.com', '9602', 'Alexander Road', 'KILMARNOCK', '', '', 'KA69 6EX', '1983-12-22', 0),
+(20, 20, 7, 1, 1, 35, 'Dr', 'Cecil', 'Rounsefull', 467, 'crounsefull3@hexun.com', '2', 'Manchester Road', 'SOUTHEND-ON-SEA', '', '', 'SS94 4QG', '1994-09-06', 0),
+(21, 21, 7, 1, 1, 35, 'Mr', 'Beitris', 'Olpin', 458, 'bolpin4@cdc.gov', '82', 'West Street', 'CROYDON', '', '', 'CR57 7YB', '1988-02-02', 0),
+(22, 22, 11, 2, 2, 37.5, 'Ms', 'Staci', 'Clapton', 762, 'sclapton0@hexun.com', '743', 'Highfield Road', 'WATFORD', '', '', 'WD72 2TL', '1963-01-30', 0),
+(23, 23, 10, 2, 2, 35, 'Ms', 'Gerek', 'Posselt', 201, 'gposselt1@com.com', '8549', 'West Street', 'OXFORD', '', '', 'OX98 1NX', '1997-03-13', 0),
+(24, 24, 11, 2, 2, 37.5, 'Ms', 'Gardy', 'Bowmer', 894, 'gbowmer2@facebook.com', '6', 'Main Street', 'HEMEL HEMPSTEAD', '', '', 'HP79 8EJ', '1955-06-24', 0),
+(25, 25, 13, 3, 3, 37.5, 'Mr', 'Shara', 'Pechan', 412, 'spechan0@nydailynews.com', '8145', 'Park Road', 'PLYMOUTH', '', '', 'PL60 6YA', '1962-02-22', 0),
+(26, 26, 12, 4, 3, 37.5, 'Mrs', 'Frants', 'Fleeman', 934, 'ffleeman1@java.com', '694', 'Windsor Road', 'CLEVELAND', '', '', 'TS21 0CQ', '1961-07-26', 0),
+(27, 27, 12, 4, 3, 35, 'Mrs', 'Sanson', 'Kemmons', 127, 'skemmons2@imdb.com', '409', 'Victoria Road', 'SLOUGH', '', '', 'SL91 9GU', '1960-12-08', 0),
+(28, 28, 13, 4, 3, 35, 'Ms', 'Zedekiah', 'Drage', 259, 'zdrage3@moonfruit.com', '8934', 'St. John’s Road', 'CAMBRIDGE', '', '', 'CB56 1MO', '1974-12-22', 0),
+(29, 29, 12, 4, 3, 35, 'Ms', 'August', 'Comello', 783, 'acomello4@sina.com.cn', '52', 'Park Avenue', 'ROCHESTER', '', '', 'ME24 8QO', '1972-03-11', 0),
+(30, 30, 14, 3, 3, 37.5, 'Mr', 'Conny', 'Leneham', 823, 'cleneham5@pbs.org', '239', 'Church Road', 'SALISBURY', '', '', 'SP72 4BK', '1997-01-20', 0),
+(31, 31, 15, 8, 5, 40, 'Mr', 'Guy', 'Giddons', 872, 'ggiddons0@feedburner.com', '637', 'Chester Road', 'NORWICH', '', '', 'NR84 2OV', '1994-05-03', 0),
+(32, 32, 15, 8, 5, 40, 'Mr', 'Whitman', 'Grindlay', 131, 'wgrindlay1@ehow.com', '39', 'Queensway', 'ILFORD', '', '', 'IG30 4UO', '1966-02-07', 0),
+(33, 33, 17, 8, 5, 35, 'Dr', 'Nani', 'Trustie', 567, 'ntrustie2@alexa.com', '8428', 'The Drive', 'CHELMSFORD', '', '', 'CM51 0JE', '1977-09-11', 0),
+(34, 34, 15, 8, 5, 35, 'Ms', 'Mordy', 'Backshell', 656, 'mbackshell3@phoca.cz', '681', 'Kingsway', 'BRADFORD', '', '', 'BD48 2MZ', '1997-12-23', 0),
+(35, 35, 16, 8, 5, 37.5, 'Mr', 'Geoff', 'Greenroad', 152, 'ggreenroad4@icq.com', '819', 'Manchester Road', 'SOUTHAMPTON', '', '', 'SO42 0IF', '1969-01-23', 0);
 
 -- --------------------------------------------------------
 
@@ -195,14 +196,14 @@ INSERT INTO `timesheets_person` (`person_id`, `user_id`, `job_id`, `team_id`, `d
 
 CREATE TABLE IF NOT EXISTS `timesheets_project` (
 `project_id` int(11) NOT NULL,
-  `name` varchar(50) COLLATE utf8_bin NOT NULL
+  `project_name` varchar(50) COLLATE utf8_bin NOT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
 -- Dumping data for table `timesheets_project`
 --
 
-INSERT INTO `timesheets_project` (`project_id`, `name`) VALUES
+INSERT INTO `timesheets_project` (`project_id`, `project_name`) VALUES
 (2, 'Biodex'),
 (5, 'Cookley'),
 (1, 'Kanlam'),
@@ -237,14 +238,14 @@ INSERT INTO `timesheets_role` (`role_id`, `role_type`) VALUES
 CREATE TABLE IF NOT EXISTS `timesheets_team` (
 `team_id` int(11) NOT NULL,
   `department_id` int(11) NOT NULL,
-  `name` varchar(50) COLLATE utf8_bin NOT NULL
+  `team_name` varchar(50) COLLATE utf8_bin NOT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
 -- Dumping data for table `timesheets_team`
 --
 
-INSERT INTO `timesheets_team` (`team_id`, `department_id`, `name`) VALUES
+INSERT INTO `timesheets_team` (`team_id`, `department_id`, `team_name`) VALUES
 (1, 1, 'Accounts'),
 (2, 2, 'Human Resources'),
 (3, 3, 'New Customers'),
@@ -1760,7 +1761,7 @@ CREATE TABLE IF NOT EXISTS `timesheets_user` (
 `user_id` int(11) NOT NULL,
   `username` varchar(50) COLLATE utf8_bin NOT NULL,
   `passwordHash` varchar(255) COLLATE utf8_bin NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
 -- Dumping data for table `timesheets_user`
@@ -1801,7 +1802,10 @@ INSERT INTO `timesheets_user` (`user_id`, `username`, `passwordHash`) VALUES
 (32, 'Whitman', '$2y$10$9JBV7e9JB.RhlZDn7eDJ3.z061hHfbOEPURE.JpOYWxOm6A/AnCj2'),
 (33, 'Nani', '$2y$10$9JBV7e9JB.RhlZDn7eDJ3.z061hHfbOEPURE.JpOYWxOm6A/AnCj2'),
 (34, 'Mordy', '$2y$10$9JBV7e9JB.RhlZDn7eDJ3.z061hHfbOEPURE.JpOYWxOm6A/AnCj2'),
-(35, 'Geoff', '$2y$10$9JBV7e9JB.RhlZDn7eDJ3.z061hHfbOEPURE.JpOYWxOm6A/AnCj2');
+(35, 'Geoff', '$2y$10$9JBV7e9JB.RhlZDn7eDJ3.z061hHfbOEPURE.JpOYWxOm6A/AnCj2'),
+(36, 'someUser', '$2y$10$lomYyyKTvEkT52H3ir29be32VTCcn2xNKZgiAR/fUFAI6gtsURtQG'),
+(37, 'username', '$2y$10$rdZftkO922oUkJglophDYOFCKvw/d5C47t2QRcW1kI7RZwlkuph4K'),
+(39, 'username1', '$2y$10$nUnZGMOnZJCy09752lpZ7O3KbcdPeUe7bCCeoqSxVxlJfhyEMvXwa');
 
 -- --------------------------------------------------------
 
@@ -1865,7 +1869,7 @@ INSERT INTO `timesheets_user_role` (`user_role_id`, `user_id`, `role_id`) VALUES
 -- Indexes for table `timesheets_activity`
 --
 ALTER TABLE `timesheets_activity`
- ADD PRIMARY KEY (`activity_id`), ADD UNIQUE KEY `type` (`type`);
+ ADD PRIMARY KEY (`activity_id`), ADD UNIQUE KEY `type` (`activity_type`);
 
 --
 -- Indexes for table `timesheets_contact`
@@ -1877,25 +1881,25 @@ ALTER TABLE `timesheets_contact`
 -- Indexes for table `timesheets_department`
 --
 ALTER TABLE `timesheets_department`
- ADD PRIMARY KEY (`department_id`), ADD UNIQUE KEY `name` (`name`);
+ ADD PRIMARY KEY (`department_id`), ADD UNIQUE KEY `name` (`department_name`);
 
 --
 -- Indexes for table `timesheets_job`
 --
 ALTER TABLE `timesheets_job`
- ADD PRIMARY KEY (`job_id`), ADD UNIQUE KEY `title` (`title`), ADD KEY `department_id` (`department_id`);
+ ADD PRIMARY KEY (`job_id`), ADD UNIQUE KEY `title` (`job_title`), ADD KEY `department_id` (`department_id`);
 
 --
 -- Indexes for table `timesheets_person`
 --
 ALTER TABLE `timesheets_person`
- ADD PRIMARY KEY (`person_id`), ADD UNIQUE KEY `user_id` (`user_id`), ADD KEY `job_id` (`job_id`), ADD KEY `team_id` (`team_id`), ADD KEY `department_id` (`department_id`), ADD KEY `forename` (`forename`), ADD KEY `surname` (`surname`);
+ ADD PRIMARY KEY (`person_id`), ADD UNIQUE KEY `user_id` (`user_id`), ADD KEY `job_id` (`job_id`), ADD KEY `team_id` (`team_id`), ADD KEY `department_id` (`department_id`), ADD KEY `forename` (`forename`), ADD KEY `surname` (`surname`), ADD KEY `archive` (`archive`);
 
 --
 -- Indexes for table `timesheets_project`
 --
 ALTER TABLE `timesheets_project`
- ADD PRIMARY KEY (`project_id`), ADD UNIQUE KEY `name` (`name`);
+ ADD PRIMARY KEY (`project_id`), ADD UNIQUE KEY `name` (`project_name`);
 
 --
 -- Indexes for table `timesheets_role`
@@ -1907,7 +1911,7 @@ ALTER TABLE `timesheets_role`
 -- Indexes for table `timesheets_team`
 --
 ALTER TABLE `timesheets_team`
- ADD PRIMARY KEY (`team_id`), ADD UNIQUE KEY `name` (`name`);
+ ADD PRIMARY KEY (`team_id`), ADD UNIQUE KEY `name` (`team_name`);
 
 --
 -- Indexes for table `timesheets_timesheet`
@@ -1935,7 +1939,7 @@ ALTER TABLE `timesheets_user_role`
 -- AUTO_INCREMENT for table `timesheets_activity`
 --
 ALTER TABLE `timesheets_activity`
-MODIFY `activity_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
+MODIFY `activity_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=12;
 --
 -- AUTO_INCREMENT for table `timesheets_contact`
 --
@@ -1945,7 +1949,7 @@ MODIFY `contact_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 -- AUTO_INCREMENT for table `timesheets_department`
 --
 ALTER TABLE `timesheets_department`
-MODIFY `department_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
+MODIFY `department_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `timesheets_job`
 --
@@ -1955,7 +1959,7 @@ MODIFY `job_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=18;
 -- AUTO_INCREMENT for table `timesheets_person`
 --
 ALTER TABLE `timesheets_person`
-MODIFY `person_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=36;
+MODIFY `person_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=38;
 --
 -- AUTO_INCREMENT for table `timesheets_project`
 --
@@ -1980,7 +1984,7 @@ MODIFY `timesheet_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=1471;
 -- AUTO_INCREMENT for table `timesheets_user`
 --
 ALTER TABLE `timesheets_user`
-MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=36;
+MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=40;
 --
 -- AUTO_INCREMENT for table `timesheets_user_role`
 --
