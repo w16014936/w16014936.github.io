@@ -407,7 +407,7 @@ function getDepartments($dbConn, $loggedIn){
     // Try to carry out the database search
     try{
         $sqlQuery = "SELECT timesheets_department.department_id,
-                            timesheets_department.name
+                            timesheets_department.department_name
                             FROM timesheets_department";
 
         $stmt = $dbConn->prepare($sqlQuery);
@@ -425,7 +425,7 @@ function getDepartments($dbConn, $loggedIn){
             // Loop through resultsstmt
             foreach($rows as $row){
                 array_push($department_ids, $row['department_id']);
-                array_push($department_names, $row['name']);
+                array_push($department_names, $row['department_name']);
             }
 
         } else{
@@ -451,7 +451,7 @@ function getProjects($dbConn, $loggedIn){
     // Try to carry out the database search
     try{
         $sqlQuery = "SELECT timesheets_project.project_id,
-                            timesheets_project.name
+                            timesheets_project.project_name
                             FROM timesheets_project";
 
         $stmt = $dbConn->prepare($sqlQuery);
@@ -469,7 +469,7 @@ function getProjects($dbConn, $loggedIn){
             // Loop through resultsstmt
             foreach($rows as $row){
                 array_push($project_ids, $row['project_id']);
-                array_push($project_names, $row['name']);
+                array_push($project_names, $row['project_name']);
             }
 
         } else{
