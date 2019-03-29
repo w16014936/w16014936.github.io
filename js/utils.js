@@ -2,12 +2,15 @@
 
 window.chartColors = {
     blue: 'rgb(54, 162, 235)',
-    yellow: 'rgb(255, 205, 86)',
+    orange: 'rgb(255,140,0)',
+    yellow: 'rgb(255,255,0)',
     purple: 'rgb(153, 102, 255)',
-    red: 'rgb(255, 99, 132)',
     green: 'rgb(75, 192, 192)',
+    red: 'rgb(255, 99, 132)',
     grey: 'rgb(201, 203, 207)',
-    black: 'rgb(0, 0, 0)'	
+    black: 'rgb(0, 0, 0)',
+
+
 };
 
 (function(global) {

@@ -166,12 +166,16 @@ function createDataSets(json){
     var sickData = json.map(function (e) {
         return e.sick;
     });
+    var underData = json.map(function (e) {
+        return e.under;
+    });
     var objects = [];
     objects.push(hoursData);
     objects.push(overtimeData);
     objects.push(holidayData);
     objects.push(absentData);
     objects.push(sickData);
+    objects.push(underData);
 
 
     var keys = [];
