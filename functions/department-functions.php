@@ -11,9 +11,9 @@ function createDepartment($dbConn, $input)
 
         $sql = "INSERT INTO timesheets_department (department_name)
               VALUES('$department')";
-        // Prepate SQL statement
+        // Prepare SQL statement
         $createDepartmentStmt = $dbConn->prepare($sql);
-        // Excecute statement
+        // Execute statement
         $createDepartmentStmt->execute();
 
         // return true if query worked
