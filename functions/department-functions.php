@@ -7,8 +7,6 @@ function createDepartment($dbConn, $input)
 
     // Try insert into database
     try {
-
-
         $sql = "INSERT INTO timesheets_department (department_name)
               VALUES('$department')";
         // Prepare SQL statement
