@@ -29,43 +29,109 @@
 
 ?>
 <div class="jumbotron text-center">
-  <h1>University Timesheet System</h1>
+    <h1>Timesheet Management System</h1>
 </div>
 
 <div class="container" id="index-container">
   <div class="col-sm-12">
-    <h2>Purpose</h2>
+      <h2>Everything you need to run your business</h2>
 
-    <p>The purpose of this website is to allow members of a team to register to our site, <i>https://w16014936.github.io/</i>. It contains serveral different parts, including:</p>
+      <p>Flexible Time Tracking and Staff Software that is lightweight, dynamic and affordable</p>
 
-    <ul>
-      <li>the ability to add <b>projects</b> to your account</li>
-      <li>the ability to allocate <b>time</b> to all the projects you are working on</li>
-      <li>the ability to see staff <b>holiday</b> all in one place</li>
-      <li>the ability to calculate <b>costs</b> based on time spent on projects</li>
-    </ul>
-	
+      <ul>
+          <li>Fully <b>mobile</b> and compatible on all devices</li>
+          <li>Drill down into <b>projects</b> by tracking time against specific tasks</li>
+          <li>Manage all <b>activities</b> such as overtime and sickness</li>
+          <li>Measure performance and resource across <b>departments</b></li>
+          <li>View all data in a desired format with our <b>graph</b> functionality</li>
+          <li>Integrated <b>role</b> permissions for handling sensitive data</li>
+      </ul>
 
-	
+      <div id="container" style="width: 75%;">
+          <canvas id="canvas"></canvas>
+      </div>
   </div>
 </div>
 <?php
 
 echo getHTMLFooter();
 ?>
-<script src="serviceWorker.js" type="text/javascript"></script>
-<script>
-if ('serviceWorker' in navigator) {
-    window.addEventListener('load', function() {
-    navigator.serviceWorker.register('serviceWorker.js').then(function(registration) {
-    // Registration was successful
-      console.log('ServiceWorker registration successful with scope: ', registration.scope);
-    }, function(err) {
-      // registration failed :(
-      console.log('ServiceWorker registration failed: ', err);
-    });
-  });
-}
-</script>
+    <script src="js/utils.js" type="text/javascript"></script>
+    <script src="js/libraries/Chart.min.js" type="text/javascript"></script>
+    <!--Graph purely for demo purposes on home page-->
+    <script>
+        var color = Chart.helpers.color;
+        var barChartData = {
+            labels: ['Rachel', 'Tina', 'Bradley', 'Jon', 'Jo', 'Hannah', 'Paul'],
+            datasets: [{
+                label: 'Singing',
+                backgroundColor: color(window.chartColors.red).alpha(0.5).rgbString(),
+                borderColor: window.chartColors.red,
+                borderWidth: 1,
+                data: [
+                    Math.floor(Math.random() * 101),
+                    Math.floor(Math.random() * 101),
+                    Math.floor(Math.random() * 101),
+                    Math.floor(Math.random() * 101),
+                    Math.floor(Math.random() * 101),
+                    Math.floor(Math.random() * 101),
+                    Math.floor(Math.random() * 101),
+                    Math.floor(Math.random() * 101)
+
+                ]
+            }, {
+                label: 'Dancing',
+                backgroundColor: color(window.chartColors.blue).alpha(0.5).rgbString(),
+                borderColor: window.chartColors.blue,
+                borderWidth: 1,
+                data: [
+                    Math.floor(Math.random() * 101),
+                    Math.floor(Math.random() * 101),
+                    Math.floor(Math.random() * 101),
+                    Math.floor(Math.random() * 101),
+                    Math.floor(Math.random() * 101),
+                    Math.floor(Math.random() * 101),
+                    Math.floor(Math.random() * 101),
+                    Math.floor(Math.random() * 101)
+
+                ]
+            }]
+
+        };
+
+        window.onload = function() {
+            var ctx = document.getElementById('canvas').getContext('2d');
+            window.myBar = new Chart(ctx, {
+                type: 'bar',
+                data: barChartData,
+                options: {
+                    responsive: true,
+                    legend: {
+                        position: 'top',
+                    },
+                    title: {
+                        display: true,
+                        text: 'Example'
+                    }
+                }
+            });
+
+        };
+
+    </script>
+    <script src="serviceWorker.js" type="text/javascript"></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('serviceWorker.js').then(function(registration) {
+                    // Registration was successful
+                    console.log('ServiceWorker registration successful with scope: ', registration.scope);
+                }, function(err) {
+                    // registration failed :(
+                    console.log('ServiceWorker registration failed: ', err);
+                });
+            });
+        }
+    </script>
 <?php
 getHTMLEnd();
