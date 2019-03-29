@@ -20,30 +20,34 @@ echo $loggedIn = isset($_SESSION['username']) ? $_SESSION['username'] : null;
 $userRole = isset($_SESSION['role']) ? $_SESSION['role'] : null;
 
 // Page title
-$pageTitle = 'Login'; 
+$pageTitle = 'Login';
 
 // Get the correcct page header depending on the users role and wheter or not they are logged in
-if (!isset($loggedIn)){
+if (!isset($loggedIn)) {
     echo getHTMLHeader($pageTitle, $loggedIn);
-  
-  } elseif (isset($userRole) && $userRole == 2){        // User level 
+
+} elseif (isset($userRole) && $userRole == 2) {        // User level
     echo getHTMLUserHeader($pageTitle, $loggedIn);
 
-  } elseif (isset($userRole) && $userRole == 1){        // Admin level
+} elseif (isset($userRole) && $userRole == 1) {        // Admin level
     echo getHTMLAdminHeader($pageTitle, $loggedIn);
-    
-  } else{
+
+} else {
     echo getHTMLHeader($pageTitle, $loggedIn);
-    
-  }
+
+}
 
 // Get the current base URL
 if (strpos($_SERVER['HTTP_HOST'], 'localhost') !== false) {
 //   $baseURL = "http://localhost/w16014936.github.io";
-   $baseURL = "http://unn-w16030249.newnumyspace.co.uk/timesheets";
+
+    $baseURL = "http://unn-w16030249.newnumyspace.co.uk/timesheets";
+//    $baseURL = "http://unn-w16038628.newnumyspace.co.uk/Year3/GroupAssignment/timesheets";
+
 } else {
- //   $baseURL = "https://w16014936.github.io";
-        $baseURL = "http://unn-w16030249.newnumyspace.co.uk/timesheets";
+    //   $baseURL = "https://w16014936.github.io";
+    $baseURL = "http://unn-w16030249.newnumyspace.co.uk/timesheets";
+//     $baseURL = "http://unn-w16038628.newnumyspace.co.uk/Year3/GroupAssignment/timesheets";
 }
 
 
@@ -66,21 +70,21 @@ if (isset($_SERVER['HTTP_REFERER'])) {
 }
 
 // If user is logged in currently redirect them back to where they've just came from
-if (isset($loggedIn)){
+if (isset($loggedIn)) {
     // Check if role has been set
-    if ($isset['role']){
+    if ($isset['role']) {
         header('Location: ' . $redirect);
         exit();
 
-    } else{
+    } else {
         $redirect .= '/select-role.php';
-        header('Location: ' . $baseURL . '/select-role.php' );
+        header('Location: ' . $baseURL . '/select-role.php');
         exit();
 
     }
     header('Location: ' . $redirect);
     exit();
-} 
+}
 
 ?>
 
