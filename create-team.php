@@ -6,6 +6,7 @@
 require_once 'env/environment.php';
 require_once 'functions/functions.php';
 require_once 'class/PDODB.php';
+require_once  'functions/team-functions.php';
 session_start();
 
 // Attempt to make connection to the database
@@ -39,44 +40,83 @@ if (!isset($loggedIn)){
 }
   
 ?>
-<div class="jumbotron text-center">
-  <h1><?php echo $pageTitle;?></h1>
-</div>
 
-<div class="container">
-  <div class="row">
-    <div class="col-sm-12">
-    <?php
+    <div class="jumbotron text-center">
+        <h1><?php echo $pageTitle; ?></h1>
+    </div>
 
-    // If not logged in show text
-    if (isset($errorText)){
-      echo "<p>$errorText</p>";
+<?php
 
-    } else{
-        // The main page content if user has correct permissions
+// Get the list of departments
+$departmentList = getTeamDepartments($dbConn);
 
+// Check if job has been submitted from form
+if (isset($_REQUEST['team'])) {
+    // Add the team and departmentID to the $input array
+    $input = array();
+    $input['team'] = isset($_POST['team']) ? $_POST['team'] : null;
+    $input['departmentID'] = isset($_POST['departmentID']) ? $_POST['departmentID'] : null;
 
-
-
-
-
-
-
-
-
-
+    // Run the SQL
+    if (createTeam($dbConn, $input)) {
+        $querySuccessMsg = "<div class= 'row justify-content-center align-items-center'>
+                                <h3>You have successfully created a new team</h3>
+                            </div>";
+    }
+}
 
 
+// Show success message if query ran/succeeded
+if (isset($querySuccessMsg)) {
+    echo($querySuccessMsg);
+    // Else display form
+} else {
+    echo('
+    <div class="container">
+        <div class="row justify-content-center align-items-center">
+            <div class="col-sm-4"></div>
+            <div class="col-sm-4">
+                <form action="create-team.php" name="createTeamForm" method="POST">
+                    <h3 class="text-center">Enter the team details</h3>
+                    <div class="form-group">
+                        <label for="team">Team:</label>
+                        <input type="text" class="form-control" placeholder="Team" name="team" required/>
+                    </div>
+                    <div class="form-group">
+                        <select id= "departmentSelect" class="form-control" name="departmentID";>');
 
-
-
-
+    // Iterate through department list
+    foreach ($departmentList as $row) {
+        $departmentID = $row['department_id'];
+        $departmentName = $row['department_name'];
+        echo("<option value='$departmentID'>$departmentName</option>");
     }
 
-    ?>
+    echo('
+                        </select> 
+                    </div>
+                    <div class="login-error">
+    ');
+    if (!empty($errors)) {
+        foreach ($errors as $error) {
+            echo "<p class=\'error\'>$error</p>";
+
+        }
+    }
+    echo('
+                    </div>
+                    <button type="submit" id="submitButton" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+            <div class="col-sm-4"></div>
+        </div>
     </div>
-  </div>
-</div>
+    ');
+}
+
+
+?>
+
 <?php
 echo getHTMLFooter();
 getHTMLEnd();

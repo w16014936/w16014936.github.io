@@ -75,7 +75,7 @@ if (isset($querySuccessMsg)) {
                     <h3 class="text-center">Enter the department details</h3>
                     <div class="form-group">
                         <label for="department">Department:</label>
-                        <input type="text" class="form-control" placeholder="department" name="department" required/>
+                        <input type="text" class="form-control" placeholder="Department" name="department" required/>
                     </div>
                     <div class="login-error">
     ');
