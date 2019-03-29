@@ -108,6 +108,7 @@ function getAllEmployeeTime(){
 
 
 /**
+ * TODO
  * @param $department
  * @param $project
  * @param $startDate
@@ -266,7 +267,7 @@ function getDepartmentProjectEmployeeTimeBetweenTwoDates($department, $project, 
  * @param $endDate
  * @return string
  */
-function getDepartmentEmployeeTimeBetweenTwoDates($department, $startDate, $endDate){
+function getDepartmentEmployeeTimeBetweenTwoDates($departmentId, $startDate, $endDate){
 
     $startDate = $startDate == "" ? "1990-01-01" : $startDate;
     $endDate   = $endDate == "" ? "3000-01-01" : $endDate;
@@ -377,15 +378,15 @@ function getDepartmentEmployeeTimeBetweenTwoDates($department, $startDate, $endD
         AS under
         FROM timesheets_person 
         JOIN timesheets_timesheet ON timesheets_person.user_id = timesheets_timesheet.user_id
-        JOIN timesheets_department ON timesheets_department.department_id = timesheets_person.department_id
         WHERE timesheets_person.archive = FALSE
-        AND timesheets_department.department_name = '$department'
+        AND timesheets_person.department_id = '$departmentId'
         GROUP BY timesheets_person.user_id";
 
     return $query;
 }
 
 /**
+ * TODO
  * @param $project
  * @param $startDate
  * @param $endDate
