@@ -133,7 +133,7 @@ function getDepartmentEmployeeTimeBetweenTwoDates($department, $startDate, $endD
         AS name, 
         (SELECT COALESCE(SUM(ROUND(TIME_TO_SEC(TIMEDIFF(timesheets_timesheet.time_out,timesheets_timesheet.time_in))/60/60,2)),0) 
         FROM timesheets_timesheet 
-        JOIN timesheets_activity ON timesheets_activity.activity_id = timesheets_timesheet.activity_id 
+        JOIN timesheets_activity ON timesheets_activity.activity_id = timesheets_timesheet.activity_id
         WHERE timesheets_activity.activity_type = 'Normal' 
         AND timesheets_person.user_id = timesheets_timesheet.user_id
         AND timesheets_timesheet.date Between $startDate AND $endDate) 
