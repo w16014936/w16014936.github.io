@@ -24,6 +24,8 @@ $userRole = isset($_SESSION['role']) ? $_SESSION['role'] : null;
 $departments = getDepartments($dbConn, $loggedIn);
 $projects = getProjects($dbConn, $loggedIn);
 
+$startDate = isset($_GET['startDate']) ? $_GET['startDate'] : null;
+$endDate = isset($_GET['endDate']) ? $_GET['endDate'] : null;
 $departmentSet = isset( $_GET['department']) &&  $_GET['department'] != "all";
 $projectSet    = isset( $_GET['project']) &&  $_GET['project'] != "all";
 
@@ -46,7 +48,6 @@ if (!isset($loggedIn)){
   $errorText = "Sorry you do not have the correct permissions to access this page. Please select a different role <a href='select-role.php'>here</a> to change your account role.";
 }
   
-  
 ?>
 <div class="jumbotron text-center">
   <h1><?php echo $pageTitle?></h1>
@@ -68,13 +69,13 @@ if (isset($errorText)){
 					<div class="reportConfig form-group row">
 						<label class="input-group-text">Start Date:</label>
 						<div class="col-sm-12">
-							<input type="date" name="startDate" id="startDate" class="form-control" <?php echo " value='" . $_GET['startDate'] . "'>"; ?>
+							<input type="date" name="startDate" id="startDate" class="form-control" <?php echo " value='" .  $startDate . "'>"; ?>
 						</div>
 					</div>
 					<div class="reportConfig form-group row">
 						<label class="input-group-text">End Date:</label>
 						<div class="col-sm-12">
-							<input type="date" name="endDate" id="endDate" class="form-control"<?php echo " value='" . $_GET['endDate'] . "'>"; ?>
+							<input type="date" name="endDate" id="endDate" class="form-control"<?php echo " value='" . $endDate . "'>"; ?>
 						</div>
 					</div>
 					<div class="reportConfig form-group row">
