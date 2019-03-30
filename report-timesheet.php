@@ -24,6 +24,9 @@ $userRole = isset($_SESSION['role']) ? $_SESSION['role'] : null;
 $departments = getDepartments($dbConn, $loggedIn);
 $projects = getProjects($dbConn, $loggedIn);
 
+$departmentSet = isset( $_GET['department']) &&  $_GET['department'] != "all";
+$projectSet    = isset( $_GET['project']) &&  $_GET['project'] != "all";
+
 
 // Get the correcct page header depending on the users current role
 // If user is not logged in display message to user telling them to log in
@@ -65,13 +68,13 @@ if (isset($errorText)){
 					<div class="reportConfig form-group row">
 						<label class="input-group-text">Start Date:</label>
 						<div class="col-sm-12">
-							<input type="date" name="startDate" id="startDate" class="form-control">
+							<input type="date" name="startDate" id="startDate" class="form-control" <?php echo " value='" . $_GET['startDate'] . "'>"; ?>
 						</div>
 					</div>
 					<div class="reportConfig form-group row">
 						<label class="input-group-text">End Date:</label>
 						<div class="col-sm-12">
-							<input type="date" name="endDate" id="endDate" class="form-control">
+							<input type="date" name="endDate" id="endDate" class="form-control"<?php echo " value='" . $_GET['endDate'] . "'>"; ?>
 						</div>
 					</div>
 					<div class="reportConfig form-group row">
@@ -83,7 +86,8 @@ if (isset($errorText)){
 							<?php
 								// Loop though each of the roles to get type and id
 								Foreach ($departments as $key => $value) {
-									echo "<option value=" . $key . ">" . $value . "</option>";
+									$selected = $key == $_GET['department'] ? 'selected' : '';
+									echo "<option value='" . $key . "' ". $selected . ">" . $value . "</option>";
 								}
 							?>
 						</select>
@@ -97,7 +101,8 @@ if (isset($errorText)){
 							<?php
 							// Loop though each of the roles to get type and id
 							Foreach ($projects as $key => $value) {
-								echo "<option value=" . $key . ">" . $value . "</option>";
+								$selected = $key == $_GET['project'] ? 'selected' : '';
+								echo "<option value='" . $key . "' ". $selected . ">" . $value . "</option>";
 							}
 
 
@@ -221,9 +226,6 @@ if (isset($errorText)){
 }
 
 echo getHTMLFooter();
-
-$departmentSet = isset( $_GET['department']) &&  $_GET['department'] != "all";
-$projectSet    = isset( $_GET['project']) &&  $_GET['project'] != "all";
 
 if ($departmentSet && $projectSet &&  isset( $_GET['startDate']) && isset( $_GET['endDate'])){
     echo sqlQuerySearchAndConvertToJson($dbConn, $loggedIn, getDepartmentProjectEmployeeTimeBetweenTwoDates($_GET['department'], $_GET['project'], $_GET['startDate'],  $_GET['endDate']));
