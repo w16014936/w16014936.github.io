@@ -14,12 +14,12 @@ function getJobsTable($dbConn, $loggedIn = null){
   try{
     $sqlQuery = "SELECT timesheets_job.department_id,
                         job_id,
-                        title,
+                        job_title,
                         timesheets_department.department_name
+                   FROM timesheets_job
                    JOIN timesheets_department 
                      ON timesheets_department.department_id = timesheets_job.department_id
-                   FROM timesheets_job
-               ORDER BY title ASC";
+               ORDER BY job_title ASC";
   
     // Prepare the query
     $stmt = $dbConn->prepare($sqlQuery);
@@ -59,8 +59,8 @@ function getJobsTable($dbConn, $loggedIn = null){
                     <td>$job_title</td>
                     <td>$department_name</td>
                     <td class='actions'>
-                      <a href='editJob.php?activity=$job_id' alt='Edit' title='Edit'><i class='fas fa-pencil-alt action-icon' ></i></a>
-                      <a href='deleteJob.php?activity=$job_id' alt='delete' title='Delete'><i class='fas fa-times action-icon'></i></a>
+                      <a href='edit-job.php?job_id=$job_id' title='Edit'><i class='fas fa-pencil-alt action-icon' ></i></a>
+                      <a href='delete-job.php?job_id=$job_id' title='Delete'><i class='fas fa-times action-icon'></i></a>
                     </td>
                   </tr>";
 

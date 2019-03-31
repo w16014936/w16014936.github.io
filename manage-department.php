@@ -51,8 +51,8 @@ function getDepartmentsTable($dbConn, $loggedIn = null){
         $departments .= "<tr>
                           <td>$department_name</td>
                           <td class='actions'>
-                            <a href='editDepartment.php?activity=$department_id' alt='Edit' title='Edit'><i class='fas fa-pencil-alt action-icon' ></i></a>
-                            <a href='deleteDepartment.php?activity=$department_id' alt='delete' title='Delete'><i class='fas fa-times action-icon'></i></a>
+                            <a href='edit-department.php?department_id=$department_id' title='Edit'><i class='fas fa-pencil-alt action-icon' ></i></a>
+                            <a href='delete-department.php?department_id=$department_id' title='Delete'><i class='fas fa-times action-icon'></i></a>
                           </td>
                         </tr>";
 

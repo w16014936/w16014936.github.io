@@ -1,11 +1,11 @@
 <?php
-/* Delete Activity
+/* Delete Department
  * admin page
  * requires logged on
 */
 require_once 'env/environment.php';
 require_once 'functions/functions.php';
-require_once 'functions/activity-functions.php';
+require_once 'functions/department-functions.php';
 require_once 'class/PDODB.php';
 session_start();
 
@@ -16,7 +16,7 @@ $dbConn = PDODB::getConnection();
 $loggedIn = isset($_SESSION['username']) ? $_SESSION['username'] : null;
 
 // Page title
-$pageTitle = 'Delete Activity';  
+$pageTitle = 'Delete Department';  
 
 // Check the user role of the logged in user
 $userRole = isset($_SESSION['role']) ? $_SESSION['role'] : null;
@@ -40,25 +40,25 @@ if (!isset($loggedIn)){
   $errorText = "Sorry you do not have the correct permissions to access this page. Please select a different role <a href='select-role.php'>here</a> to change your account role.";
 }
 
-// Check to see if a valid acctivity id has been passed in
-if(isset($_REQUEST['activity_id'])){
+// Check to see if a valid department id has been passed in
+if(isset($_REQUEST['department_id'])){
     // Validation Checks
-    if(is_numeric($_REQUEST['activity_id'])){
-        if(!empty(getActivity($dbConn, $_REQUEST['activity_id']))){
-            $activity_type = getActivity($dbConn, $_REQUEST['activity_id']);
+    if(is_numeric($_REQUEST['department_id'])){
+        if(!empty(getDepartment($dbConn, $_REQUEST['department_id']))){
+            $department_name = getDepartment($dbConn, $_REQUEST['department_id']);
         
         } else{
-            $errorText = "You have not chosen a valid activity to delete.  Please select an activity <a href='manage-activity.php'>here</a> to remove it from the system";
+            $errorText = "You have not chosen a valid department to delete.  Please select a department <a href='manage-department.php'>here</a> to remove it from the system";
         
         }
 
     } else {
-        $errorText = "You have not chosen a valid activity to delete.  Please select an activity <a href='manage-activity.php'>here</a> to remove it from the system";
+        $errorText = "You have not chosen a valid department to delete.  Please select an department <a href='manage-department.php'>here</a> to remove it from the system";
    
     }
 
 } else{
-    $errorText = "You have not chosen a valid activity to delete.  Please select an activity <a href='manage-activity.php'>here</a> to remove it from the system";
+    $errorText = "You have not chosen a valid department to delete.  Please select an department <a href='manage-department.php'>here</a> to remove it from the system";
 }
 
 ?>
@@ -74,14 +74,14 @@ if(isset($_REQUEST['activity_id'])){
     if (isset($errorText)){
       echo "<p>$errorText</p>";
 
-    } else if (isset($_POST['activity_id'])){
+    } else if (isset($_POST['department_id'])){
       // Validate
-      list($input, $errors) = validateDeleteActivityForm($dbConn);
+      list($input, $errors) = validateDeleteDepartmentForm($dbConn);
     
       if (empty($errors)){
         // Update
-        if (deleteActivity($dbConn, $input)){
-          $deleteSuccess = "<h3>You have successfully deleted the activity. To manage another please click <a href='manage-activity.php'>here</a>.</h3>";
+        if (deleteDepartment($dbConn, $input)){
+          $deleteSuccess = "<h3>You have successfully deleted the department. To manage another please click <a href='manage-department.php'>here</a>.</h3>";
         }
 
       } 
@@ -89,7 +89,7 @@ if(isset($_REQUEST['activity_id'])){
     } else{
       $input = array();
       $errors = array();
-      $input['activity_id'] = isset($_GET['activity_id']) ? $_GET['activity_id'] : null;
+      $input['department_id'] = isset($_GET['department_id']) ? $_GET['department_id'] : null;
 
     } 
 
@@ -102,10 +102,10 @@ if(isset($_REQUEST['activity_id'])){
       ?>
       <div class="col-sm-3"></div>
       <div class="col-sm-6">
-        <h3 class="text-center">You are about to delete <?= $activity_type; ?></h3>
-        <form action="delete-activity.php" name="deleteForm" method="POST">
+        <h3 class="text-center">You are about to delete <?= $department_name; ?></h3>
+        <form action="delete-department.php" name="deleteForm" method="POST">
           <div class="form-group">
-            <input type="hidden" name="activity_id" value="<?=$input['activity_id'];?>">
+            <input type="hidden" name="department_id" value="<?=$input['department_id'];?>">
           </div>
           <div class="update-error">
             <?php
