@@ -203,7 +203,7 @@ function getDepartmemtOptions($dbConn, $department_id = ''){
           $selected = "";
         }
         
-        $department_options .= '<option value="'. $row['department_id'] .'" '.$selected.'>'. $row['department_name'] .'></option>';
+        $department_options .= '<option value="'. $row['department_id'] .'" '.$selected.'>'. $row['department_name'] .'</option>';
 
 
       }

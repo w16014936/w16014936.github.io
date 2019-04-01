@@ -146,7 +146,6 @@ if (isset($errorText)){
 							<option value="bar">Vertical Bar</option>
 							<option value="line">Line</option>
 							<option value="polarArea">Polar Area</option>
-							<option value="radar">Radar</option>
 						</select>
 					</div>
 					<div class="reportConfig form-group row">

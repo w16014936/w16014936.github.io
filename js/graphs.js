@@ -57,7 +57,9 @@ window.addEventListener("load", function(){
         var rgba = entry.backgroundColor.substring(entry.backgroundColor.indexOf('(') + 1, entry.backgroundColor.lastIndexOf(')')).split(/,\s*/);
         //set the alpha of the rgb on initial load
         rgba[3] = "0.4";
-    });
+		entry.backgroundColor = "rgba("+rgba+")";
+		chart.update();
+	});
 
 });
 
