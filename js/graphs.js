@@ -54,6 +54,8 @@ window.addEventListener("load", function(){
     hideConfigElements(chartType, smoothLines, pointRadius, fillSpace);
     chart.config.data.datasets.forEach(function(entry) {
         updateSlider(entry, smoothLineSlider, pointRadiusSlider);
+	setHighContrastMode(document.getElementById('highContrastTrue').checked, chartType.value);
+
     });
 
 });
