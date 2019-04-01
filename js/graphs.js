@@ -54,8 +54,9 @@ window.addEventListener("load", function(){
     hideConfigElements(chartType, smoothLines, pointRadius, fillSpace);
     chart.config.data.datasets.forEach(function(entry) {
         updateSlider(entry, smoothLineSlider, pointRadiusSlider);
-	setHighContrastMode(document.getElementById('highContrastTrue').checked, chartType.value);
-
+        var rgba = entry.backgroundColor.substring(entry.backgroundColor.indexOf('(') + 1, entry.backgroundColor.lastIndexOf(')')).split(/,\s*/);
+        //set the alpha of the rgb depending on highContrastMode value
+        rgba[3] = highContrastMode ? "1" : "0.4";
     });
 
 });
