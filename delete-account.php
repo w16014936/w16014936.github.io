@@ -16,7 +16,7 @@ $dbConn = PDODB::getConnection();
 $loggedIn = isset($_SESSION['username']) ? $_SESSION['username'] : null;
 
 // Page title
-$pageTitle = 'Delete Activity';  
+$pageTitle = 'Delete Account';  
 
 // Check the user role of the logged in user
 $userRole = isset($_SESSION['role']) ? $_SESSION['role'] : null;
@@ -40,25 +40,25 @@ if (!isset($loggedIn)){
   $errorText = "Sorry you do not have the correct permissions to access this page. Please select a different role <a href='select-role.php'>here</a> to change your account role.";
 }
 
-// Check to see if a valid acctivity id has been passed in
-if(isset($_REQUEST['activity_id'])){
+// Check to see if a valid account id has been passed in
+if(isset($_REQUEST['account_id'])){
     // Validation Checks
-    if(is_numeric($_REQUEST['activity_id'])){
-        if(!empty(getActivity($dbConn, $_REQUEST['activity_id']))){
-            $activity_type = getActivity($dbConn, $_REQUEST['activity_id']);
+    if(is_numeric($_REQUEST['account_id'])){
+        if(!empty(getAccount($dbConn, $_REQUEST['account_id']))){
+            $username = getUsername($dbConn, $_REQUEST['account_id']);
         
         } else{
-            $errorText = "You have not chosen a valid activity to delete.  Please select an activity <a href='manage-activity.php'>here</a> to remove it from the system";
+            $errorText = "You have not chosen a valid account to delete.  Please select an account <a href='manage-account.php'>here</a> to remove it from the system";
         
         }
 
     } else {
-        $errorText = "You have not chosen a valid activity to delete.  Please select an activity <a href='manage-activity.php'>here</a> to remove it from the system";
+        $errorText = "You have not chosen a valid account to delete.  Please select an account <a href='manage-account.php'>here</a> to remove it from the system";
    
     }
 
 } else{
-    $errorText = "You have not chosen a valid activity to delete.  Please select an activity <a href='manage-activity.php'>here</a> to remove it from the system";
+    $errorText = "You have not chosen a valid account to delete.  Please select an account <a href='manage-account.php'>here</a> to remove it from the system";
 }
 
 ?>
@@ -74,14 +74,14 @@ if(isset($_REQUEST['activity_id'])){
     if (isset($errorText)){
       echo "<p>$errorText</p>";
 
-    } else if (isset($_POST['activity_id'])){
+    } else if (isset($_POST['account_id'])){
       // Validate
-      list($input, $errors) = validateDeleteActivityForm($dbConn);
+      list($input, $errors) = validateDeleteAccountForm($dbConn);
     
       if (empty($errors)){
         // Update
-        if (deleteActivity($dbConn, $input)){
-          $deleteSuccess = "<h3>You have successfully deleted the activity. To manage another please click <a href='manage-activity.php'>here</a>.</h3>";
+        if (deleteAccount($dbConn, $input)){
+          $deleteSuccess = "<h3>You have successfully deleted the account. To manage another please click <a href='manage-account.php'>here</a>.</h3>";
         }
 
       } 
@@ -89,7 +89,7 @@ if(isset($_REQUEST['activity_id'])){
     } else{
       $input = array();
       $errors = array();
-      $input['activity_id'] = isset($_GET['activity_id']) ? $_GET['activity_id'] : null;
+      $input['account_id'] = isset($_GET['account_id']) ? $_GET['account_id'] : null;
 
     } 
 
@@ -102,10 +102,10 @@ if(isset($_REQUEST['activity_id'])){
       ?>
       <div class="col-sm-3"></div>
       <div class="col-sm-6">
-        <h3 class="text-center">You are about to delete <?= $activity_type; ?></h3>
-        <form action="delete-activity.php" name="deleteForm" method="POST">
+        <h3 class="text-center">You are about to delete <?= $username; ?></h3>
+        <form action="delete-account.php" name="deleteForm" method="POST">
           <div class="form-group">
-            <input type="hidden" name="activity_id" value="<?=$input['activity_id'];?>">
+            <input type="hidden" name="account_id" value="<?=$input['account_id'];?>">
           </div>
           <div class="update-error">
             <?php

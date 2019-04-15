@@ -216,15 +216,15 @@ function validateDeleteAccountForm($dbConn){
     $errors = array();
 
     /* Get the array of job ids*/
-    $validJobIDs = getJobIDs($dbConn);
+    $validAccountIDs = getArchivedAccountIDs($dbConn);
     
     /* ID validation */
-    $input['job_id'] = filter_has_var(INPUT_POST, 'job_id') ? $_POST['job_id']: null;
-    $input['job_id'] = trim($input['job_id']);
-    $input['job_id'] = filter_var($input['job_id'], FILTER_VALIDATE_INT) ? $input['job_id'] : null;
-    $input['job_id'] = in_array($input['job_id'], $validJobIDs) ? $input['job_id']  : null;
+    $input['account_id'] = filter_has_var(INPUT_POST, 'account_id') ? $_POST['account_id']: null;
+    $input['account_id'] = trim($input['account_id']);
+    $input['account_id'] = filter_var($input['account_id'], FILTER_VALIDATE_INT) ? $input['account_id'] : null;
+    $input['account_id'] = in_array($input['account_id'], $validAccountIDs) ? $input['account_id']  : null;
 
-    if(empty($input['job_id'])){
+    if(empty($input['account_id'])){
         $errors[] = "There is a problem with the job you are trying to delete.";
     
     }
@@ -238,6 +238,40 @@ function getAccountIDs($dbConn){
   try{
     $sqlQuery = "SELECT person_id
                    FROM timesheets_person";
+
+                  
+
+    $stmt = $dbConn->prepare($sqlQuery);
+    $stmt->execute();
+    $rows = $stmt->fetchAll();
+
+    $account_ids = array();
+
+    // Check the query returned some results
+    if($stmt->rowCount() > 0){
+
+      // Loop through resultsstmt
+      foreach($rows as $row){
+        array_push($account_ids, $row['person_id']);
+
+      }
+    }
+
+  // Log the exception
+  } catch(Exception $e){
+    $retval =  "<p>Query failed: " . $e->getMessage() . "</p>\n";
+  }
+
+ 
+  return $account_ids;
+}
+
+function getArchivedAccountIDs($dbConn){
+  // Try to carry out the database search
+  try{
+    $sqlQuery = "SELECT person_id
+                   FROM timesheets_person
+                  WHERE archive = 1";
 
                   
 
