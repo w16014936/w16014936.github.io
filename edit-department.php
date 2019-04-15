@@ -5,7 +5,7 @@
 */
 require_once 'env/environment.php';
 require_once 'functions/functions.php';
-require_once 'functions/Department-functions.php';
+require_once 'functions/department-functions.php';
 require_once 'class/PDODB.php';
 session_start();
 

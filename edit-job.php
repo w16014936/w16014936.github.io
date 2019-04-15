@@ -117,10 +117,10 @@ if(isset($_REQUEST['job_id'])){
           <div class="form-group">
             <label for="Department">Department:</label>
             <select class="form-control" name="department_id" required="">
-      			<?php
-      			echo $department_options;
-      			?>
-    		</select>
+            <?php
+            echo $department_options;
+            ?>
+        </select>
           </div>
           <div class="update-error">
             <?php

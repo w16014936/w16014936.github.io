@@ -48,17 +48,17 @@ if(isset($_REQUEST['activity_id'])){
             $activity_type = getActivity($dbConn, $_REQUEST['activity_id']);
         
         } else{
-            $errorText = "You have not chosen a valid activity to edit.  Please select an actvity <a href='manage-activity.php'>here</a> to change it's details";
+            $errorText = "You have not chosen a valid activity to edit.  Please select an activity <a href='manage-activity.php'>here</a> to change it's details";
         
         }
 
     } else {
-        $errorText = "You have not chosen a valid activity to edit.  Please select an actvity <a href='manage-activity.php'>here</a> to change it's details";
+        $errorText = "You have not chosen a valid activity to edit.  Please select an activity <a href='manage-activity.php'>here</a> to change it's details";
    
     }
 
 } else{
-    $errorText = "You have not chosen an activity to edit. Please select an actvity <a href='manage-activity.php'>here</a> to change it's details";
+    $errorText = "You have not chosen an activity to edit. Please select an activity <a href='manage-activity.php'>here</a> to change it's details";
 }
 
 ?>

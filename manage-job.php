@@ -35,11 +35,11 @@ function getJobsTable($dbConn, $loggedIn = null){
 
     // Check the query returned some results
     if($stmt->rowCount() > 0){
-      $jobs =  "<div class='table-responsives'>
+      $jobs =  "<div class='table-responsives' style='overflow: scroll;'>
                   <table class='table table-dark' >
                     <thead>
                       <tr>
-                        <th>Jobs
+                        <th>Jobs</th>
                         <th>Departments</th>
                         <th>Actions</th>
                       </tr>
