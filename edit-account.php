@@ -6,6 +6,8 @@
 require_once 'env/environment.php';
 require_once 'functions/functions.php';
 require_once 'functions/department-functions.php';
+require_once 'functions/job-functions.php';
+//require_once 'functions/team-functions.php';
 require_once 'functions/account-functions.php';
 require_once 'class/PDODB.php';
 session_start();
@@ -46,22 +48,54 @@ if(isset($_REQUEST['account_id'])){
     // Validation Checks
     if(is_numeric($_REQUEST['account_id'])){
         if(!empty(getAccount($dbConn, $_REQUEST['account_id']))){
-            $job_title = getJob($dbConn, $_REQUEST['job_id']);
-            $department_id = getDepartmemtByJobID($dbConn, $_REQUEST['job_id']);
+            $title = getTitle($dbConn, $_REQUEST['account_id']);
+
+            $forename = getForename($dbConn, $_REQUEST['account_id']);
+
+            $surname = getSurname($dbConn, $_REQUEST['account_id']);
+
+            $phone_number = getPhoneNumber($dbConn, $_REQUEST['account_id']);
+
+            $email = getEmail($dbConn, $_REQUEST['account_id']);
+
+            $address_line_1 = getAddressLine1($dbConn, $_REQUEST['account_id']);
+            
+            $address_line_2 = getAddressLine2($dbConn, $_REQUEST['account_id']);
+            
+            $address_line_3 = getAddressLine3($dbConn, $_REQUEST['account_id']);
+            
+            $address_line_4 = getAddressLine4($dbConn, $_REQUEST['account_id']);
+            
+            $address_line_5 = getAddressLine5($dbConn, $_REQUEST['account_id']);
+            
+            $postcode = getPostcode($dbConn, $_REQUEST['account_id']);
+
+            $date_of_birth = getDateOfBirth($dbConn, $_REQUEST['account_id']);
+
+            $contracted_hours = getContractedHours($dbConn, $_REQUEST['account_id']);
+
+            $job_id = getJobByAccountID($dbConn, $_REQUEST['account_id']);
+            $job_options = getJobOptions($dbConn, $job_id);
+
+            //$team_id = getTeamByAccountID($dbConn, $_REQUEST['account_id']);
+            //$team_options = getTeamOptions($dbConn, $team_id);
+
+            $department_id = getDepartmemtByAccountID($dbConn, $_REQUEST['account_id']);
             $department_options = getDepartmemtOptions($dbConn, $department_id);
+
         
         } else{
-            $errorText = "You have not chosen a valid job to edit.  Please select a job <a href='manage-job.php'>here</a> to change it's details";
+            $errorText = "You have not chosen a valid account to edit.  Please select an account <a href='manage-account.php'>here</a> to change it's details";
         
         }
 
     } else {
-        $errorText = "You have not chosen a valid job to edit.  Please select a job <a href='manage-job.php'>here</a> to change it's details";
+        $errorText = "You have not chosen a valid account to edit.  Please select an account <a href='manage-account.php'>here</a> to change it's detailSs";
    
     }
 
 } else{
-    $errorText = "You have not chosen a valid job to edit. Please select a job <a href='manage-job.php'>here</a> to change it's details";
+    $errorText = "You have not chosen a valid account to edit. Please select an account <a href='manage-account.php'>here</a> to change it's details";
 }
 
 ?>
@@ -77,14 +111,15 @@ if(isset($_REQUEST['account_id'])){
     if (isset($errorText)){
       echo "<p>$errorText</p>";
 
-    } else if (isset($_POST['update_job_title']) && isset($_POST['department_id']) && isset($_POST['job_id'])){
+    } else if (isset($_POST['account_id']) && isset($_POST['department_id']) && isset($_POST['job_id'])){
       // Validate
-      list($input, $errors) = validateUpdateJobForm($dbConn);
+      list($input, $errors) = validateUpdateAccountForm($dbConn);
+
     
       if (empty($errors)){
         // Update
-        if (setJob($dbConn, $input)){
-          $updateSuccess = "<h3>You have successfully edited the job. To update another please click <a href='manage-job.php'>here</a>.</h3>";
+        if (setAccount($dbConn, $input)){
+          $updateSuccess = "<h3>You have successfully edited the account. To update another please click <a href='manage-account.php'>here</a>.</h3>";
         }
 
       } 
@@ -92,9 +127,34 @@ if(isset($_REQUEST['account_id'])){
     } else{
       $input = array();
       $errors = array();
-      $input['department_id'] = isset($_GET['department_id']) ? $_GET['department_id'] : null;
-      $input['job_id'] = isset($_GET['job_id']) ? $_GET['job_id'] : null;
-      $input['update_job_title'] = isset($job_title) ? $job_title : null;
+
+      $input['account_id'] = isset($_REQUEST['account_id']) ? $_REQUEST['account_id'] : '';
+
+      $input['update_title'] = isset($title) ? $title : '';
+
+      $input['update_forname'] = isset($forename) ? $forename : '';
+
+      $input['update_surname'] = isset($surname) ? $surname : '';
+
+      $input['update_phone_number'] = isset($phone_number) ? $phone_number : '';
+
+      $input['update_email'] = isset($email) ? $email : '';
+
+      $input['update_address_line_1'] = isset($address_line_1) ? $address_line_1 : '';
+
+      $input['update_address_line_2'] = isset($address_line_2) ? $address_line_2 : '';
+
+      $input['update_address_line_3'] = isset($address_line_3) ? $address_line_3 : '';
+
+      $input['update_address_line_4'] = isset($address_line_4) ? $address_line_4 : '';
+
+      $input['update_address_line_5'] = isset($address_line_5) ? $address_line_5 : ''; 
+
+      $input['update_postcode'] = isset($postcode) ? $postcode : '';
+
+      $input['update_date_of_birth'] = isset($date_of_birth) ? $date_of_birth : '';
+
+      $input['update_contracted_hours'] = isset($contracted_hours) ? $contracted_hours : '';
 
     } 
 
@@ -107,21 +167,8 @@ if(isset($_REQUEST['account_id'])){
       ?>
       <div class="col-sm-3"></div>
       <div class="col-sm-6">
-        <h3 class="text-center">You are currently updating <?= $job_title; ?></h3>
-        <form action="edit-job.php" name="updateForm" method="POST">
-          <div class="form-group">
-            <label for="Job">Job:</label>
-            <input type="text" class="form-control" placeholder="Job:" name="update_job_title" value="<?= $input['update_job_title']; ?>" required/>
-            <input type="hidden" name="job_id" value="<?=$input['job_id'];?>">
-          </div>
-          <div class="form-group">
-            <label for="Department">Department:</label>
-            <select class="form-control" name="department_id" required="">
-      			<?php
-      			echo $department_options;
-      			?>
-    		</select>
-          </div>
+        <form action="edit-account.php" name="updateForm" method="POST">
+          <input type="hidden" name="account_id" value="<?= $input['account_id']; ?>"/>
           <div class="update-error">
             <?php
             if (!empty($errors)) {
@@ -132,6 +179,76 @@ if(isset($_REQUEST['account_id'])){
             }
             ?>
           </div>
+          <div class="form-group">
+            <label for="title">Title: </label>
+            <input type="text" class="form-control" placeholder="Title:" name="update_title" value="<?= $input['update_title']; ?>" required/>
+
+            <label for="forename">Forename: </label>
+            <input type="text" class="form-control" placeholder="Forename:" name="update_forname" value="<?= $input['update_forname']; ?>" required/>
+
+            <label for="surname">Surname: </label>
+            <input type="text" class="form-control" placeholder="Surname:" name="update_surname" value="<?= $input['update_surname']; ?>" required/>
+
+            <label for="phone_number">Phone number: </label>
+            <input type="text" class="form-control" placeholder="Phone number:" name="update_phone_number" value="<?= $input['update_phone_number']; ?>" required/>
+
+            <label for="email">Email: </label>
+            <input type="text" class="form-control" placeholder="Email:" name="update_email" value="<?= $input['update_email']; ?>" required/>
+
+            <label for="address_line_1">Address Line 1: </label>
+            <input type="text" class="form-control" placeholder="Address Line 1:" name="update_address_line_1" value="<?= $input['update_address_line_1']; ?>" required/>
+
+            <label for="address_line_2">Address Line 2: </label>
+            <input type="text" class="form-control" placeholder="Address Line 2:" name="update_address_line_2" value="<?= $input['update_address_line_2']; ?>"/>
+
+            <label for="town">Town/City: </label>
+            <input type="text" class="form-control" placeholder="Town/City:" name="update_address_line_3" value="<?= $input['update_address_line_3']; ?>" required/>
+
+            <label for="County">County: </label>
+            <input type="text" class="form-control" placeholder="County:" name="update_address_line_4" value="<?= $input['update_address_line_4']; ?>" required/>
+
+            <label for="Country">Country: </label>
+            <input type="text" class="form-control" placeholder="Country:" name="update_address_line_5" value="<?= $input['update_address_line_5']; ?>" required/>
+
+            <label for="Postcode">Postcode: </label>
+            <input type="text" class="form-control" placeholder="Postcode:" name="update_postcode" value="<?= $input['update_postcode']; ?>" required/>
+
+            <label for="dob">Date Of Birth: </label>
+            <input type="date" class="form-control" placeholder="Date Of Birth:" name="update_date_of_birth" value="<?= $input['update_date_of_birth']; ?>" required/>
+
+            <label for="hours">Contracted Hours: </label>
+            <input type="text" class="form-control" placeholder="Contracted Hours:" name="update_contracted_hours" value="<?= $input['update_contracted_hours']; ?>" required/>
+          </div>
+
+          <div class="form-group">
+            <label for="Job">Job:</label>
+            <select class="form-control" name="job_id" required="">
+              <?php
+              echo $job_options;
+              ?>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="Department">Department:</label>
+            <select class="form-control" name="department_id" required="">
+        			<?php
+        			echo $department_options;
+        			?>
+    		    </select>
+          </div>
+
+          <!--<div class="form-group">
+            <label for="Team">Team:</label>
+            <select class="form-control" name="team_id" required="">
+              <?php
+              //echo $team_options;
+              ?>
+            </select>
+          </div>-->
+
+          
+
           <button type="submit" id="update-button" class="btn btn-primary">Update</button>
         </form>
       </div>
