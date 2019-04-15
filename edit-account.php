@@ -7,7 +7,7 @@ require_once 'env/environment.php';
 require_once 'functions/functions.php';
 require_once 'functions/department-functions.php';
 require_once 'functions/job-functions.php';
-//require_once 'functions/team-functions.php';
+require_once 'functions/team-functions.php';
 require_once 'functions/account-functions.php';
 require_once 'class/PDODB.php';
 session_start();
@@ -48,6 +48,9 @@ if(isset($_REQUEST['account_id'])){
     // Validation Checks
     if(is_numeric($_REQUEST['account_id'])){
         if(!empty(getAccount($dbConn, $_REQUEST['account_id']))){
+        
+            $username = getUsername($dbConn, $_REQUEST['account_id']);
+
             $title = getTitle($dbConn, $_REQUEST['account_id']);
 
             $forename = getForename($dbConn, $_REQUEST['account_id']);
@@ -77,8 +80,8 @@ if(isset($_REQUEST['account_id'])){
             $job_id = getJobByAccountID($dbConn, $_REQUEST['account_id']);
             $job_options = getJobOptions($dbConn, $job_id);
 
-            //$team_id = getTeamByAccountID($dbConn, $_REQUEST['account_id']);
-            //$team_options = getTeamOptions($dbConn, $team_id);
+            $team_id = getTeamByAccountID($dbConn, $_REQUEST['account_id']);
+            $team_options = getTeamOptions($dbConn, $team_id);
 
             $department_id = getDepartmemtByAccountID($dbConn, $_REQUEST['account_id']);
             $department_options = getDepartmemtOptions($dbConn, $department_id);
@@ -111,11 +114,11 @@ if(isset($_REQUEST['account_id'])){
     if (isset($errorText)){
       echo "<p>$errorText</p>";
 
-    } else if (isset($_POST['account_id']) && isset($_POST['department_id']) && isset($_POST['job_id'])){
+    } else if (isset($_POST['account_id'])){
       // Validate
       list($input, $errors) = validateUpdateAccountForm($dbConn);
 
-    
+
       if (empty($errors)){
         // Update
         if (setAccount($dbConn, $input)){
@@ -129,6 +132,8 @@ if(isset($_REQUEST['account_id'])){
       $errors = array();
 
       $input['account_id'] = isset($_REQUEST['account_id']) ? $_REQUEST['account_id'] : '';
+
+      $input['update_username'] = isset($username) ? $username : '';
 
       $input['update_title'] = isset($title) ? $title : '';
 
@@ -180,6 +185,9 @@ if(isset($_REQUEST['account_id'])){
             ?>
           </div>
           <div class="form-group">
+            <label for="title">Username: </label>
+            <input type="text" class="form-control" placeholder="Username:" name="update_username" value="<?= $input['update_username']; ?>" required/>
+
             <label for="title">Title: </label>
             <input type="text" class="form-control" placeholder="Title:" name="update_title" value="<?= $input['update_title']; ?>" required/>
 
@@ -238,14 +246,14 @@ if(isset($_REQUEST['account_id'])){
     		    </select>
           </div>
 
-          <!--<div class="form-group">
+          <div class="form-group">
             <label for="Team">Team:</label>
             <select class="form-control" name="team_id" required="">
               <?php
-              //echo $team_options;
+              echo $team_options;
               ?>
             </select>
-          </div>-->
+          </div>
 
           
 

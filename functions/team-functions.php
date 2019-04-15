@@ -250,6 +250,50 @@ function getTeamDepartments($dbConn)
     return null;
 }
 
+function getTeamOptions($dbConn, $team_id = ''){
+  // Try to carry out the database search
+  try{
+    $sqlQuery = "SELECT team_id,
+                        team_name
+                   FROM timesheets_team";
+
+                  
+
+    $stmt = $dbConn->prepare($sqlQuery);
+    $stmt->execute();
+    $rows = $stmt->fetchAll();
+
+    $team_options = '';
+
+    // Check the query returned some results
+    if($stmt->rowCount() > 0){
+
+      // Loop through resultsstmt
+      foreach($rows as $row){
+        if ($team_id == $row['team_id']){
+          $selected = "selected";
+        
+        } else {
+          $selected = "";
+        }
+        
+        $team_options .= '<option value="'. $row['team_id'] .'" '.$selected.'>'. $row['team_name'] .'</option>';
+
+
+      }
+    }
+
+  // Log the exception
+  } catch(Exception $e){
+    $retval =  "<p>Query failed: " . $e->getMessage() . "</p>\n";
+    $team_options = '';
+
+  }
+
+ 
+  return $team_options;
+}
+
 function createTeam($dbConn, $input)
 {
     $departmentID = $input['departmentID'];

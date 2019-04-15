@@ -39,7 +39,7 @@
 
     $validAccountIDs = getAccountIDs($dbConn);
 
-    //$validTeamIDs = getTeamIDs($dbConn);
+    $validTeamIDs = getTeamIDs($dbConn);
 
     /* Get the array of job ids */
     $validJobIDs = getJobIDs($dbConn);
@@ -57,7 +57,15 @@
     
     }
 
-    /* Team id validation 
+    $input['update_username'] = filter_has_var(INPUT_POST, 'update_username') ? $_POST['update_username']: null;
+    $input['update_username'] = trim($input['update_username']);
+
+    if(empty($input['account_id'])){
+        $errors[] = "There is a problem with the account you are trying to edit.";
+    
+    }
+
+    /* Team id validation */
     $input['team_id'] = filter_has_var(INPUT_POST, 'team_id') ? $_POST['team_id']: null;
     $input['team_id'] = trim($input['team_id']);
     $input['team_id'] = filter_var($input['team_id'], FILTER_VALIDATE_INT) ? $input['team_id'] : null;
@@ -66,7 +74,7 @@
     if(empty($input['team_id'])){
         $errors[] = "There is a problem with the team you are trying to set.";
     
-    }*/
+    }
 
 
     /* Job id validation */
@@ -258,12 +266,42 @@ function getAccountIDs($dbConn){
   return $account_ids;
 }
 
+function setUsernameByAccountID($dbConn, $input){
+  $account_id = $input['account_id'];
+  $username = $input['update_username'];
+  
+  // Try to carry out the database entries
+  try{
+    $sqlInsert = "UPDATE timesheets_user 
+                    JOIN timesheets_person 
+                      ON timesheets_person.user_id = timesheets_user.user_id
+                     SET username = :username
+                   WHERE timesheets_person.person_id = :account_id";
+
+    $stmt = $dbConn->prepare($sqlInsert);
+
+    $stmt->execute(array(':username' => $username,
+                         ':account_id' => $account_id));
+
+       
+    // If the query worked display message to user
+    if ($stmt){
+      
+      return true;
+    } 
+        
+  } catch(Exception $e){
+      echo $retval =  "<p>Query failed: " . $e->getMessage() . "</p>\n";
+  }
+    
+  return false;
+}
 
 function setAccount($dbConn, $input){
   $account_id = $input['account_id'];
   $job_id = $input['job_id'];
   $department_id = $input['department_id'];
-  //$team_id = $input['team_id'];
+  $team_id = $input['team_id'];
   $title = $input['update_title'];
   $forename = $input['update_forname'];
   $surname = $input['update_surname'];
@@ -283,6 +321,7 @@ function setAccount($dbConn, $input){
     $sqlInsert = "UPDATE timesheets_person 
                      SET job_id = :job_id,
                          department_id = :department_id,
+                         team_id = :team_id,
                          contracted_hours = :contracted_hours,
                          title = :title,
                          forename = :forename,
@@ -301,7 +340,8 @@ function setAccount($dbConn, $input){
     $stmt = $dbConn->prepare($sqlInsert);
 
     $stmt->execute(array(':job_id' => $job_id,
-                         ':department_id' => $department_id, 
+                         ':department_id' => $department_id,
+                         ':team_id' => $team_id,
                          ':contracted_hours' => $contracted_hours,
                          ':title' => $title,
                          ':forename' => $forename,
@@ -320,6 +360,7 @@ function setAccount($dbConn, $input){
        
     // If the query worked display message to user
     if ($stmt){
+      setUsernameByAccountID($dbConn, $input);
       
       return true;
     } 
@@ -333,15 +374,15 @@ function setAccount($dbConn, $input){
 
 
 function deleteAccount($dbConn, $input){
-  $job_id = $input['job_id'];
+  $account_id = $input['account_id'];
   
   // Try to carry out the database entries
   try{
-    $sqlDelete = "DELETE FROM timesheets_job 
-                        WHERE job_id = :job_id";
+    $sqlDelete = "DELETE FROM timesheets_person
+                        WHERE person_id = :account_id";
 
     $stmt = $dbConn->prepare($sqlDelete);
-    $stmt->execute(array(':job_id' => $job_id));
+    $stmt->execute(array(':account_id' => $account_id));
                
     // If the query worked display message to user
     if ($stmt){
@@ -470,6 +511,37 @@ function getTitle($dbConn, $account_id){
 
   
   return $title;
+}
+
+function getUsername($dbConn, $account_id){
+  // Try to carry out the database search
+  try{
+    $sqlQuery = "SELECT username
+                   FROM timesheets_user
+                   JOIN timesheets_person 
+                     ON timesheets_person.user_id = timesheets_user.user_id
+                  WHERE timesheets_person.person_id = :account_id";
+
+    $stmt = $dbConn->prepare($sqlQuery);
+    $stmt->execute(array(':account_id' => $account_id));
+    $rows = $stmt->fetchObject();
+
+    // Check the query returned some results
+    if($stmt->rowCount() > 0){
+      $username = $rows->username;
+
+    } else{
+      $username = null;
+    }
+
+  // Log the exception
+  } catch(Exception $e){
+    $retval =  "<p>Query failed: " . $e->getMessage() . "</p>\n";
+    $username = null;
+  }
+
+  
+  return $username;
 }
 
 function getForename($dbConn, $account_id){

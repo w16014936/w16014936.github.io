@@ -249,6 +249,50 @@ function getJobDepartments($dbConn)
     return null;
 }
 
+function getJobOptions($dbConn, $job_id = ''){
+  // Try to carry out the database search
+  try{
+    $sqlQuery = "SELECT job_id,
+                        job_title
+                   FROM timesheets_job";
+
+                  
+
+    $stmt = $dbConn->prepare($sqlQuery);
+    $stmt->execute();
+    $rows = $stmt->fetchAll();
+
+    $job_options = '';
+
+    // Check the query returned some results
+    if($stmt->rowCount() > 0){
+
+      // Loop through resultsstmt
+      foreach($rows as $row){
+        if ($job_id == $row['job_id']){
+          $selected = "selected";
+        
+        } else {
+          $selected = "";
+        }
+        
+        $job_options .= '<option value="'. $row['job_id'] .'" '.$selected.'>'. $row['job_title'] .'</option>';
+
+
+      }
+    }
+
+  // Log the exception
+  } catch(Exception $e){
+    $retval =  "<p>Query failed: " . $e->getMessage() . "</p>\n";
+    $job_options = '';
+
+  }
+
+ 
+  return $job_options;
+}
+
 function createJob($dbConn, $input)
 {
     $departmentID = $input['departmentID'];
