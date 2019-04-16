@@ -233,6 +233,56 @@ function validateDeleteAccountForm($dbConn){
     return array($input, $errors);
 }
 
+
+
+function validateArchiveAccountForm($dbConn){
+    // Create an array of inputs and errors
+    $input = array();
+    $errors = array();
+    
+    /* Get the array of job ids*/
+    $validAccountIDs = getUnarchivedAccountIDs($dbConn);
+    
+    /* ID validation */
+    $input['account_id'] = filter_has_var(INPUT_POST, 'account_id') ? $_POST['account_id']: null;
+    $input['account_id'] = trim($input['account_id']);
+    $input['account_id'] = filter_var($input['account_id'], FILTER_VALIDATE_INT) ? $input['account_id'] : null;
+    $input['account_id'] = in_array($input['account_id'], $validAccountIDs) ? $input['account_id']  : null;
+    
+    if(empty($input['account_id'])){
+        $errors[] = "There is a problem with the account you are trying to archive.";
+        
+    }
+    
+    // Return an array of the input and errors arrays
+    return array($input, $errors);
+}
+
+
+function validateRestoreAccountForm($dbConn){
+    // Create an array of inputs and errors
+    $input = array();
+    $errors = array();
+    
+    /* Get the array of job ids*/
+    $validAccountIDs = getArchivedAccountIDs($dbConn);
+    
+    /* ID validation */
+    $input['account_id'] = filter_has_var(INPUT_POST, 'account_id') ? $_POST['account_id']: null;
+    $input['account_id'] = trim($input['account_id']);
+    $input['account_id'] = filter_var($input['account_id'], FILTER_VALIDATE_INT) ? $input['account_id'] : null;
+    $input['account_id'] = in_array($input['account_id'], $validAccountIDs) ? $input['account_id']  : null;
+    
+    if(empty($input['account_id'])){
+        $errors[] = "There is a problem with the account you are trying to restore.";
+        
+    }
+    
+    // Return an array of the input and errors arrays
+    return array($input, $errors);
+}
+
+
 function getAccountIDs($dbConn){
   // Try to carry out the database search
   try{
@@ -298,6 +348,40 @@ function getArchivedAccountIDs($dbConn){
 
  
   return $account_ids;
+}
+
+function getUnarchivedAccountIDs($dbConn){
+    // Try to carry out the database search
+    try{
+        $sqlQuery = "SELECT person_id
+                   FROM timesheets_person
+                  WHERE archive = 0";
+        
+        
+        
+        $stmt = $dbConn->prepare($sqlQuery);
+        $stmt->execute();
+        $rows = $stmt->fetchAll();
+        
+        $account_ids = array();
+        
+        // Check the query returned some results
+        if($stmt->rowCount() > 0){
+            
+            // Loop through resultsstmt
+            foreach($rows as $row){
+                array_push($account_ids, $row['person_id']);
+                
+            }
+        }
+        
+        // Log the exception
+    } catch(Exception $e){
+        $retval =  "<p>Query failed: " . $e->getMessage() . "</p>\n";
+    }
+    
+    
+    return $account_ids;
 }
 
 function setUsernameByAccountID($dbConn, $input){
@@ -428,6 +512,55 @@ function deleteAccount($dbConn, $input){
   }
     
   return false;
+}
+
+function archiveAccount($dbConn, $input){
+    $account_id = $input['account_id'];
+    
+    // Try to carry out the database entries
+    try{
+        $sqlUpdate = "UPDATE timesheets_person
+                         SET archive = 1
+                       WHERE person_id = :account_id";
+        
+        $stmt = $dbConn->prepare($sqlUpdate);
+        $stmt->execute(array(':account_id' => $account_id));
+        
+        // If the query worked display message to user
+        if ($stmt){
+            return true;
+        }
+        
+    } catch(Exception $e){
+        $retval =  "<p>Query failed: " . $e->getMessage() . "</p>\n";
+    }
+    
+    return false;
+}
+
+
+function restoreAccount($dbConn, $input){
+    $account_id = $input['account_id'];
+    
+    // Try to carry out the database entries
+    try{
+        $sqlUpdate = "UPDATE timesheets_person
+                         SET archive = 0
+                       WHERE person_id = :account_id";
+        
+        $stmt = $dbConn->prepare($sqlUpdate);
+        $stmt->execute(array(':account_id' => $account_id));
+        
+        // If the query worked display message to user
+        if ($stmt){
+            return true;
+        }
+        
+    } catch(Exception $e){
+        $retval =  "<p>Query failed: " . $e->getMessage() . "</p>\n";
+    }
+    
+    return false;
 }
 
 
