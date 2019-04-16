@@ -518,7 +518,7 @@ function sqlQuerySearchAndConvertToJson($dbConn, $loggedIn, $sqlQuery){
 
 
 // get the actiity 
-function getActivity($dbConn, $activity_id){
+/*function getActivity($dbConn, $activity_id){
   // Try to carry out the database search
   try{
     $sqlQuery = "SELECT activity_type
@@ -546,4 +546,4 @@ function getActivity($dbConn, $activity_id){
   
   return $activity_type;
   
-}
+}*/

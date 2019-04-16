@@ -15,7 +15,8 @@ function getAccountsTable($dbConn, $loggedIn = null){
     $sqlQuery = "SELECT person_id,
                         title,
                         forename,
-                        surname
+                        surname,
+                        archive
                     FROM timesheets_person
                 ORDER BY forename ASC";
   
@@ -52,11 +53,18 @@ function getAccountsTable($dbConn, $loggedIn = null){
         $account_name = htmlspecialchars($result['title'] . ' ' . $result['forename'] . ' ' . $result['surname']);    
         $accounts .= "<tr>
                           <td>$account_name</td>
-                          <td class='actions'>
-                            <a href='edit-account.php?account_id=$account_id' title='Edit'><i class='fas fa-pencil-alt action-icon' ></i></a>
-                            <a href='delete-account.php?account_id=$account_id' title='Delete'><i class='fas fa-times action-icon'></i></a>
-                          </td>
-                        </tr>";
+                          <td class='actions'>";
+        
+        if($result['archive'] == 1){
+            $accounts .= "<a href='restore-account.php?account_id=$account_id' title='Restore'><i class='fas fa-retweet action-icon'></i></a>
+                          <a href='delete-account.php?account_id=$account_id' title='Delete'><i class='fas fa-times action-icon'></i></a>";
+        } else {
+            $accounts .= "<a href='edit-account.php?account_id=$account_id' title='Edit'><i class='fas fa-pencil-alt action-icon' ></i></a>
+                          <a href='archive-account.php?account_id=$account_id' title='Archive'><i class='fas fa-archive action-icon'></i></a>";
+        }
+        
+        $accounts .= "    </td>
+                      </tr>";
 
       }                   
       // Close the table and div

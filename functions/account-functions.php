@@ -223,9 +223,9 @@ function validateDeleteAccountForm($dbConn){
     $input['account_id'] = trim($input['account_id']);
     $input['account_id'] = filter_var($input['account_id'], FILTER_VALIDATE_INT) ? $input['account_id'] : null;
     $input['account_id'] = in_array($input['account_id'], $validAccountIDs) ? $input['account_id']  : null;
-
+    
     if(empty($input['account_id'])){
-        $errors[] = "There is a problem with the job you are trying to delete.";
+        $errors[] = "There is a problem with the account you are trying to delete.";
     
     }
 
