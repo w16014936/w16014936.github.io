@@ -25,9 +25,9 @@
       $account = null;
     }
 
-    
+
     return $account;
-    
+
   }
 
 
@@ -54,7 +54,7 @@
 
     if(empty($input['account_id'])){
         $errors[] = "There is a problem with the account you are trying to edit.";
-    
+
     }
 
     $input['update_username'] = filter_has_var(INPUT_POST, 'update_username') ? $_POST['update_username']: null;
@@ -62,7 +62,7 @@
 
     if(empty($input['account_id'])){
         $errors[] = "There is a problem with the account you are trying to edit.";
-    
+
     }
 
     /* Team id validation */
@@ -73,7 +73,7 @@
 
     if(empty($input['team_id'])){
         $errors[] = "There is a problem with the team you are trying to set.";
-    
+
     }
 
 
@@ -85,7 +85,7 @@
 
     if(empty($input['job_id'])){
         $errors[] = "There is a problem with the Job you are trying to set.";
-    
+
     }
 
 
@@ -97,40 +97,40 @@
 
     if(empty($input['department_id'])){
         $errors[] = "There is a problem with the Department you are trying to set.";
-    
+
     }
 
     $input['update_title'] = filter_has_var(INPUT_POST, 'update_title') ? $_POST['update_title']: null;
     $input['update_title'] = trim($input['update_title']);
     if(empty($input['update_title'])){
         $errors[] = "You have not entered a valid title.";
-    
-    } else if (strlen ($input['update_title']) > 10){   
+
+    } else if (strlen ($input['update_title']) > 10){
       $errors[] = "You have entered a title that is too long. The character limit is 10.";
       $input['update_title'] = "";
-    
+
     }
 
     $input['update_forname'] = filter_has_var(INPUT_POST, 'update_forname') ? $_POST['update_forname']: null;
     $input['update_forname'] = trim($input['update_forname']);
     if(empty($input['update_forname'])){
         $errors[] = "You have not entered a valid forename.";
-    
-    } else if (strlen ($input['update_forname']) > 50){   
+
+    } else if (strlen ($input['update_forname']) > 50){
       $errors[] = "You have entered a forename that is too long. The character limit is 50.";
       $input['update_forname'] = "";
-    
+
     }
 
     $input['update_surname'] = filter_has_var(INPUT_POST, 'update_surname') ? $_POST['update_surname']: null;
     $input['update_surname'] = trim($input['update_surname']);
     if(empty($input['update_surname'])){
         $errors[] = "You have not entered a valid surname.";
-    
-    } else if (strlen ($input['update_surname']) > 50){   
+
+    } else if (strlen ($input['update_surname']) > 50){
       $errors[] = "You have entered a surname that is too long. The character limit is 50.";
       $input['update_surname'] = "";
-    
+
     }
 
     $input['update_phone_number'] = filter_has_var(INPUT_POST, 'update_phone_number') ? $_POST['update_phone_number']: null;
@@ -139,24 +139,24 @@
     $input['update_phone_number'];
     if (strlen($input['update_phone_number']) < 10 || strlen($input['update_phone_number']) > 14) {
       $errors[] = "You have entered an invalid phone number.";
-    
+
     } else if  (empty($input['update_phone_number'])){
       $errors[] = "You have entered an invalid phone number.";
 
     }
-    
+
 
     $input['update_email'] = filter_has_var(INPUT_POST, 'update_email') ? $_POST['update_email']: null;
     $input['update_email'] = trim($input['update_email']);
     if (!filter_var($input['update_email'], FILTER_VALIDATE_EMAIL)) {
       $errors[] = "You have entered an invalid email.";
     }
-    
+
     $input['update_address_line_1'] = filter_has_var(INPUT_POST, 'update_address_line_1') ? $_POST['update_address_line_1']: null;
     $input['update_address_line_1'] = trim($input['update_address_line_1']);
     if(empty($input['update_address_line_1'])){
         $errors[] = "You have not entered a valid address line 1.";
-    
+
     }
 
     $input['update_address_line_2'] = filter_has_var(INPUT_POST, 'update_address_line_2') ? $_POST['update_address_line_2']: null;
@@ -166,28 +166,28 @@
     $input['update_address_line_3'] = trim($input['update_address_line_3']);
     if(empty($input['update_address_line_3'])){
         $errors[] = "You have not entered a valid town/city.";
-    
+
     }
 
     $input['update_address_line_4'] = filter_has_var(INPUT_POST, 'update_address_line_4') ? $_POST['update_address_line_4']: null;
     $input['update_address_line_4'] = trim($input['update_address_line_4']);
     if(empty($input['update_address_line_4'])){
         $errors[] = "You have not entered a valid county.";
-    
+
     }
 
     $input['update_address_line_5'] = filter_has_var(INPUT_POST, 'update_address_line_5') ? $_POST['update_address_line_5']: null;
     $input['update_address_line_5'] = trim($input['update_address_line_5']);
     if(empty($input['update_address_line_5'])){
         $errors[] = "You have not entered a valid country.";
-    
+
     }
 
     $input['update_postcode'] = filter_has_var(INPUT_POST, 'update_postcode') ? $_POST['update_postcode']: null;
     $input['update_postcode'] = trim($input['update_postcode']);
     if(empty($input['update_postcode'])){
         $errors[] = "You have not entered a valid postcode.";
-    
+
     }
 
 
@@ -195,14 +195,14 @@
     $input['update_date_of_birth'] = trim($input['update_date_of_birth']);
     if(empty($input['update_date_of_birth'])){
         $errors[] = "You have not entered a valid date of birth.";
-    
+
     }
 
     $input['update_contracted_hours'] = filter_has_var(INPUT_POST, 'update_contracted_hours') ? $_POST['update_contracted_hours']: null;
     $input['update_contracted_hours'] = trim($input['update_contracted_hours']);
     if(empty($input['update_contracted_hours'])){
         $errors[] = "You have not entered valid contract hours.";
-    
+
     }
 
     // Return an array of the input and errors arrays
@@ -217,16 +217,16 @@ function validateDeleteAccountForm($dbConn){
 
     /* Get the array of job ids*/
     $validAccountIDs = getArchivedAccountIDs($dbConn);
-    
+
     /* ID validation */
     $input['account_id'] = filter_has_var(INPUT_POST, 'account_id') ? $_POST['account_id']: null;
     $input['account_id'] = trim($input['account_id']);
     $input['account_id'] = filter_var($input['account_id'], FILTER_VALIDATE_INT) ? $input['account_id'] : null;
     $input['account_id'] = in_array($input['account_id'], $validAccountIDs) ? $input['account_id']  : null;
-    
+
     if(empty($input['account_id'])){
         $errors[] = "There is a problem with the account you are trying to delete.";
-    
+
     }
 
     // Return an array of the input and errors arrays
@@ -239,21 +239,21 @@ function validateArchiveAccountForm($dbConn){
     // Create an array of inputs and errors
     $input = array();
     $errors = array();
-    
+
     /* Get the array of job ids*/
     $validAccountIDs = getUnarchivedAccountIDs($dbConn);
-    
+
     /* ID validation */
     $input['account_id'] = filter_has_var(INPUT_POST, 'account_id') ? $_POST['account_id']: null;
     $input['account_id'] = trim($input['account_id']);
     $input['account_id'] = filter_var($input['account_id'], FILTER_VALIDATE_INT) ? $input['account_id'] : null;
     $input['account_id'] = in_array($input['account_id'], $validAccountIDs) ? $input['account_id']  : null;
-    
+
     if(empty($input['account_id'])){
         $errors[] = "There is a problem with the account you are trying to archive.";
-        
+
     }
-    
+
     // Return an array of the input and errors arrays
     return array($input, $errors);
 }
@@ -263,21 +263,21 @@ function validateRestoreAccountForm($dbConn){
     // Create an array of inputs and errors
     $input = array();
     $errors = array();
-    
+
     /* Get the array of job ids*/
     $validAccountIDs = getArchivedAccountIDs($dbConn);
-    
+
     /* ID validation */
     $input['account_id'] = filter_has_var(INPUT_POST, 'account_id') ? $_POST['account_id']: null;
     $input['account_id'] = trim($input['account_id']);
     $input['account_id'] = filter_var($input['account_id'], FILTER_VALIDATE_INT) ? $input['account_id'] : null;
     $input['account_id'] = in_array($input['account_id'], $validAccountIDs) ? $input['account_id']  : null;
-    
+
     if(empty($input['account_id'])){
         $errors[] = "There is a problem with the account you are trying to restore.";
-        
+
     }
-    
+
     // Return an array of the input and errors arrays
     return array($input, $errors);
 }
@@ -289,7 +289,7 @@ function getAccountIDs($dbConn){
     $sqlQuery = "SELECT person_id
                    FROM timesheets_person";
 
-                  
+
 
     $stmt = $dbConn->prepare($sqlQuery);
     $stmt->execute();
@@ -312,7 +312,7 @@ function getAccountIDs($dbConn){
     $retval =  "<p>Query failed: " . $e->getMessage() . "</p>\n";
   }
 
- 
+
   return $account_ids;
 }
 
@@ -323,7 +323,7 @@ function getArchivedAccountIDs($dbConn){
                    FROM timesheets_person
                   WHERE archive = 1";
 
-                  
+
 
     $stmt = $dbConn->prepare($sqlQuery);
     $stmt->execute();
@@ -346,7 +346,7 @@ function getArchivedAccountIDs($dbConn){
     $retval =  "<p>Query failed: " . $e->getMessage() . "</p>\n";
   }
 
- 
+
   return $account_ids;
 }
 
@@ -356,38 +356,38 @@ function getUnarchivedAccountIDs($dbConn){
         $sqlQuery = "SELECT person_id
                    FROM timesheets_person
                   WHERE archive = 0";
-        
-        
-        
+
+
+
         $stmt = $dbConn->prepare($sqlQuery);
         $stmt->execute();
         $rows = $stmt->fetchAll();
-        
+
         $account_ids = array();
-        
+
         // Check the query returned some results
         if($stmt->rowCount() > 0){
-            
+
             // Loop through resultsstmt
             foreach($rows as $row){
                 array_push($account_ids, $row['person_id']);
-                
+
             }
         }
-        
+
         // Log the exception
     } catch(Exception $e){
         $retval =  "<p>Query failed: " . $e->getMessage() . "</p>\n";
     }
-    
-    
+
+
     return $account_ids;
 }
 
 function setUsernameByAccountID($dbConn, $input){
   $account_id = $input['account_id'];
   $username = $input['update_username'];
-  
+
   // Try to carry out the database entries
   try{
     $sqlInsert = "UPDATE timesheets_user 
@@ -401,17 +401,17 @@ function setUsernameByAccountID($dbConn, $input){
     $stmt->execute(array(':username' => $username,
                          ':account_id' => $account_id));
 
-       
+
     // If the query worked display message to user
     if ($stmt){
-      
+
       return true;
-    } 
-        
+    }
+
   } catch(Exception $e){
       echo $retval =  "<p>Query failed: " . $e->getMessage() . "</p>\n";
   }
-    
+
   return false;
 }
 
@@ -433,7 +433,7 @@ function setAccount($dbConn, $input){
   $postcode = $input['update_postcode'];
   $date_of_birth = $input['update_date_of_birth'];
   $contracted_hours = $input['update_contracted_hours'];
-  
+
   // Try to carry out the database entries
   try{
     $sqlInsert = "UPDATE timesheets_person 
@@ -475,25 +475,25 @@ function setAccount($dbConn, $input){
                          ':date_of_birth' => $date_of_birth,
                          ':account_id' => $account_id));
 
-       
+
     // If the query worked display message to user
     if ($stmt){
       setUsernameByAccountID($dbConn, $input);
-      
+
       return true;
-    } 
-        
+    }
+
   } catch(Exception $e){
       echo $retval =  "<p>Query failed: " . $e->getMessage() . "</p>\n";
   }
-    
+
   return false;
 }
 
 
 function deleteAccount($dbConn, $input){
   $account_id = $input['account_id'];
-  
+
   // Try to carry out the database entries
   try{
     $sqlDelete = "DELETE FROM timesheets_person
@@ -501,65 +501,65 @@ function deleteAccount($dbConn, $input){
 
     $stmt = $dbConn->prepare($sqlDelete);
     $stmt->execute(array(':account_id' => $account_id));
-               
+
     // If the query worked display message to user
     if ($stmt){
       return true;
     }
-        
+
   } catch(Exception $e){
       $retval =  "<p>Query failed: " . $e->getMessage() . "</p>\n";
   }
-    
+
   return false;
 }
 
 function archiveAccount($dbConn, $input){
     $account_id = $input['account_id'];
-    
+
     // Try to carry out the database entries
     try{
         $sqlUpdate = "UPDATE timesheets_person
                          SET archive = 1
                        WHERE person_id = :account_id";
-        
+
         $stmt = $dbConn->prepare($sqlUpdate);
         $stmt->execute(array(':account_id' => $account_id));
-        
+
         // If the query worked display message to user
         if ($stmt){
             return true;
         }
-        
+
     } catch(Exception $e){
         $retval =  "<p>Query failed: " . $e->getMessage() . "</p>\n";
     }
-    
+
     return false;
 }
 
 
 function restoreAccount($dbConn, $input){
     $account_id = $input['account_id'];
-    
+
     // Try to carry out the database entries
     try{
         $sqlUpdate = "UPDATE timesheets_person
                          SET archive = 0
                        WHERE person_id = :account_id";
-        
+
         $stmt = $dbConn->prepare($sqlUpdate);
         $stmt->execute(array(':account_id' => $account_id));
-        
+
         // If the query worked display message to user
         if ($stmt){
             return true;
         }
-        
+
     } catch(Exception $e){
         $retval =  "<p>Query failed: " . $e->getMessage() . "</p>\n";
     }
-    
+
     return false;
 }
 
@@ -589,7 +589,7 @@ function getDepartmemtByAccountID($dbConn, $account_id){
     $department_id = null;
   }
 
-  
+
   return $department_id;
 }
 
@@ -618,7 +618,7 @@ function getJobByAccountID($dbConn, $account_id){
     $job_id = null;
   }
 
-  
+
   return $job_id;
 }
 
@@ -647,7 +647,7 @@ function getTeamByAccountID($dbConn, $account_id){
     $team_id = null;
   }
 
-  
+
   return $team_id;
 }
 
@@ -676,7 +676,7 @@ function getTitle($dbConn, $account_id){
     $title = null;
   }
 
-  
+
   return $title;
 }
 
@@ -707,7 +707,7 @@ function getUsername($dbConn, $account_id){
     $username = null;
   }
 
-  
+
   return $username;
 }
 
@@ -736,7 +736,7 @@ function getForename($dbConn, $account_id){
     $forename = null;
   }
 
-  
+
   return $forename;
 }
 
@@ -765,7 +765,7 @@ function getSurname($dbConn, $account_id){
     $surname = null;
   }
 
-  
+
   return $surname;
 }
 
@@ -794,7 +794,7 @@ function getPhoneNumber($dbConn, $account_id){
     $phone_number = null;
   }
 
-  
+
   return $phone_number;
 }
 
@@ -823,7 +823,7 @@ function getEmail($dbConn, $account_id){
     $email = null;
   }
 
-  
+
   return $email;
 }
 
@@ -852,7 +852,7 @@ function getAddressLine1($dbConn, $account_id){
     $address_line_1 = null;
   }
 
-  
+
   return $address_line_1;
 }
 
@@ -881,7 +881,7 @@ function getAddressLine2($dbConn, $account_id){
     $address_line_2 = null;
   }
 
-  
+
   return $address_line_2;
 }
 
@@ -910,7 +910,7 @@ function getAddressLine3($dbConn, $account_id){
     $address_line_3 = null;
   }
 
-  
+
   return $address_line_3;
 }
 
@@ -939,7 +939,7 @@ function getAddressLine4($dbConn, $account_id){
     $address_line_4 = null;
   }
 
-  
+
   return $address_line_4;
 }
 
@@ -968,7 +968,7 @@ function getAddressLine5($dbConn, $account_id){
     $address_line_5 = null;
   }
 
-  
+
   return $address_line_5;
 }
 
@@ -997,7 +997,7 @@ function getPostcode($dbConn, $account_id){
     $postcode = null;
   }
 
-  
+
   return $postcode;
 }
 function getDateOfBirth($dbConn, $account_id){
@@ -1025,7 +1025,7 @@ function getDateOfBirth($dbConn, $account_id){
     $date_of_birth = null;
   }
 
-  
+
   return $date_of_birth;
 }
 
@@ -1054,6 +1054,88 @@ function getContractedHours($dbConn, $account_id){
     $contracted_hours = null;
   }
 
-  
+
   return $contracted_hours;
 }
+
+function getUserIDByUsername ($dbConn, $username) {
+    // Try to carry out the database search
+    try {
+        $sqlQuery = "SELECT user_id
+                     FROM timesheets_user
+                     WHERE username = :username";
+
+        $stmt = $dbConn->prepare($sqlQuery);
+        $stmt->execute(array(':username' => $username));
+        $rows = $stmt->fetchObject();
+
+        // Check if the query returned a result
+        if ($stmt->rowCount() > 0) {
+            $userID = $rows->user_id;
+        } else {
+            $userID = null;
+        }
+        return $userID;
+
+// Log the exception
+  } catch(Exception $e) {
+        $retval = "<p>Query failed: " . $e->getMessage() . "</p>\n";
+        $userID = null;
+
+    }
+
+    return $userID;
+}
+
+function getPersonIDByUserID ($dbConn, $userID) {
+    try {
+        $sqlQuery = "SELECT person_id
+                     FROM timesheets_person
+                     WHERE user_id = :userID";
+
+        $stmt = $dbConn->prepare($sqlQuery);
+        $stmt->execute(array(':userID' => $userID));
+        $rows = $stmt->fetchObject();
+
+        //Check if the query returned a result
+        if ($stmt->rowCount() > 0) {
+            $personID = $rows->person_id;
+        } else {
+            $personID = null;
+        }
+
+        // Log the exception
+    } catch(Exception $e) {
+        $retval = "<p>Query failed: " . $e->getMessage() . "</p>\n";
+        $personID = null;
+
+    }
+
+    return $personID;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
