@@ -201,3 +201,45 @@ function createActivity($dbConn, $input){
     // Return false if query failed
     return false;
 }
+
+function getActivityOptions($dbConn, $activity_id = ''){
+    // Try to carry out the database search
+    try{
+        $sqlQuery = "SELECT activity_id,
+                        activity_type
+                   FROM timesheets_activity";
+
+
+
+        $stmt = $dbConn->prepare($sqlQuery);
+        $stmt->execute();
+        $rows = $stmt->fetchAll();
+
+        $activity_options = '';
+
+        // Check the query returned some results
+        if($stmt->rowCount() > 0){
+
+            // Loop through resultsstmt
+            foreach($rows as $row){
+                if ($activity_id == $row['activity_id']){
+                    $selected = "selected";
+
+                } else {
+                    $selected = "";
+                }
+
+                $activity_options .= '<option value="'. $row['activity_id'] .'" '.$selected.'>'. $row['activity_type'] .'</option>';
+
+            }
+        }
+
+        // Log the exception
+    } catch(Exception $e){
+        $retval =  "<p>Query failed: " . $e->getMessage() . "</p>\n";
+        $activity_options = '';
+
+    }
+
+    return $activity_options;
+}

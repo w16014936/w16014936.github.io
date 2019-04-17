@@ -13,6 +13,7 @@ function getTimesheetTable($dbConn, $loggedIn = null){
     // Try to carry out the database entries
     try{
         $sqlQuery = "SELECT timesheet_id,
+                            timesheets_timesheet.date,
                             CONCAT(timesheets_person.forename, ' ', timesheets_person.surname) AS user_name,
                             activity_type,
                             project_name,
@@ -22,7 +23,8 @@ function getTimesheetTable($dbConn, $loggedIn = null){
                     JOIN timesheets_person ON timesheets_person.user_id = timesheets_timesheet.user_id 
                     JOIN timesheets_activity ON timesheets_activity.activity_id = timesheets_timesheet.activity_id 
                     JOIN timesheets_project ON timesheets_project.project_id = timesheets_timesheet.project_id 
-                ORDER BY user_name ASC";
+                ORDER BY YEAR(timesheets_timesheet.date) DESC, MONTH(timesheets_timesheet.date) DESC, DAY(timesheets_timesheet.date) DESC,
+                        timesheets_person.surname ASC";
 
         // Prepare the query
         $stmt = $dbConn->prepare($sqlQuery);
@@ -42,6 +44,7 @@ function getTimesheetTable($dbConn, $loggedIn = null){
                         <table class='table table-dark' >
                           <thead>
                             <tr>
+                              <th>Date</th>
                               <th>User</th>
                               <th>Activity</th>
                               <th>Project</th>
@@ -54,7 +57,7 @@ function getTimesheetTable($dbConn, $loggedIn = null){
             foreach ($timesheetResults as $result){
                 // timesheet Id
                 $timesheet_id = htmlspecialchars($result['timesheet_id']);
-
+                $date = htmlspecialchars($result['date']);
                 $user_name = htmlspecialchars($result['user_name']);
                 $activity_type = htmlspecialchars($result['activity_type']);
                 $project_name = htmlspecialchars($result['project_name']);
@@ -62,6 +65,7 @@ function getTimesheetTable($dbConn, $loggedIn = null){
                 $time_out = htmlspecialchars($result['time_out']);
 
                 $timesheets .= "<tr>
+                          <td>$date</td>
                           <td>$user_name</td>
                           <td>$activity_type</td>
                           <td>$project_name</td>
