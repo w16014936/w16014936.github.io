@@ -82,98 +82,107 @@ if (!isset($loggedIn)) {
                     echo("
                     <div class=\"container\">
                         <div class=\"row justify-content-center align-items-center\">
-                            <div class='col-sm-4'>
+                            <div class='col-sm-6'>
                                 <form> 
                                     <h3 class='text-center'>Your Account Details</h3>
-                                        <div class='form-group'> 
+                                    <div class='form-row'>
+                                        <div class='col'> 
                                             <label for='username'>Username:</label>
                                             <input type='text' class='form-control' name='username' value='$username' readonly />
                                         </div>
-                                        
-                                        <div class='form-group'> 
+                                    </div>   
+                                    <div class='form-row'>
+                                        <div class='col-2'> 
                                             <label for='title'>Title:</label>
                                             <input type='text' class='form-control' name='title' value='$title' readonly />
                                         </div>
-                                        
-                                        <div class='form-group'> 
+                                     
+                                        <div class='col-5'> 
                                             <label for='forename'>Forename:</label>
                                             <input type='text' class='form-control' name='forename' value='$forename' readonly />
                                         </div>
                                         
-                                        <div class='form-group'> 
+                                        <div class='col-5'> 
                                             <label for='surname'>Surname:</label>
                                             <input type='text' class='form-control' name='surname' value='$surname' readonly />
                                         </div>
-                                        
-                                        <div class='form-group'> 
+                                    </div>   
+                                    <div class='form-row'>
+                                    <div class='col'> 
+                                            <label for='dateOfBirth'>Date of Birth:</label>
+                                            <input type='date' class='form-control' name='dateOfBirth' value='$dateOfBirth' readonly />
+                                        </div>
+                                    </div> 
+                                    <div class='form-row'>
+                                        <div class='col-6'> 
                                             <label for='phoneNumber'>Phone Number:</label>
                                             <input type='text' class='form-control' name='phoneNumber' value='$phoneNumber' readonly />
                                         </div>
                                         
-                                        <div class='form-group'> 
+                                        <div class='col-6'> 
                                             <label for='email'>Email:</label>
                                             <input type='text' class='form-control' name='email' value='$email' readonly />
                                         </div>
-                                        
-                                        <div class='form-group'> 
+                                    </div>   
+                                    <div class='form-row'>
+                                        <div class='col-6'> 
                                             <label for='addressLine1'>Address Line 1:</label>
                                             <input type='text' class='form-control' name='addressLine1' value='$addressLine1' readonly />
                                         </div>
                                         
-                                        <div class='form-group'> 
+                                        <div class='col-6'> 
                                             <label for='addressLine2'>Address Line 2:</label>
                                             <input type='text' class='form-control' name='addressLine2' value='$addressLine2' readonly />
                                         </div>
-                                        
-                                        <div class='form-group'> 
+                                    </div>
+                                    <div class='form-row'>    
+                                        <div class='col-6'> 
                                             <label for='addressLine3'>Address Line 3:</label>
                                             <input type='text' class='form-control' name='addressLine3' value='$addressLine3' readonly />
-                                        </div>
-                                        
-                                        <div class='form-group'> 
+                                        </div>    
+                                        <div class='col-6'> 
                                             <label for='addressLine4'>Address Line 4:</label>
                                             <input type='text' class='form-control' name='addressLine4' value='$addressLine4' readonly />
                                         </div>
-                                        
-                                        <div class='form-group'> 
+                                    </div>  
+                                    <div class='form-row'>  
+                                        <div class='col-6'> 
                                             <label for='addressLine5'>Address Line 5:</label>
                                             <input type='text' class='form-control' name='addressLine5' value='$addressLine5' readonly />
                                         </div>
                                         
-                                        <div class='form-group'> 
+                                        <div class='col-6'> 
                                             <label for='postCode'>Post Code:</label>
                                             <input type='text' class='form-control' name='postCode' value='$postCode' readonly />
                                         </div>
-                                        
-                                        <div class='form-group'> 
-                                            <label for='dateOfBirth'>Date of Birth:</label>
-                                            <input type='date' class='form-control' name='dateOfBirth' value='$dateOfBirth' readonly />
-                                        </div>
-                                        
-                                        <div class='form-group'> 
-                                            <label for='contractedHours'>Contracted Hours:</label>
-                                            <input type='number' class='form-control' name='contractedHours' value='$contractedHours' readonly />
-                                        </div>
-                                        
-                                        <div class='form-group'> 
+                                    </div>    
+                                    <div class='form-row'>   
+                                        <div class='col-6'> 
                                             <label for='job'>Job:</label>
                                             <input type='text' class='form-control' name='job' value='$job' readonly />
                                         </div>
-                                        
-                                        <div class='form-group'> 
+                                        <div class='col-6'> 
+                                            <label for='contractedHours'>Contracted Hours:</label>
+                                            <input type='number' class='form-control' name='contractedHours' value='$contractedHours' readonly />
+                                        </div>
+                                         
+                                    </div>    
+                                    <div class='form-row'>
+                                        <div class='col-6'> 
                                             <label for='team'>Team:</label>
                                             <input type='text' class='form-control' name='team' value='$team' readonly />
                                         </div>
                                         
-                                        <div class='form-group'> 
+                                        <div class='col-6'> 
                                             <label for='department'>Department:</label>
                                             <input type='text' class='form-control' name='department' value='$department' readonly />
                                         </div>
+                                    </div>    
                                 </form>
                             </div>
                         </div>
                         
-                        <div style='text-align: center'>
+                        <div style='text-align: center; padding-top: 15px' >
                             <a href='reset-password.php'>Reset your password</a>
                             <p>Please contact your administrator if any of the above details are incorrect</p>
                         </div>
