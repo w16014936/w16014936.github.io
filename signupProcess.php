@@ -8,6 +8,7 @@
 
 require_once 'env/environment.php';
 require_once 'functions/functions.php';
+require_once 'functions/email-functions.php';
 require_once 'class/PDODB.php';
 session_start();
 
@@ -63,28 +64,34 @@ if (empty($username) || empty($password) || empty($hashedPassword) || empty($tit
     empty ($surname) || empty($dateOfBirth) || empty($email) || empty($phone) || empty($address1) || empty($postcode) ||
     empty($departmentID) || empty($teamID) || empty($jobID) || empty($contractedHours)
 ) {
-    echo("<div class='jumbotron text-center'>
+    ?>
+    <div class='jumbotron text-center'>
         <h1>There was an error handling your request</h1>
     </div>
-            <div class='col-sm-4'><p>Please check all fields are correct and resubmit your request</p></div>");
+    <div class='col-sm-4'>
+    	<p>Please check all fields are correct and resubmit your request</p>
+    </div>
+    <?php 
     // Else no errors so add user/person to database & display success message
 } else {
 
     // ---------------------- INSERT USER INTO TIMESHEETS USER ------------------ //
-// Create SQL query
-    $createUserSQL = "INSERT INTO timesheets_user (username, passwordHash)
-             VALUES('$username', '$hashedPassword')";
-// Prepare the SQL statement and store the result in $sql
+    // Create SQL query
+    $createUserSQL = "INSERT INTO timesheets_user (username, 
+                                                   passwordHash)
+                                            VALUES('$username', 
+                                                   '$hashedPassword')";
+    // Prepare the SQL statement and store the result in $sql
     $createUserStmt = $dbConn->prepare($createUserSQL);
-// Execute the prepared statement
+    // Execute the prepared statement
     $createUserStmt->execute();
 
 
-// ------------------------ GET USER ID OF USER JUST CREATED ------------------ //
-// Get userID of user just created
+    // ------------------------ GET USER ID OF USER JUST CREATED ------------------ //
+    // Get userID of user just created
     $getUserIDSQL = "SELECT user_id
-                FROM timesheets_user
-                WHERE username = '$username'";
+                       FROM timesheets_user
+                      WHERE username = '$username'";
 
     $getUserStmt = $dbConn->prepare($getUserIDSQL);
     $getUserStmt->execute();
@@ -93,24 +100,59 @@ if (empty($username) || empty($password) || empty($hashedPassword) || empty($tit
     $userID = $row->user_id;
 
 
-// ------------------------- INSERT PERSON INTO TIMESHEETS PERSON ---------------------- //
-// Create SQL query
-    $createPersonSQL = "INSERT INTO timesheets_person(user_id, job_id, team_id, department_id, contracted_hours, title,
- forename, surname, phone_number, email, address_line_1, address_line_2, address_line_3, address_line_4, 
- address_line_5, post_code, date_of_birth)
-             VALUES('$userID', '$jobID','$teamID','$departmentID','$contractedHours','$title','$forename','$surname',
-             '$phone','$email','$address1','$address2','$address3','$address4','$address5','$postcode',
-             '$dateOfBirth')";
-// Prepare the SQL statement and store the result in $sql
+    // ------------------------- INSERT PERSON INTO TIMESHEETS PERSON ---------------------- //
+    // Create SQL query
+    $createPersonSQL = "INSERT INTO timesheets_person(user_id, 
+                                                      job_id, 
+                                                      team_id, 
+                                                      department_id, 
+                                                      contracted_hours, 
+                                                      title,
+                                                      forename, 
+                                                      surname, 
+                                                      phone_number, 
+                                                      email, 
+                                                      address_line_1, 
+                                                      address_line_2, 
+                                                      address_line_3, 
+                                                      address_line_4, 
+                                                      address_line_5, 
+                                                      post_code, 
+                                                      date_of_birth)
+                                              VALUES ('$userID', 
+                                                      '$jobID',
+                                                      '$teamID',
+                                                      '$departmentID',
+                                                      '$contractedHours',
+                                                      '$title', 
+                                                      '$forename',
+                                                      '$surname',
+                                                      '$phone',
+                                                      '$email',
+                                                      '$address1',
+                                                      '$address2',
+                                                      '$address3',
+                                                      '$address4',
+                                                      '$address5',
+                                                      '$postcode',
+                                                      '$dateOfBirth')";
+    // Prepare the SQL statement and store the result in $sql
     $createPersonStmt = $dbConn->prepare($createPersonSQL);
-// Execute the prepared statement
+    // Execute the prepared statement
     $createPersonStmt->execute();
-
-    echo("<div class='jumbotron text-center'>
+    
+    ?>
+    <div class='jumbotron text-center'>
         <h1>Account successfully created</h1>
     </div>
-            <div class='col-sm-4'><p>Your request has been processed and you have successfully registered for an account</p></div>");
-
+    <div class='col-sm-4'>
+    	<p>Your request has been processed and you have successfully registered for an account</p>
+    </div>
+    <?php 
+    $body = "Welcome $forename, 
+Your new account has successfully been created.
+Your username is: $username";    
+    sendEmail($email, 'Northumbria Timesheets: New User', $body);
 }
 
 // Display errors for login form
