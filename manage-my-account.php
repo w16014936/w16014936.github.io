@@ -85,12 +85,14 @@ if (!isset($loggedIn)) {
                             <div class='col-sm-6'>
                                 <form> 
                                     <h3 class='text-center'>Your Account Details</h3>
+                                    <h5 class='manageAccountFormTitles'>Login Details</h5>
                                     <div class='form-row'>
                                         <div class='col'> 
                                             <label for='username'>Username:</label>
                                             <input type='text' class='form-control' name='username' value='$username' readonly />
                                         </div>
                                     </div>   
+                                    <h5 class='manageAccountFormTitles'>Personal Information</h5>
                                     <div class='form-row'>
                                         <div class='col-2'> 
                                             <label for='title'>Title:</label>
@@ -113,6 +115,7 @@ if (!isset($loggedIn)) {
                                             <input type='date' class='form-control' name='dateOfBirth' value='$dateOfBirth' readonly />
                                         </div>
                                     </div> 
+                                    <h5 class='manageAccountFormTitles'>Contact Information</h5>
                                     <div class='form-row'>
                                         <div class='col-6'> 
                                             <label for='phoneNumber'>Phone Number:</label>
@@ -124,6 +127,7 @@ if (!isset($loggedIn)) {
                                             <input type='text' class='form-control' name='email' value='$email' readonly />
                                         </div>
                                     </div>   
+                                    <h5 class='manageAccountFormTitles'>Address Details</h5>
                                     <div class='form-row'>
                                         <div class='col-6'> 
                                             <label for='addressLine1'>Address Line 1:</label>
@@ -156,6 +160,7 @@ if (!isset($loggedIn)) {
                                             <input type='text' class='form-control' name='postCode' value='$postCode' readonly />
                                         </div>
                                     </div>    
+                                    <h5 class='manageAccountFormTitles'>Employment Information</h5>
                                     <div class='form-row'>   
                                         <div class='col-6'> 
                                             <label for='job'>Job:</label>
