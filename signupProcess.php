@@ -68,9 +68,11 @@ if (empty($username) || empty($password) || empty($hashedPassword) || empty($tit
     <div class='jumbotron text-center'>
         <h1>There was an error handling your request</h1>
     </div>
+    <div class='col-sm-4'></div>
     <div class='col-sm-4'>
     	<p>Please check all fields are correct and resubmit your request</p>
     </div>
+    <div class='col-sm-4'></div>
     <?php 
     // Else no errors so add user/person to database & display success message
 } else {
@@ -79,7 +81,7 @@ if (empty($username) || empty($password) || empty($hashedPassword) || empty($tit
     // Create SQL query
     $createUserSQL = "INSERT INTO timesheets_user (username, 
                                                    passwordHash)
-                                            VALUES('$username', 
+                                           VALUES ('$username', 
                                                    '$hashedPassword')";
     // Prepare the SQL statement and store the result in $sql
     $createUserStmt = $dbConn->prepare($createUserSQL);
@@ -145,13 +147,22 @@ if (empty($username) || empty($password) || empty($hashedPassword) || empty($tit
     <div class='jumbotron text-center'>
         <h1>Account successfully created</h1>
     </div>
+    <div class='col-sm-4'></div>
     <div class='col-sm-4'>
     	<p>Your request has been processed and you have successfully registered for an account</p>
     </div>
+    <div class='col-sm-4'></div>
     <?php 
     $body = "Welcome $forename, 
 Your new account has successfully been created.
-Your username is: $username";    
+Your username is: $username.
+
+Your temporary password is $password.
+
+Upon logging into the account please reset you password to a new personal password under the Manage My Account section.
+
+Best wishes,
+Northmbria Timesheets.";    
     sendEmail($email, 'Northumbria Timesheets: New User', $body);
 }
 

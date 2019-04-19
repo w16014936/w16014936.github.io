@@ -87,10 +87,10 @@ $jobsResults = $rsJobs->fetchAll();
 ?>
 
 <div class="container">
-	<h4 class="formPage1 formTitles">Please enter a username and password:</h4>
-	<h4 id="formPage2Title" class="formPage2 formTitles" style="display: none">Please enter your personal information:</h4>
-	<h4 class="formPage3 formTitles" style="display: none">Please enter your address details:</h4>
-	<h4 class="formPage4 formTitles" style="display: none">Please enter your employment details:</h4>
+	<h4 class="formPage1 formTitles">Please enter a username and temporary password for the user:</h4>
+	<h4 id="formPage2Title" class="formPage2 formTitles" style="display: none">Please enter the user's personal information:</h4>
+	<h4 class="formPage3 formTitles" style="display: none">Please enter the user's address details:</h4>
+	<h4 class="formPage4 formTitles" style="display: none">Please enter the user's employment details:</h4>
 	<br>
     <div class="row justify-content-center align-items-center">
     	<div class="col-sm-4">
@@ -120,6 +120,7 @@ $jobsResults = $rsJobs->fetchAll();
                 <div class="formPage2" id="formPage2" style="display: none">
                 	<div class="form-group">
                     	<select class="form-control" name="title">
+                    		<option value="" disabled selected>Title</option>
                     	    <option value="Miss">Miss</option>
                     	    <option value="Mr">Mr</option>
                     	    <option value="Mrs">Mrs</option>
