@@ -18,7 +18,8 @@ function getTimesheetTable($dbConn, $loggedIn = null){
                             activity_type,
                             project_name,
                             time_in,
-                            time_out
+                            time_out,
+                            note
                     FROM timesheets_timesheet
                     JOIN timesheets_person ON timesheets_person.user_id = timesheets_timesheet.user_id 
                     JOIN timesheets_activity ON timesheets_activity.activity_id = timesheets_timesheet.activity_id 
@@ -63,6 +64,7 @@ function getTimesheetTable($dbConn, $loggedIn = null){
                 $project_name = htmlspecialchars($result['project_name']);
                 $time_in = htmlspecialchars($result['time_in']);
                 $time_out = htmlspecialchars($result['time_out']);
+
 
                 $timesheets .= "<tr>
                           <td>$date</td>
