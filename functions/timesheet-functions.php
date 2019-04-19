@@ -14,7 +14,8 @@ function getTimesheet($dbConn, $timesheet_id){
                             activity_id,
                             project_id,
                             time_in,
-                            time_out
+                            time_out,
+                            note
                     FROM timesheets_timesheet
                     JOIN timesheets_person ON timesheets_person.user_id = timesheets_timesheet.user_id 
                     WHERE timesheet_id = :timesheet_id";
@@ -182,6 +183,34 @@ function getTimeOut($dbConn, $timesheet_id){
     return $time_out;
 }
 
+function getNote($dbConn, $timesheet_id){
+    // Try to carry out the database search
+    try{
+        $sqlQuery = "SELECT note
+                   FROM  timesheets_timesheet
+                   WHERE timesheets_timesheet.timesheet_id = :timesheet_id";
+
+        $stmt = $dbConn->prepare($sqlQuery);
+        $stmt->execute(array(':timesheet_id' => $timesheet_id));
+        $rows = $stmt->fetchObject();
+
+        // Check the query returned some results
+        if($stmt->rowCount() > 0){
+            $note = $rows->note;
+
+        } else{
+            $note = null;
+        }
+
+        // Log the exception
+    } catch(Exception $e){
+        $retval =  "<p>Query failed: " . $e->getMessage() . "</p>\n";
+        $note = null;
+    }
+
+    return $note;
+}
+
 // Validate post data
 function validateUpdatetimesheetForm($dbConn){
     // Create an array of inputs and errors
@@ -218,6 +247,14 @@ function validateUpdatetimesheetForm($dbConn){
     $input['update_date'] = filter_has_var(INPUT_POST, 'update_date') ? $_POST['update_date']: null;
     $input['update_date'] = trim($input['update_date']);
 
+    $input['update_note'] = filter_has_var(INPUT_POST, 'update_note') ? $_POST['update_note']: null;
+    $input['update_note'] = trim($input['update_note']);
+
+    $hourIn = 0;
+    $minuteIn = 0;
+    $hourOut = 0;
+    $minuteOut = 0;
+
     if(empty($input['update_time_in'])){
         $errors[] = "You have not entered a valid start time.";
 
@@ -229,6 +266,28 @@ function validateUpdatetimesheetForm($dbConn){
     if (empty($input['update_date'])){
         $errors[] = "You have not entered a valid date.";
     }
+
+    //checks time in and time out are in the 24hr format of HH:MM
+    if (!preg_match("/^(?:2[0-3]|[01][0-9]):[0-5][0-9]$/",  $input['update_time_in'])){
+        $errors[] = "Time In is not a valid format";
+    }
+    else{
+        $hourIn =  (int)substr( $input['update_time_in'] , 0 ,2 );
+        $minuteIn = (int)substr( $input['update_time_in'] , -2 );
+    }
+
+    if (!preg_match("/^(?:2[0-3]|[01][0-9]):[0-5][0-9]$/", $input['update_time_out'] )){
+        $errors[] = "Time Out is not a valid format";
+    }
+    else {
+        $hourOut = (int)substr( $input['update_time_out'] , 0 ,2 );
+        $minuteOut = (int)substr( $input['update_time_out'] , -2 );
+    }
+
+    if ($hourIn >= $hourOut && $minuteIn >= $minuteOut){
+        $errors[] = "Time In needs to be before Time Out";
+    }
+
     // Return an array of the input and errors arrays
     return array($input, $errors);
 }
@@ -293,7 +352,7 @@ function setTimesheet($dbConn, $input){
     $project_id = $input['update_project_id'];
     $time_in = $input['update_time_in'];
     $time_out = $input['update_time_out'];
-
+    $note = $input['update_note'];
 
     // Try to carry out the database entries
     try{
@@ -302,7 +361,8 @@ function setTimesheet($dbConn, $input){
                             project_id = :project_id,
                             timesheets_timesheet.date = :timesheet_date,
                             time_in = :time_in,
-                            time_out = :time_out
+                            time_out = :time_out,
+                            note = :note
                    WHERE timesheet_id = :timesheet_id";
 
         $stmt = $dbConn->prepare($sqlInsert);
@@ -311,6 +371,7 @@ function setTimesheet($dbConn, $input){
             ':timesheet_date' => $date,
             ':time_in' => $time_in,
             ':time_out' => $time_out,
+            ':note' => $note,
             ':timesheet_id' => $timesheet_id));
 
         // If the query worked display message to user
@@ -350,12 +411,20 @@ function deleteTimesheet($dbConn, $input){
 }
 
 function createTimesheet($dbConn, $input){
-    $timesheet = $input['timesheet'];
+    $activity_id = $input['activity_id'];
+    $project_id = $input['project_id'];
+    $date = $input['date'];
+    $time_in = $input['time_in'];
+    $time_out = $input['time_out'];
+    $note = $input['note'];
+
+
+
 
     // Try insert into database
     try {
-        $sql = "INSERT INTO timesheets_timesheet (timesheet_name)
-              VALUES('$timesheet')";
+        $sql = "INSERT INTO timesheets_timesheet (activity_id, project_id, timesheets_timesheet.date, time_in, time_out, note)
+              VALUES('$activity_id', '$project_id', '$date', '$time_in', '$time_out', '$note')";
         // Prepare SQL statement
         $createtimesheetStmt = $dbConn->prepare($sql);
         // Execute statement

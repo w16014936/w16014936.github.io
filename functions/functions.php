@@ -489,6 +489,50 @@ function getProjects($dbConn, $loggedIn){
 
 }
 
+function getActivities($dbConn, $loggedIn){
+
+
+    // Try to carry out the database search
+    try{
+        $sqlQuery = "SELECT timesheets_activity.activity_id,
+                            timesheets_activity.activity_type
+                            FROM timesheets_activity";
+
+        $stmt = $dbConn->prepare($sqlQuery);
+        $stmt->execute(array(':username' => $loggedIn));
+        $rows = $stmt->fetchAll();
+
+        // Check the query returned some results
+        if($stmt->rowCount() > 0){
+
+            $activity_ids = array();
+            $activity_types = array();
+
+
+
+            // Loop through resultsstmt
+            foreach($rows as $row){
+                array_push($activity_ids, $row['activity_id']);
+                array_push($activity_types, $row['activity_type']);
+            }
+
+        } else{
+            $error = "Sorry, it appears you don't have a role associated with your account. Please contact your admnistrator to receive a role.";
+        }
+
+        // Log the exception
+    } catch(Exception $e){
+        $retval =  "<p>Query failed: " . $e->getMessage() . "</p>\n";
+    }
+
+    if (!empty($error)){
+        return $error;
+    } else{
+        return array_combine($activity_ids, $activity_types);
+    }
+
+}
+
 function sqlQuerySearchAndConvertToJson($dbConn, $loggedIn, $sqlQuery){
 
     // Try to carry out the database search

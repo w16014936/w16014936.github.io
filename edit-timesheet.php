@@ -53,6 +53,7 @@ if(isset($_REQUEST['timesheet_id'])){
             $date = getTimesheetDate($dbConn, $_REQUEST['timesheet_id']);
             $time_in = getTimeIn($dbConn, $_REQUEST['timesheet_id']);
             $time_out = getTimeOut($dbConn, $_REQUEST['timesheet_id']);
+            $note = getNote($dbConn, $_REQUEST['timesheet_id']);
 
             $activity_options = getActivityOptions($dbConn, $activity_id);
 
@@ -104,16 +105,14 @@ if(isset($_REQUEST['timesheet_id'])){
                 $input['update_activity_id'] = isset($activity_id) ? $activity_id : null;
                 $input['update_project_id'] = isset($project_id) ? $project_id : null;
                 $input['update_date'] = isset($date) ? $date : null;
-                $input['update_time_in'] = isset($time_in) ? $time_in : null;
-                $input['update_time_out'] = isset($time_out) ? $time_out : null;
-
-                //echo showtimesheetForm($errors, $input, $dbConn);
+                $input['update_time_in'] = isset($time_in) ? substr($time_in , 0,5 ) : null;
+                $input['update_time_out'] = isset($time_out) ?substr($time_out , 0,5 ) : null;
+                $input['update_note'] = isset($note) ? $note : null;
 
             }
 
             if(isset($updateSuccess)){
                 echo $updateSuccess;
-
             }
 
             if (isset($input, $errors) && !isset($updateSuccess)){
@@ -127,7 +126,7 @@ if(isset($_REQUEST['timesheet_id'])){
                             <input type="date" class="form-control" placeholder="Date" name="update_date" value="<?= $input['update_date']; ?>" required/>
                             <div class="form-group">
                                 <label for="activity">Activity:</label>
-                                <select class="form-control" name="activity_id" required="">
+                                <select class="form-control" name="update_activity_id" required="">
                                     <?php
                                     echo $activity_options;
                                     ?>
@@ -135,17 +134,21 @@ if(isset($_REQUEST['timesheet_id'])){
                             </div>
                             <div class="form-group">
                                 <label for="project">Project:</label>
-                                <select class="form-control" name="project_id" required="">
+                                <select class="form-control" name="update_project_id" required="">
                                     <?php
                                     echo $project_options;
                                     ?>
                                 </select>
                             </div>
                             <label for="update_time_in">Time In</label>
-                            <input type="text" class="form-control" placeholder="Time In" name="update_time_in" value="<?= $input['update_time_in']; ?>" required/>
+                            <input type="text" class="form-control" placeholder="Time In" name="update_time_in" value="<?=  $input['update_time_in']; ?>" required/>
                             <label for="update_time_out">Time Out</label>
                             <input type="text" class="form-control" placeholder="Time Out" name="update_time_out" value="<?= $input['update_time_out']; ?>" required/>
-                            <input type="hidden" name="timesheet_id" value="<?=$input['timesheet_id'];?>">
+                            <div class="form-group">
+                                <label for="update_note">Notes:</label>
+                                <textarea class="form-control" rows="5" name="update_note" id="note"><?= $input['update_note']; ?></textarea>
+                            </div>
+                            <input type="hidden" name="timesheet_id" value="<?= $input['timesheet_id'];?>">
                         </div>
                         <div class="update-error">
                             <?php
@@ -170,5 +173,6 @@ if(isset($_REQUEST['timesheet_id'])){
         </div>
     </div>
 <?php
+
 echo getHTMLFooter();
 getHTMLEnd();
