@@ -9,6 +9,8 @@ require_once 'class/PDODB.php';
 require_once  'functions/timesheet-functions.php';
 require_once 'functions/activity-functions.php';
 require_once 'functions/project-functions.php';
+require_once 'functions/account-functions.php';
+
 session_start();
 
 // Attempt to make connection to the database
@@ -56,9 +58,10 @@ $projectList = getProjectOptions($dbConn);
 
 // Check if job has been submitted from form
 if (isset($_REQUEST['user_id'])) {
-    //TODO
-    // Add the team and departmentID to the $input array
+
     $input = array();
+    $errors = array();
+
     $input['activity_id'] = isset($_POST['activity_id']) ? $_POST['activity_id'] : null;
     $input['project_id'] = isset($_POST['project_id']) ? $_POST['project_id'] : null;
     $input['date'] = isset($_POST['date']) ? $_POST['date'] : null;
@@ -66,8 +69,35 @@ if (isset($_REQUEST['user_id'])) {
     $input['time_out'] = isset($_POST['time_out']) ? $_POST['time_out'] : null;
     $input['note'] = isset($_POST['note']) ? $_POST['note'] : null;
 
+    $hourIn = 0;
+    $minuteIn = 0;
+    $hourOut = 0;
+    $minuteOut = 0;
+
+    //checks time in and time out are in the 24hr format of HH:MM
+    if (!preg_match("/^(?:2[0-3]|[01][0-9]):[0-5][0-9]$/",  $input['time_in'])){
+        $errors[] = "Time In is not in the valid format - HH:MM";
+    }
+    else{
+        $hourIn =  (int)substr( $input['time_in'] , 0 ,2 );
+        $minuteIn = (int)substr( $input['time_in'] , -2 );
+    }
+
+    if (!preg_match("/^(?:2[0-3]|[01][0-9]):[0-5][0-9]$/", $input['time_out'] )){
+        $errors[] = "Time Out is not in the valid format - HH:MM";
+    }
+    else {
+        $hourOut = (int)substr( $input['time_out'] , 0 ,2 );
+        $minuteOut = (int)substr( $input['time_out'] , -2 );
+    }
+
+    if ($hourIn >= $hourOut && $minuteIn >= $minuteOut){
+        $errors[] = "Time In needs to be before Time Out";
+    }
+
+
     // Run the SQL
-    if (createTimesheet($dbConn, $input)) {
+    if (empty($errors) && createTimesheet($dbConn, $input, getUserIDByUsername($dbConn, $loggedIn))) {
         $querySuccessMsg = "<div class= 'row justify-content-center align-items-center'>
                                 <h3>You have successfully created a new timesheet record</h3>
                             </div>";
@@ -80,12 +110,13 @@ if (isset($querySuccessMsg)) {
     echo($querySuccessMsg);
     // Else display form
 } else {
+
     ?>
     <div class="container">
         <div class="row justify-content-center align-items-center">
             <div class="col-sm-3"></div>
             <div class="col-sm-6">
-                <h3 class="text-center">Creating record for: <?php $_SESSION['username'] ?></h3>
+                <h3 class="text-center">Complete the form below</h3>
                 <form action="create-timesheet.php" name="createTimesheetForm" method="POST">
                     <div class="form-group">
                         <label for="date">Date</label>
@@ -134,6 +165,11 @@ if (isset($querySuccessMsg)) {
         </div>
     </div>
     <?php
+    if (!empty($errors)) {
+        foreach ($errors as $error) {
+            echo "<p class='error'>$error</p>";
+        }
+    }
 }
 echo getHTMLFooter();
 echo getHTMLEnd();

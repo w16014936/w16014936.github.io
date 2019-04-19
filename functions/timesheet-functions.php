@@ -5,7 +5,8 @@
  * Date: 17/04/2019
  * Time: 07:40
  */
-// get the timesheet type 
+// get the timesheet type
+
 function getTimesheet($dbConn, $timesheet_id){
     // Try to carry out the database search
     try{
@@ -269,7 +270,7 @@ function validateUpdatetimesheetForm($dbConn){
 
     //checks time in and time out are in the 24hr format of HH:MM
     if (!preg_match("/^(?:2[0-3]|[01][0-9]):[0-5][0-9]$/",  $input['update_time_in'])){
-        $errors[] = "Time In is not a valid format";
+        $errors[] = "Time In is not in the valid format - HH:MM";
     }
     else{
         $hourIn =  (int)substr( $input['update_time_in'] , 0 ,2 );
@@ -277,7 +278,7 @@ function validateUpdatetimesheetForm($dbConn){
     }
 
     if (!preg_match("/^(?:2[0-3]|[01][0-9]):[0-5][0-9]$/", $input['update_time_out'] )){
-        $errors[] = "Time Out is not a valid format";
+        $errors[] = "Time Out is not in the valid format - HH:MM";
     }
     else {
         $hourOut = (int)substr( $input['update_time_out'] , 0 ,2 );
@@ -410,7 +411,7 @@ function deleteTimesheet($dbConn, $input){
     return false;
 }
 
-function createTimesheet($dbConn, $input){
+function createTimesheet($dbConn, $input, $user_id){
     $activity_id = $input['activity_id'];
     $project_id = $input['project_id'];
     $date = $input['date'];
@@ -419,12 +420,10 @@ function createTimesheet($dbConn, $input){
     $note = $input['note'];
 
 
-
-
     // Try insert into database
     try {
-        $sql = "INSERT INTO timesheets_timesheet (activity_id, project_id, timesheets_timesheet.date, time_in, time_out, note)
-              VALUES('$activity_id', '$project_id', '$date', '$time_in', '$time_out', '$note')";
+        $sql = "INSERT INTO timesheets_timesheet (activity_id, project_id, timesheets_timesheet.date, time_in, time_out, note, user_id)
+              VALUES('$activity_id', '$project_id', '$date', '$time_in', '$time_out', '$note', '$user_id')";
         // Prepare SQL statement
         $createtimesheetStmt = $dbConn->prepare($sql);
         // Execute statement
