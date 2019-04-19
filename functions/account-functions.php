@@ -46,6 +46,9 @@
 
     /* Get the array of department ids */
     $validDepartmentIDs = getDepartmentIDs($dbConn);
+    
+    /* Get the array of department ids */
+    $validRoleIDs = getRoleIDs($dbConn);
 
     $input['account_id'] = filter_has_var(INPUT_POST, 'account_id') ? $_POST['account_id']: null;
     $input['account_id'] = trim($input['account_id']);
@@ -98,6 +101,17 @@
     if(empty($input['department_id'])){
         $errors[] = "There is a problem with the Department you are trying to set.";
 
+    }
+    
+    /* Department id validation */
+    $input['role_id'] = filter_has_var(INPUT_POST, 'role_id') ? $_POST['role_id']: null;
+    $input['role_id'] = trim($input['role_id']);
+    $input['role_id'] = filter_var($input['role_id'], FILTER_VALIDATE_INT) ? $input['role_id'] : null;
+    $input['role_id'] = in_array($input['role_id'], $validRoleIDs) ? $input['role_id']  : null;
+    
+    if(empty($input['role_id'])){
+        $errors[] = "There is a problem with the Role you are trying to set.";
+        
     }
 
     $input['update_title'] = filter_has_var(INPUT_POST, 'update_title') ? $_POST['update_title']: null;
@@ -415,11 +429,55 @@ function setUsernameByAccountID($dbConn, $input){
   return false;
 }
 
+function deleteUserRolesByAccountID($dbConn, $account_id){
+    
+    // Try to carry out the database entries
+    try{
+        $sqlDelete = "DELETE FROM timesheets_user_role
+                            WHERE user_id = :account_id";
+        
+        $stmt = $dbConn->prepare($sqlDelete);
+        $stmt->execute(array(':account_id' => $account_id));
+        
+        // If the query worked display message to user
+        if ($stmt){
+            return true;
+        }
+        
+    } catch(Exception $e){
+        $retval =  "<p>Query failed: " . $e->getMessage() . "</p>\n";
+    }
+    
+    return false;
+    
+ 
+}
+
+
+function setUserRoleByAccountID($dbConn, $input){
+    $account_id = $input['account_id'];
+    $role_id = $input['role_id'];
+    
+    if ($role_id == 1){
+        // Delete all roles the user has
+        deleteUserRolesByAccountID($dbConn, $account_id);
+        insertAdminRole($dbConn, $account_id);
+        
+    } else if ($role_id == 2){
+        // Delete all roles the user has
+        deleteUserRolesByAccountID($dbConn, $account_id);
+        insertUserRole($dbConn, $account_id);
+        
+    }
+    
+}
+
 function setAccount($dbConn, $input){
   $account_id = $input['account_id'];
   $job_id = $input['job_id'];
   $department_id = $input['department_id'];
   $team_id = $input['team_id'];
+  $role_id = $input['role_id'];
   $title = $input['update_title'];
   $forename = $input['update_forname'];
   $surname = $input['update_surname'];
@@ -479,6 +537,7 @@ function setAccount($dbConn, $input){
     // If the query worked display message to user
     if ($stmt){
       setUsernameByAccountID($dbConn, $input);
+      setUserRoleByAccountID($dbConn, $input);
 
       return true;
     }
@@ -649,6 +708,44 @@ function getTeamByAccountID($dbConn, $account_id){
 
 
   return $team_id;
+}
+
+function getRoleByAccountID($dbConn, $account_id){
+    // Try to carry out the database search
+    try{
+        
+        $sqlQuery = "SELECT timesheets_role.role_id
+                       FROM timesheets_role
+                       JOIN timesheets_user_role 
+                         ON timesheets_user_role.role_id = timesheets_role.role_id
+                       JOIN timesheets_user 
+                         ON timesheets_user.user_id = timesheets_user_role.user_id
+                       JOIN timesheets_person 
+                         ON timesheets_person.user_id = timesheets_user.user_id
+                      WHERE timesheets_person.person_id = :account_id
+                   ORDER BY role_id ASC
+                      LIMIT 1";
+        
+        $stmt = $dbConn->prepare($sqlQuery);
+        $stmt->execute(array(':account_id' => $account_id));
+        $rows = $stmt->fetchObject();
+        
+        // Check the query returned some results
+        if($stmt->rowCount() > 0){
+            $role_id = $rows->role_id;
+            
+        } else{
+            $role_id = null;
+        }
+        
+        // Log the exception
+    } catch(Exception $e){
+        $retval =  "<p>Query failed: " . $e->getMessage() . "</p>\n";
+        $role_id = null;
+    }
+    
+    
+    return $role_id;
 }
 
 function getTitle($dbConn, $account_id){
@@ -855,6 +952,9 @@ function getAddressLine1($dbConn, $account_id){
 
   return $address_line_1;
 }
+
+
+
 
 function getAddressLine2($dbConn, $account_id){
   // Try to carry out the database search

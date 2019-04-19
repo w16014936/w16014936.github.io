@@ -365,7 +365,7 @@ function getUserRoles($dbConn, $loggedIn){
                    JOIN timesheets_user_role
                      ON timesheets_user_role.role_id = timesheets_role.role_id
                    JOIN timesheets_user
-                     ON timesheets_user.user_id = timesheets_user.user_id
+                     ON timesheets_user.user_id = timesheets_user_role.user_id
                   WHERE timesheets_user.username = :username";
 
     $stmt = $dbConn->prepare($sqlQuery);

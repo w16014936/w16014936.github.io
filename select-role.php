@@ -63,7 +63,7 @@ if (!isset($loggedIn)){
 	  $userTitle = $userRole;
 	  
       // Get the users current role if they have one selected
-      if (isset($userRole)){
+      if (isset($userRole) && is_array($roles)){
 		// Loop though each of the roles to get type and id
         foreach ($roles as $key => $value) {
           // Check the users current role

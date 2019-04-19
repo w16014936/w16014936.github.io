@@ -9,6 +9,7 @@ require_once 'functions/department-functions.php';
 require_once 'functions/job-functions.php';
 require_once 'functions/team-functions.php';
 require_once 'functions/account-functions.php';
+require_once 'functions/role-functions.php';
 require_once 'class/PDODB.php';
 session_start();
 
@@ -85,7 +86,9 @@ if(isset($_REQUEST['account_id'])){
 
             $department_id = getDepartmemtByAccountID($dbConn, $_REQUEST['account_id']);
             $department_options = getDepartmemtOptions($dbConn, $department_id);
-
+            
+            $role_id = getRoleByAccountID($dbConn, $_REQUEST['account_id']);
+            $role_options = getRoleOptions($dbConn, $role_id);
         
         } else{
             $errorText = "You have not chosen a valid account to edit.  Please select an account <a href='manage-account.php'>here</a> to change it's details";
@@ -230,7 +233,7 @@ if(isset($_REQUEST['account_id'])){
 
           <div class="form-group">
             <label for="Job">Job:</label>
-            <select class="form-control" name="job_id" required="">
+            <select class="form-control" name="job_id" required>
               <?php
               echo $job_options;
               ?>
@@ -239,7 +242,7 @@ if(isset($_REQUEST['account_id'])){
 
           <div class="form-group">
             <label for="Department">Department:</label>
-            <select class="form-control" name="department_id" required="">
+            <select class="form-control" name="department_id" required>
         			<?php
         			echo $department_options;
         			?>
@@ -248,17 +251,39 @@ if(isset($_REQUEST['account_id'])){
 
           <div class="form-group">
             <label for="Team">Team:</label>
-            <select class="form-control" name="team_id" required="">
+            <select class="form-control" name="team_id" required>
               <?php
               echo $team_options;
               ?>
             </select>
           </div>
-
+			
+		  <div class="form-group">
+            <label for="Role">Role:</label>
+            <select class="form-control" name="role_id" required>
+              <?php
+              echo $role_options;
+              ?>
+            </select>
+          </div>
           
-
+	
           <button type="submit" id="update-button" class="btn btn-primary">Update</button>
         </form>
+        <?php 
+        if (isset($input['update_username']) && isset($input['update_email'])){
+          ?>
+          <form action="reset-users-password.php" name="resetForm" method="POST">
+            <div class="form-group">
+          	  <p style="margin-top:20px; margin-bottom:0px;">RESET USER'S PASSWORD</p>
+           	  <input type="hidden" name="username" value="<?= $input['update_username']; ?>" />
+           	  <input type="hidden" name="email" value="<?= $input['update_email']; ?>" />
+           	  <button type="submit" id="reset-button" class="btn btn-danger">RESET</button>
+          	</div>
+          </form>
+          <?php 
+        }
+        ?>
       </div>
       <div class="col-sm-3"></div>
 

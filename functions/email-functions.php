@@ -41,10 +41,10 @@ function sendEmail($toemail, $subject, $body){
     
     //send the message, check for errors
     if (!$mail->send()) {
-        echo "Mailer Error: " . $mail->ErrorInfo;
+        echo "<p>Mailer Error: " . $mail->ErrorInfo ."</p>";
         
     } else {
-        echo "Message sent to user with their usename and temporary password.";
+        echo "<p>Message sent.</p>";
         
     }
     
