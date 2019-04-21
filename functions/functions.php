@@ -89,13 +89,13 @@ function getHTMLUserHeader($pageTitle, $loggedIn){
     <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
     <link rel="icon" type="image/png" href="images/favicon-32x32.png" sizes="32x32">
     <link rel="icon" type="image/png" href="images/favicon-16x16.png" sizes="16x16">
-    <link rel="manifest" href="json/manifest.json">
+    <link rel="manifest" href="manifest.json">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <link rel="stylesheet" href="fontawesome/css/all.css">
-    <script src="js/jquery-3.3.1.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
+    <script src="js/libraries/jquery-3.3.1.min.js"></script>
+    <script src="js/libraries/bootstrap.min.js"></script>
   </head>
   <body>
   <div id="wrapper">
@@ -117,7 +117,7 @@ function getHTMLUserHeader($pageTitle, $loggedIn){
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="timesheetDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Timesheets</a>
             <div class="dropdown-menu" aria-labelledby="timesheetDropdown">
-              <a class="dropdown-item" href="new-timesheet.php">New Timesheet</a>
+              <a class="dropdown-item" href="create-timesheet.php">New Timesheet</a>
               <a class="dropdown-item" href="past-timesheet.php">Past Timesheets</a>
             </div>
           </li>
