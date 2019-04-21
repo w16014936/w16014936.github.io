@@ -77,6 +77,7 @@ function getTimesheetTable($dbConn, $loggedIn = null){
                           <td class='actions'>
                             <a href='edit-timesheet.php?timesheet_id=$timesheet_id' title='Edit'><i class='fas fa-pencil-alt action-icon' ></i></a>
                             <a href='delete-timesheet.php?timesheet_id=$timesheet_id' title='Delete'><i class='fas fa-times action-icon'></i></a>
+                            <a target='_blank' href='generate-pdf.php?timesheet_id=$timesheet_id' title='Delete'><i class='fas fa-print action-icon'></i></a>
                           </td>
                         </tr>";
 
