@@ -138,10 +138,9 @@ if (isset($querySuccessMsg)) {
                             </select>
                         </div>
                         <label for="time_in">Time In</label>
-                        <input type="text" class="form-control" placeholder="Time In" name="time_in" value="" required/>
+                        <input type="text" class="form-control" placeholder="Time In" name="time_in" value="" onkeypress="return isNumberOrColon(event)" required/>
                         <label for="time_out">Time Out</label>
-                        <input type="text" class="form-control" placeholder="Time Out" name="time_out" value=""
-                               required/>
+                        <input type="text" class="form-control" placeholder="Time Out" name="time_out" value="" onkeypress="return isNumberOrColon(event)" required/>
                         <div class="form-group">
                             <label for="note">Notes:</label>
                             <textarea class="form-control" rows="5" name="note" id="note"></textarea>
@@ -172,4 +171,7 @@ if (isset($querySuccessMsg)) {
     }
 }
 echo getHTMLFooter();
+?>
+    <script src="js/functions.js"></script>
+<?php
 echo getHTMLEnd();

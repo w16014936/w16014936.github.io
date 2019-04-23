@@ -140,7 +140,7 @@ if(isset($_REQUEST['account_id'])){
 
       $input['update_title'] = isset($title) ? $title : '';
 
-      $input['update_forname'] = isset($forename) ? $forename : '';
+      $input['update_forename'] = isset($forename) ? $forename : '';
 
       $input['update_surname'] = isset($surname) ? $surname : '';
 
@@ -189,46 +189,46 @@ if(isset($_REQUEST['account_id'])){
           </div>
           <div class="form-group">
             <label for="title">Username: </label>
-            <input type="text" class="form-control" placeholder="Username:" name="update_username" value="<?= $input['update_username']; ?>" required/>
+            <input type="text" class="form-control" placeholder="Username" name="update_username" value="<?= $input['update_username']; ?>" required/>
 
             <label for="title">Title: </label>
-            <input type="text" class="form-control" placeholder="Title:" name="update_title" value="<?= $input['update_title']; ?>" required/>
+            <input type="text" class="form-control" placeholder="Title" name="update_title" value="<?= $input['update_title']; ?>" required/>
 
             <label for="forename">Forename: </label>
-            <input type="text" class="form-control" placeholder="Forename:" name="update_forname" value="<?= $input['update_forname']; ?>" required/>
+            <input type="text" class="form-control" placeholder="Forename" name="update_forename" value="<?= $input['update_forename']; ?>" required/>
 
             <label for="surname">Surname: </label>
-            <input type="text" class="form-control" placeholder="Surname:" name="update_surname" value="<?= $input['update_surname']; ?>" required/>
+            <input type="text" class="form-control" placeholder="Surname" name="update_surname" value="<?= $input['update_surname']; ?>" required/>
 
             <label for="phone_number">Phone number: </label>
-            <input type="text" class="form-control" placeholder="Phone number:" name="update_phone_number" value="<?= $input['update_phone_number']; ?>" required/>
+            <input type="text" class="form-control" placeholder="Phone number" name="update_phone_number" value="<?= $input['update_phone_number']; ?>" required/>
 
             <label for="email">Email: </label>
-            <input type="text" class="form-control" placeholder="Email:" name="update_email" value="<?= $input['update_email']; ?>" required/>
+            <input type="text" class="form-control" placeholder="Email" name="update_email" value="<?= $input['update_email']; ?>" required/>
 
             <label for="address_line_1">Address Line 1: </label>
-            <input type="text" class="form-control" placeholder="Address Line 1:" name="update_address_line_1" value="<?= $input['update_address_line_1']; ?>" required/>
+            <input type="text" class="form-control" placeholder="Address Line 1" name="update_address_line_1" value="<?= $input['update_address_line_1']; ?>" required/>
 
             <label for="address_line_2">Address Line 2: </label>
-            <input type="text" class="form-control" placeholder="Address Line 2:" name="update_address_line_2" value="<?= $input['update_address_line_2']; ?>"/>
+            <input type="text" class="form-control" placeholder="Address Line 2" name="update_address_line_2" value="<?= $input['update_address_line_2']; ?>" required/>
 
             <label for="town">Town/City: </label>
-            <input type="text" class="form-control" placeholder="Town/City:" name="update_address_line_3" value="<?= $input['update_address_line_3']; ?>" required/>
+            <input type="text" class="form-control" placeholder="Town/City" name="update_address_line_3" value="<?= $input['update_address_line_3']; ?>" />
 
             <label for="County">County: </label>
-            <input type="text" class="form-control" placeholder="County:" name="update_address_line_4" value="<?= $input['update_address_line_4']; ?>" required/>
+            <input type="text" class="form-control" placeholder="County" name="update_address_line_4" value="<?= $input['update_address_line_4']; ?>" />
 
             <label for="Country">Country: </label>
-            <input type="text" class="form-control" placeholder="Country:" name="update_address_line_5" value="<?= $input['update_address_line_5']; ?>" required/>
+            <input type="text" class="form-control" placeholder="Country:" name="update_address_line_5" value="<?= $input['update_address_line_5']; ?>" />
 
             <label for="Postcode">Postcode: </label>
-            <input type="text" class="form-control" placeholder="Postcode:" name="update_postcode" value="<?= $input['update_postcode']; ?>" required/>
+            <input type="text" class="form-control" placeholder="Postcode" name="update_postcode" value="<?= $input['update_postcode']; ?>" required/>
 
             <label for="dob">Date Of Birth: </label>
-            <input type="date" class="form-control" placeholder="Date Of Birth:" name="update_date_of_birth" value="<?= $input['update_date_of_birth']; ?>" required/>
+            <input type="date" class="form-control" placeholder="Date Of Birth" name="update_date_of_birth" value="<?= $input['update_date_of_birth']; ?>" required/>
 
             <label for="hours">Contracted Hours: </label>
-            <input type="text" class="form-control" placeholder="Contracted Hours:" name="update_contracted_hours" value="<?= $input['update_contracted_hours']; ?>" required/>
+            <input type="text" class="form-control" placeholder="Contracted Hours" name="update_contracted_hours" value="<?= $input['update_contracted_hours']; ?>" required/>
           </div>
 
           <div class="form-group">

@@ -125,14 +125,14 @@
 
     }
 
-    $input['update_forname'] = filter_has_var(INPUT_POST, 'update_forname') ? $_POST['update_forname']: null;
-    $input['update_forname'] = trim($input['update_forname']);
-    if(empty($input['update_forname'])){
+    $input['update_forename'] = filter_has_var(INPUT_POST, 'update_forename') ? $_POST['update_forename']: null;
+    $input['update_forename'] = trim($input['update_forename']);
+    if(empty($input['update_forename'])){
         $errors[] = "You have not entered a valid forename.";
 
-    } else if (strlen ($input['update_forname']) > 50){
+    } else if (strlen ($input['update_forename']) > 50){
       $errors[] = "You have entered a forename that is too long. The character limit is 50.";
-      $input['update_forname'] = "";
+      $input['update_forename'] = "";
 
     }
 
@@ -479,7 +479,7 @@ function setAccount($dbConn, $input){
   $team_id = $input['team_id'];
   $role_id = $input['role_id'];
   $title = $input['update_title'];
-  $forename = $input['update_forname'];
+  $forename = $input['update_forename'];
   $surname = $input['update_surname'];
   $phone_number = $input['update_phone_number'];
   $email = $input['update_email'];
