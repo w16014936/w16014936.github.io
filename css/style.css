@@ -49,6 +49,11 @@ html,body{
 footer, .push {
     padding-top: 20px;
     height: 50px;
+   
+}
+footer {
+    padding-top: 20px;
+    height: 50px;
     width: 100%;
     background-color: #343a40;
     color: #9b9b9b;

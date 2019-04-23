@@ -439,3 +439,94 @@ function createTimesheet($dbConn, $input, $user_id){
     // Return false if query failed
     return false;
 }
+
+// Function to get all of the details for timesheets 
+function getTimesheetTable($dbConn, $loggedIn = null){
+    // Try to carry out the database entries
+    try{
+        $sqlQuery = "SELECT timesheet_id,
+                            timesheets_timesheet.date,
+                            CONCAT(timesheets_person.forename, ' ', timesheets_person.surname) AS user_name,
+                            activity_type,
+                            project_name,
+                            time_in,
+                            time_out,
+                            note
+                    FROM timesheets_timesheet
+                    JOIN timesheets_person ON timesheets_person.user_id = timesheets_timesheet.user_id 
+                    JOIN timesheets_activity ON timesheets_activity.activity_id = timesheets_timesheet.activity_id 
+                    JOIN timesheets_project ON timesheets_project.project_id = timesheets_timesheet.project_id 
+                ORDER BY YEAR(timesheets_timesheet.date) DESC, MONTH(timesheets_timesheet.date) DESC, DAY(timesheets_timesheet.date) DESC,
+                        timesheets_person.surname ASC";
+
+        // Prepare the query
+        $stmt = $dbConn->prepare($sqlQuery);
+
+        // Execute the query
+        $stmt->execute();
+
+        // Set the mode to associative
+        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+
+        // Place all of the records in variable
+        $timesheetResults = $stmt->fetchAll();
+
+        // Check the query returned some results
+        if($stmt->rowCount() > 0){
+            $timesheets =  "<div class='table-responsives'>
+                        <table class='table table-dark' >
+                          <thead>
+                            <tr>
+                              <th>Date</th>
+                              <th>User</th>
+                              <th>Activity</th>
+                              <th>Project</th>
+                              <th>Time In</th>
+                              <th>Time Out</th>
+                            </tr>
+                          </thead>
+                          <tbody>";
+
+            foreach ($timesheetResults as $result){
+                // timesheet Id
+                $timesheet_id = htmlspecialchars($result['timesheet_id']);
+                $date = htmlspecialchars($result['date']);
+                $user_name = htmlspecialchars($result['user_name']);
+                $activity_type = htmlspecialchars($result['activity_type']);
+                $project_name = htmlspecialchars($result['project_name']);
+                $time_in = htmlspecialchars($result['time_in']);
+                $time_out = htmlspecialchars($result['time_out']);
+
+
+                $timesheets .= "<tr>
+                          <td>$date</td>
+                          <td>$user_name</td>
+                          <td>$activity_type</td>
+                          <td>$project_name</td>
+                          <td>$time_in</td>
+                          <td>$time_out</td>
+
+                          <td class='actions'>
+                            <a href='edit-timesheet.php?timesheet_id=$timesheet_id' title='Edit'><i class='fas fa-pencil-alt action-icon' ></i></a>
+                            <a href='delete-timesheet.php?timesheet_id=$timesheet_id' title='Delete'><i class='fas fa-times action-icon'></i></a>
+                            <a target='_blank' href='generate-pdf.php?timesheet_id=$timesheet_id' title='Print'><i class='fas fa-print action-icon'></i></a>
+                          </td>
+                        </tr>";
+
+            }
+            // Close the table and div
+            $timesheets .= "</tbody>
+                    </table>
+                  </div>";
+
+        } else{
+            $timesheets = null;
+        }
+
+    } catch(Exception $e){
+        $retval =  "<p>Query failed: " . $e->getMessage() . "</p>\n";
+        $timesheets = null;
+    }
+
+    return $timesheets;
+}

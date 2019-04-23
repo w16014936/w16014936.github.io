@@ -14,10 +14,10 @@ $dbConn = PDODB::getConnection();
 
 // Get the current base URL
 if (strpos($_SERVER['HTTP_HOST'], 'localhost') !== false) {
-    $baseURL = "http://localhost/w16014936.github.io";
+    $baseURL = "http://localhost/timesheets/index.php";
 }
 else {
-        $baseURL = "https://w16014936.github.io";
+        $baseURL = "http://unn-w16030249.newnumyspace.co.uk/timesheets/index.php";
 }
 
 $redirect = $baseURL;
