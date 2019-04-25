@@ -141,9 +141,9 @@ if(isset($_REQUEST['timesheet_id'])){
                                 </select>
                             </div>
                             <label for="update_time_in">Time In</label>
-                            <input type="text" class="form-control" placeholder="Time In" name="update_time_in" value="<?=  $input['update_time_in']; ?>" maxlength="5" required/>
+                            <input type="text" class="form-control" placeholder="Time In" name="update_time_in" value="<?=  $input['update_time_in']; ?>" maxlength="5" onkeypress="return setTimeFormat(this, event)" required/>
                             <label for="update_time_out">Time Out</label>
-                            <input type="text" class="form-control" placeholder="Time Out" name="update_time_out" value="<?= $input['update_time_out']; ?>" maxlength="5" required/>
+                            <input type="text" class="form-control" placeholder="Time Out" name="update_time_out" value="<?= $input['update_time_out']; ?>" maxlength="5"  onkeypress="return setTimeFormat(this, event)" required/>
                             <div class="form-group">
                                 <label for="update_note">Notes:</label>
                                 <textarea class="form-control" rows="5" name="update_note" id="note"><?= $input['update_note']; ?></textarea>
@@ -175,4 +175,7 @@ if(isset($_REQUEST['timesheet_id'])){
 <?php
 
 echo getHTMLFooter();
+?>
+    <script src="js/functions.js"></script>
+<?php
 getHTMLEnd();

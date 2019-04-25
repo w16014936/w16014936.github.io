@@ -138,9 +138,9 @@ if (isset($querySuccessMsg)) {
                             </select>
                         </div>
                         <label for="time_in">Time In</label>
-                        <input type="text" class="form-control" placeholder="Time In" name="time_in" value="" maxlength="5" onkeypress="return isNumberOrColon(event)" required/>
+                        <input type="text" class="form-control" placeholder="Time In" name="time_in" value="" maxlength="5" onkeypress="return setTimeFormat(this, event)" required/>
                         <label for="time_out">Time Out</label>
-                        <input type="text" class="form-control" placeholder="Time Out" name="time_out" value="" maxlength="5" onkeypress="return isNumberOrColon(event)" required/>
+                        <input type="text" class="form-control" placeholder="Time Out" name="time_out" value="" maxlength="5" onkeypress="return setTimeFormat(this, event)" required/>
                         <div class="form-group">
                             <label for="note">Notes:</label>
                             <textarea class="form-control" rows="5" name="note" id="note"></textarea>
