@@ -6,6 +6,7 @@
 require_once 'env/environment.php';
 require_once 'functions/functions.php';
 require_once 'class/PDODB.php';
+require_once 'functions/timesheet-functions.php';
 session_start();
 
 // Attempt to make connection to the database
@@ -54,23 +55,7 @@ if (!isset($loggedIn)){
 
     } else{
         // The main page content if user has correct permissions
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        echo $content = !empty(getUserTimesheetTable($dbConn, $loggedIn)) ? getUserTimesheetTable($dbConn, $loggedIn) : "<p class='no-results'>There are currently no timesheets in the system.</p>";
     }
 
     ?>
