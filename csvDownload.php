@@ -29,20 +29,19 @@ $endDate = isset($_GET['endDate']) ? $_GET['endDate'] : null;
 $departmentSet = isset( $_GET['department']) &&  $_GET['department'] != "all";
 $projectSet    = isset( $_GET['project']) &&  $_GET['project'] != "all";
 
-//echo array_to_csv_download(sqlQueryToPhpArray($dbConn, $loggedIn, getAllEmployeeTime()),"thisworked.csv",",");
 
 if ($departmentSet && $projectSet &&  isset( $_GET['startDate']) && isset( $_GET['endDate'])){
-    array_to_csv_download(sqlQueryToPhpArray($dbConn, $loggedIn, getDepartmentProjectEmployeeTimeBetweenTwoDates($_GET['department'], $_GET['project'], $_GET['startDate'],  $_GET['endDate'])),"Report.csv",",");
+    array_to_csv_download(sqlQueryToPhpArray($dbConn, $loggedIn, getDepartmentProjectEmployeeTimeBetweenTwoDates($_GET['department'], $_GET['project'], $_GET['startDate'],  $_GET['endDate'])),"TimeSheetsReportData.csv",",");
 }
 else if ($projectSet &&  isset( $_GET['startDate']) && isset( $_GET['endDate'])){
-    array_to_csv_download(sqlQueryToPhpArray($dbConn, $loggedIn, getProjectEmployeeTimeBetweenTwoDates($_GET['project'], $_GET['startDate'],  $_GET['endDate'])),"Report.csv",",");
+    array_to_csv_download(sqlQueryToPhpArray($dbConn, $loggedIn, getProjectEmployeeTimeBetweenTwoDates($_GET['project'], $_GET['startDate'],  $_GET['endDate'])),"TimeSheetsReportData.csv",",");
 }
 else if ($departmentSet &&  isset( $_GET['startDate']) && isset( $_GET['endDate'])){
-    array_to_csv_download(sqlQueryToPhpArray($dbConn, $loggedIn, getDepartmentEmployeeTimeBetweenTwoDates($_GET['department'], $_GET['startDate'],  $_GET['endDate'])),"Report.csv",",");
+    array_to_csv_download(sqlQueryToPhpArray($dbConn, $loggedIn, getDepartmentEmployeeTimeBetweenTwoDates($_GET['department'], $_GET['startDate'],  $_GET['endDate'])),"TimeSheetsReportData.csv",",");
 }
 else if ( isset( $_GET['startDate']) && isset( $_GET['endDate'])){
-    array_to_csv_download(sqlQueryToPhpArray($dbConn, $loggedIn, getAllEmployeeTimeBetweenTwoDates($_GET['startDate'],  $_GET['endDate'])),"Report.csv",",");
+    array_to_csv_download(sqlQueryToPhpArray($dbConn, $loggedIn, getAllEmployeeTimeBetweenTwoDates($_GET['startDate'],  $_GET['endDate'])),"TimeSheetsReportData.csv",",");
 }
 else {
-    array_to_csv_download(sqlQueryToPhpArray($dbConn, $loggedIn, getAllEmployeeTime()),"Report.csv",",");
+    array_to_csv_download(sqlQueryToPhpArray($dbConn, $loggedIn, getAllEmployeeTime()),"TimeSheetsReportData.csv",",");
 }
