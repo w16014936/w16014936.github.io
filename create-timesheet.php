@@ -33,7 +33,6 @@ if (!isset($loggedIn)){
 
 } elseif (isset($userRole) && $userRole == 2){        // User level
     echo getHTMLUserHeader($pageTitle, $loggedIn);
-    $errorText = "Sorry you do not have the correct permissions to access this page. Please select a different role <a href='select-role.php'>here</a> to change your account role.";
 
 } elseif (isset($userRole) && $userRole == 1){        // Admin level
     echo getHTMLAdminHeader($pageTitle, $loggedIn);
