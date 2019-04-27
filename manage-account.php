@@ -18,6 +18,7 @@ function getAccountsTable($dbConn, $loggedIn = null){
                         surname,
                         archive
                     FROM timesheets_person
+                   WHERE archive = 0
                 ORDER BY forename ASC";
   
     // Prepare the query
