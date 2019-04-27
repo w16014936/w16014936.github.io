@@ -30,7 +30,7 @@ $departmentSet = isset( $_GET['department']) &&  $_GET['department'] != "all";
 $projectSet    = isset( $_GET['project']) &&  $_GET['project'] != "all";
 
 
-// Get the correcct page header depending on the users current role
+// Get the correct page header depending on the users current role
 // If user is not logged in display message to user telling them to log in
 if (!isset($loggedIn)){
   echo getHTMLHeader($pageTitle, $loggedIn);

@@ -570,6 +570,46 @@ function sqlQuerySearchAndConvertToJson($dbConn, $loggedIn, $sqlQuery){
     }
 }
 
+function sqlQueryToPhpArray($dbConn, $loggedIn, $sqlQuery){
+
+    // Try to carry out the database search
+    try{
+        $stmt = $dbConn->prepare($sqlQuery);
+        $stmt->execute(array(':username' => $loggedIn));
+        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        // Check the query returned some results
+        if(!$stmt->rowCount() > 0){
+            $error = "Sorry, it appears you don't have a role associated with your account. Please contact your admnistrator to receive a role.";
+        }
+
+        // Log the exception
+    } catch(Exception $e){
+        $retval =  "<p>Query failed: " . $e->getMessage() . "</p>\n";
+    }
+
+    if (!empty($error)){
+        return $error;
+    } else{
+        return $rows;
+    }
+}
+
+function array_to_csv_download($array, $filename = "export.csv", $delimiter=";") {
+    header('Content-Type: application/csv');
+    header('Content-Disposition: attachment; filename="'.$filename.'";');
+
+    $file = fopen('php://output', 'w');
+
+    foreach ($array as $line) {
+        fputcsv($file, $line, $delimiter);
+        fwrite($file,"\r\n");
+    }
+
+    fclose($file);
+    die;
+}
+
 
 // get the actiity 
 /*function getActivity($dbConn, $activity_id){
