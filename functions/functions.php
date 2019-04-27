@@ -122,6 +122,9 @@ function getHTMLUserHeader($pageTitle, $loggedIn){
             </div>
           </li>
           <li class="nav-item">
+            <a class="nav-link" href="select-role.php">Select Role</a>
+          </li>
+          <li class="nav-item">
             $logged
           </li>
         </ul>
@@ -181,6 +184,7 @@ function getHTMLAdminHeader($pageTitle, $loggedIn){
             <a class="nav-link dropdown-toggle" href="#" id="accountDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Account</a>
             <div class="dropdown-menu" aria-labelledby="accountDropdown">
               <a class="dropdown-item" href="manage-account.php">Manage Account</a>
+              <a class="dropdown-item" href="manage-archived-account.php">Manage Archived Account</a>
               <a class="dropdown-item" href="create-account.php">Create Account</a>
             </div>
           </li>
@@ -226,6 +230,9 @@ function getHTMLAdminHeader($pageTitle, $loggedIn){
               <a class="dropdown-item" href="create-timesheet.php">Create Timesheets</a>
               <a class="dropdown-item" href="report-timesheet.php">Reports</a>
             </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="select-role.php">Select Role</a>
           </li>
           <li class="nav-item">
             $logged
