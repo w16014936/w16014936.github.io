@@ -167,7 +167,7 @@ if (empty($username) || empty($password) || empty($hashedPassword) || empty($tit
     <div class='col-sm-4'></div>
     <?php 
     $body = "Welcome $forename, 
-Your new account has successfully been created.
+Your new account has successfully been created. 
 Your username is: $username.
 
 Your temporary password is $password.
