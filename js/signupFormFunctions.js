@@ -512,7 +512,6 @@ function validateFormPage4() {
     var jobSelectValidationMsg = document.getElementById("jobSelectValidationMsg");
     var contractedHoursValidationMsg = document.getElementById("contractedHoursValidationMsg");
 
-    // Run relevant validation of keyup of respective elements
     departmentSelect.onchange = validateDepartment;
     // departmentSelect.onchange = validateTeam;
     // departmentSelect.onchange = validateJob;
@@ -523,6 +522,7 @@ function validateFormPage4() {
 
     // Do initial call to functions
     validateContractedHours();
+
 
     function validateDepartment() {
         validateTeam();

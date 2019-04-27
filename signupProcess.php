@@ -57,12 +57,13 @@ $departmentID = trim(filter_has_var(INPUT_POST, 'departmentID') ? $_POST['depart
 $teamID = trim(filter_has_var(INPUT_POST, 'teamID') ? $_POST['teamID'] : null);
 $jobID = trim(filter_has_var(INPUT_POST, 'jobID') ? $_POST['jobID'] : null);
 $contractedHours = trim(filter_has_var(INPUT_POST, 'contractedHours') ? $_POST['contractedHours'] : null);
+$roleID = trim(filter_has_var(INPUT_POST, 'roleID') ? $_POST['roleID'] : null);
 
 
 // Display error message if any of mandatory fields left blank
 if (empty($username) || empty($password) || empty($hashedPassword) || empty($title) || empty($forename) ||
     empty ($surname) || empty($dateOfBirth) || empty($email) || empty($phone) || empty($address1) || empty($postcode) ||
-    empty($departmentID) || empty($teamID) || empty($jobID) || empty($contractedHours)
+    empty($departmentID) || empty($teamID) || empty($jobID) || empty($contractedHours) || empty($roleID)
 ) {
     ?>
     <div class='jumbotron text-center'>
@@ -142,6 +143,18 @@ if (empty($username) || empty($password) || empty($hashedPassword) || empty($tit
     $createPersonStmt = $dbConn->prepare($createPersonSQL);
     // Execute the prepared statement
     $createPersonStmt->execute();
+
+
+    // ------------------ INSERT USER INTO TIMESHEETS USER ROLE --------------------- //
+    $createUserRoleSQL = "INSERT INTO timesheets_user_role(
+                                      user_id,
+                                      role_id)
+                          VALUES ('$userID',
+                                  '$roleID')";
+    // Prepare the SQL statement
+    $createUserRoleStmt = $dbConn->prepare($createUserRoleSQL);
+    // Execute the prepared statement
+    $createUserRoleStmt->execute();
     
     ?>
     <div class='jumbotron text-center'>
