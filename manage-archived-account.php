@@ -139,5 +139,4 @@ if (!isset($loggedIn)){
   </div>
 </div>
 <?php
-echo getHTMLFooter();
 getHTMLEnd();
