@@ -130,7 +130,7 @@ $jobsResults = $rsJobs->fetchAll();
                         <div class="login-error">
                         </div>
                         <br/>
-                        <span onclick="goSignUpPage2(); validateFormPage2()" id="goPage2Button"
+                        <span onclick="goSignUpPage2(); " id="goPage2Button"
                               class="formButtons formPage1">Go to page 2</span>
 
                     </div>
@@ -315,11 +315,11 @@ $jobsResults = $rsJobs->fetchAll();
         });
 
         // Do initial validation to change form field border colours on page load
-        checkUsernameTaken();
-        validatePassword();
-        validateFormPage2();
-        validateFormPage3();
-        validateFormPage4();
+//        checkUsernameTaken();
+//        validatePassword();
+//        validateFormPage2();
+//        validateFormPage3();
+//        validateFormPage4();
 
         // Do initial call to hide non relevant selects
         hideSelectBoxes();
