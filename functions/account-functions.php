@@ -46,7 +46,7 @@
 
     /* Get the array of department ids */
     $validDepartmentIDs = getDepartmentIDs($dbConn);
-    
+
     /* Get the array of department ids */
     $validRoleIDs = getRoleIDs($dbConn);
 
@@ -102,16 +102,16 @@
         $errors[] = "There is a problem with the Department you are trying to set.";
 
     }
-    
+
     /* Department id validation */
     $input['role_id'] = filter_has_var(INPUT_POST, 'role_id') ? $_POST['role_id']: null;
     $input['role_id'] = trim($input['role_id']);
     $input['role_id'] = filter_var($input['role_id'], FILTER_VALIDATE_INT) ? $input['role_id'] : null;
     $input['role_id'] = in_array($input['role_id'], $validRoleIDs) ? $input['role_id']  : null;
-    
+
     if(empty($input['role_id'])){
         $errors[] = "There is a problem with the Role you are trying to set.";
-        
+
     }
 
     $input['update_title'] = filter_has_var(INPUT_POST, 'update_title') ? $_POST['update_title']: null;
@@ -1213,6 +1213,28 @@ function getPersonIDByUserID ($dbConn, $userID) {
 
     return $personID;
 }
+
+function updateUserPassword($dbConn, $loggedIn, $hashPassword){
+
+
+    $sqlQuery = 'UPDATE timesheets_user SET passwordHash = :temporaryPassword
+                                          WHERE username = :username';
+
+    // Prepare the query
+    $stmt = $dbConn->prepare($sqlQuery);
+
+    // Execute the query
+    $stmt->execute(array(':temporaryPassword' => $hashPassword,
+        ':username' => $loggedIn));
+
+    if ($stmt){
+        return true;
+    } else{
+        return false;
+    }
+}
+
+
 
 
 

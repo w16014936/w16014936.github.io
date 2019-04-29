@@ -27,7 +27,10 @@ $projects = getProjects($dbConn, $loggedIn);
 $startDate = isset($_GET['startDate']) ? $_GET['startDate'] : null;
 $endDate = isset($_GET['endDate']) ? $_GET['endDate'] : null;
 $departmentSet = isset( $_GET['department']) &&  $_GET['department'] != "all";
+$departmentVal = isset($_GET['department']) ? $_GET['department'] : 'all';
+
 $projectSet    = isset( $_GET['project']) &&  $_GET['project'] != "all";
+$projectVal = isset($_GET['project']) ? $_GET['project'] : 'all';
 
 
 // Get the correct page header depending on the users current role
@@ -120,12 +123,23 @@ if (isset($errorText)){
 			<div id="reportCanvas" class="col-lg-9">
 				<canvas id="canvas"></canvas>
 			</div>
-			<!-- graph settings -->
+
+
+            <!-- graph settings -->
 				   <div class="col-lg-1">
 			<!-- Button trigger modal -->
 			<button type="button" class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target="#settings">
 			  <i class ="modal-title fas fa-cog"></i>
 			</button>
+
+
+           <a target='_blank' style="color:white; margin-top: 15px;" href="csvDownload.php?startDate=<?=$startDate;?>&endDate=<?=$endDate;?>&department=<?=$departmentVal;?>&project=<?=$projectVal;?>" title="CSV Download">
+            <button type="button"  style="margin-top:15px;" class="btn btn-primary btn-lg btn-block">
+               <i class ="modal-title fas fa-download"></i>
+           </button>
+           </a>
+
+
 
 			<!-- Modal -->
 			<div class="modal fade" id="settings" tabindex="-1" role="dialog" aria-hidden="true">
@@ -220,6 +234,11 @@ if (isset($errorText)){
 		</div>
 
         </div>
+
+
+
+
+
     </div>
     <?php
 }
