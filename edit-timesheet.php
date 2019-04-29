@@ -90,7 +90,11 @@ if(isset($_REQUEST['timesheet_id'])){
                 if (empty($errors)){
                     // Update
                     if (setTimesheet($dbConn, $input)){
-                        $updateSuccess = "<h3>You have successfully edited the timesheet. To update another please click <a href='manage-timesheet.php'>here</a>.</h3>";
+                        if ($userRole ==1 ) {
+                            $updateSuccess = "<h3>You have successfully edited the timesheet. To update another please click <a href='manage-timesheet.php'>here</a>.</h3>";
+                        } else {
+                            $updateSuccess = "<h3>You have successfully edited the timesheet. To update another please click <a href='past-timesheet.php'>here</a>.</h3>";
+                        }
                     }
 
                 }
