@@ -10,6 +10,7 @@ require_once 'env/environment.php';
 require_once 'functions/functions.php';
 require_once 'functions/email-functions.php';
 require_once 'class/PDODB.php';
+require_once 'functions/role-functions.php';
 session_start();
 
 // Check for logged in user
@@ -146,6 +147,17 @@ if (empty($username) || empty($password) || empty($hashedPassword) || empty($tit
 
 
     // ------------------ INSERT USER INTO TIMESHEETS USER ROLE --------------------- //
+
+    if ($roleID == 1) {
+        insertAdminRole($dbConn, $userID);
+    } else if ($roleID == 2) {
+        insertUserRole($dbConn, $userID);
+    }
+
+
+
+
+
     $createUserRoleSQL = "INSERT INTO timesheets_user_role(
                                       user_id,
                                       role_id)

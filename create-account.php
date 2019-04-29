@@ -219,6 +219,7 @@ $jobsResults = $rsJobs->fetchAll();
                     <!------------------- Start form page 4 --------------------->
                     <div class="formPage4" id="formPage4" style="display:none">
                         <div class="form-group">
+                            <label class="signUpFormLabels">Department</label>
                             <select id="departmentSelect" class="form-control" name="departmentID">
 
                                 <?php
@@ -235,6 +236,7 @@ $jobsResults = $rsJobs->fetchAll();
                                style="display: none"></p>
                         </div>
                         <div class="form-group">
+                            <label class="signUpFormLabels">Team</label>
                             <select id="teamSelect" class="form-control" name="teamID">
                                 <option class='teamSelects' value='' selected disabled hidden>Select a Team</option>
 
@@ -253,6 +255,7 @@ $jobsResults = $rsJobs->fetchAll();
                                style="display: none"></p>
                         </div>
                         <div class="form-group">
+                            <label class="signUpFormLabels">Job</label>
                             <select id="jobSelect" class="form-control" name="jobID">
                                 <option class='jobSelects' value='' selected disabled hidden>Select a Job</option>
 
@@ -272,12 +275,14 @@ $jobsResults = $rsJobs->fetchAll();
                                style="display: none"></p>
                         </div>
                         <div class="form-group">
+                            <label class="signUpFormLabels">Contracted Hours</label>
                             <input type="number" min="0" id="contractedHours" class="form-control"
                                    placeholder="Contracted Hours" name="contractedHours"/>
                             <p id="contractedHoursValidationMsg" class="formPage4 formErrorMessages"
                                style="display: none"></p>
                         </div>
                         <div class="form-group">
+                            <label class="signUpFormLabels">User Role</label>
                             <select id="roleSelect" class="form-control" name="roleID">
                                 <?php
                                 // Iterate through roles results
@@ -315,11 +320,11 @@ $jobsResults = $rsJobs->fetchAll();
         });
 
         // Do initial validation to change form field border colours on page load
-//        checkUsernameTaken();
-//        validatePassword();
-//        validateFormPage2();
-//        validateFormPage3();
-//        validateFormPage4();
+        checkUsernameTaken();
+        validatePassword();
+        validateFormPage2();
+        validateFormPage3();
+        validateFormPage4();
 
         // Do initial call to hide non relevant selects
         hideSelectBoxes();

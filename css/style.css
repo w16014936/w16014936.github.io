@@ -112,3 +112,8 @@ footer {
 .manageAccountFormTitles {
     padding-top: 15px;
 }
+
+.signUpFormLabels {
+    font-size: 12px;
+    color: gray;
+}
