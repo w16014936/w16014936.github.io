@@ -129,5 +129,4 @@ if(isset($_REQUEST['account_id'])){
   </div>
 </div>
 <?php
-echo getHTMLFooter();
 getHTMLEnd();

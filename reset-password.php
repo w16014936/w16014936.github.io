@@ -103,5 +103,4 @@ if(isset($loggedIn)){
                 echo '<h3>You have successfully reset your password.</h3>';
 
             }
-echo getHTMLFooter();
 getHTMLEnd();

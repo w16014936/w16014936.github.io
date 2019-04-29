@@ -33,5 +33,4 @@ if (isset($_SESSION['username'])) {
     header('Location: ' . $redirect);
     exit();
 }
-echo getHTMLFooter();
 echo getHTMLEnd();

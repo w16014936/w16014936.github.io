@@ -342,5 +342,4 @@ if (!empty($errors)) {
 }
 ?>
 <?php
-echo getHTMLFooter();
 echo getHTMLEnd();

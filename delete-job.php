@@ -129,5 +129,4 @@ if(isset($_REQUEST['job_id'])){
   </div>
 </div>
 <?php
-echo getHTMLFooter();
 getHTMLEnd();

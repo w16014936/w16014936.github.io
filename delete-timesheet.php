@@ -128,5 +128,4 @@ if(isset($_REQUEST['timesheet_id'])){
         </div>
     </div>
 <?php
-echo getHTMLFooter();
 getHTMLEnd();

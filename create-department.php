@@ -101,5 +101,4 @@ if (isset($querySuccessMsg)) {
 
 
 <?php
-echo getHTMLFooter();
 getHTMLEnd();
